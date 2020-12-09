@@ -1,5 +1,5 @@
 v 1.0.1 - 10 december 2020
-Added: French translation
+- Improved: README.md
 
 v 1.0.0 - 9 december 2020
 - Initial release
