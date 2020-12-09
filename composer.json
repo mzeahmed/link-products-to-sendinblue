@@ -1,0 +1,28 @@
+{
+    "name": "mzeahmed/wc-sendinblue-synchronize",
+    "description": "",
+    "keywords": [
+        "wordpress",
+        "plugin"
+    ],
+    "homepage": "https://github.com/mzeahmed/wc-sendinblue-synchronize",
+    "authors": [
+        {
+            "name": "Ahmed Mze",
+            "homepage": "https://ahmedmze.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Wc_Sendinblue_Synchronize\\": "src/"
+        }
+    },
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
