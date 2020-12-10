@@ -13,10 +13,10 @@ class PaymentComplete
 
     public function payment_complete($order_id)
     {
-        // recuperation de la commande
+        // order recovery
         $order = wc_get_order($order_id);
 
-        // recuperation du client
+        // customer recovery
         $customer = $order->get_user();
 
         $contact_datas = [
@@ -24,23 +24,23 @@ class PaymentComplete
             "NOM"    => $customer->last_name,
         ];
 
-        // recuperation des produits achetés
+        // recovery of purchased products
         $items = $order->get_items();
 
         foreach ($items as $item) {
-            //données du produit
+            // product datas
             $data = $item->get_data();
 
-            // recuperation de la liste Sendinblue liée au produit
-            $postmeta = get_post_meta($data['product_id'], '_yoostart_sendinblue_list');
+            // recovery of the Sendinblue list linked to the product
+            $postmeta = get_post_meta($data['product_id'], '_wc_sendinblue_synchronize_list');
             $list_id  = implode('', $postmeta);
 
-            // si la postmeta _yoostart_sendinblue_list est associé au produit
+            // if the product has _wc_sendinblue_synchronize_list postmeta
             if ($postmeta) {
-                // creation de l'abonné
+                // create subscriber
                 Api::create_subscriber($customer->user_email, $list_id, $contact_datas);
             } else {
-                // sinon on ne fait rien
+                // else nothing
                 return;
             }
         }
