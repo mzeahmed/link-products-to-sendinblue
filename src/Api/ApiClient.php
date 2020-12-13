@@ -2,6 +2,8 @@
 
 namespace Wc_Sendinblue_Synchronize\Api;
 
+use Wc_Sendinblue_Synchronize\Admin\Options;
+
 class ApiClient
 {
     public const API_BASE_URL = 'https://api.sendinblue.com/v3';
@@ -9,8 +11,6 @@ class ApiClient
     public const HTTP_METHOD_POST = 'POST';
     public const HTTP_METHOD_PUT = 'PUT';
     public const HTTP_METHOD_DELETE = 'DELETE';
-    public const CAMPAIGN_TYPE_EMAIL = 'email';
-    public const CAMPAIGN_TYPE_SMS = 'sms';
     public const RESPONSE_CODE_OK = 200;
     public const RESPONSE_CODE_CREATED = 201;
     public const RESPONSE_CODE_ACCEPTED = 202;
@@ -25,7 +25,15 @@ class ApiClient
 
     public function __construct()
     {
-        $this->apiKey = get_option('wc_sendinblue_synchronize_apiKey');
+        $this->apiKey = get_option(Options::WC_SS_API_KEY_V3_OPTION_NAME);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccount()
+    {
+        return $this->get('/account');
     }
 
     /**
@@ -60,6 +68,14 @@ class ApiClient
     }
 
     /**
+     * @return mixed
+     */
+    public function getAttributes()
+    {
+        return $this->get("/contacts/attributes");
+    }
+
+    /**
      * @param $data
      *
      * @return mixed
@@ -70,8 +86,6 @@ class ApiClient
     }
 
     /**
-     * Recuperation de toutes les listes
-     *
      * @return mixed
      */
     public function getAllLists(): array
@@ -141,7 +155,7 @@ class ApiClient
             'method'  => $method,
             'headers' => [
                 'api-key'      => $this->apiKey,
-                'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json',
             ],
         ];
 

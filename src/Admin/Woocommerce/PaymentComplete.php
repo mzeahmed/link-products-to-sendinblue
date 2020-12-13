@@ -6,8 +6,12 @@ use Wc_Sendinblue_Synchronize\Api\Api;
 
 class PaymentComplete
 {
+    public array $lists;
+
     public function __construct()
     {
+        $this->lists = Api::get_lists();
+
         add_action('woocommerce_payment_complete', [$this, 'payment_complete']);
     }
 
@@ -35,13 +39,8 @@ class PaymentComplete
             $postmeta = get_post_meta($data['product_id'], '_wc_sendinblue_synchronize_list');
             $list_id  = implode('', $postmeta);
 
-            // if the product has _wc_sendinblue_synchronize_list postmeta
             if ($postmeta) {
-                // create subscriber
                 Api::create_subscriber($customer->user_email, $list_id, $contact_datas);
-            } else {
-                // else nothing
-                return;
             }
         }
     }

@@ -7,8 +7,9 @@
             'label'         => __('Please select a list', WC_SS_PLUGIN_BASENAME),
             'wrapper_class' => 'show_if_simple',
             'options'       => $lists,
+            'value'         => $value,
             'desc_tip'      => true,
-            'description'   => __('The customer will be added to this list', WC_SS_PLUGIN_BASENAME)
+            'description'   => __('The customer will be added to this list', WC_SS_PLUGIN_BASENAME),
         ]
     );
 

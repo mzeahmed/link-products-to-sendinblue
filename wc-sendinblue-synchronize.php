@@ -8,8 +8,8 @@
  * @wordpress-plugin
  * Plugin Name:       WooCommerce Sendinblue Synchronize
  * Plugin URI:        https://github.com/mzeahmed/wc-sendinblue-synchronize
- * Description:       Synchronize customer to a specific Sendinblue list after payment
- * Version:           1.0.2
+ * Description:       Synchronize WooCommerce customer to a specific Sendinblue list after payment
+ * Version:           1.0.3
  * Author:            Ahmed Mze
  * Author URI:        https://ahmedmze.fr
  * License:           GPL-2.0+

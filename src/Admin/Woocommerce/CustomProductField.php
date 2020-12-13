@@ -12,15 +12,25 @@ use Wc_Sendinblue_Synchronize\Renderer\Renderer;
  */
 class CustomProductField
 {
+    public array $lists;
+
     public function __construct()
     {
+        $this->lists = Api::get_lists();
+
+        // push 'Select a list' to $this->list
+        array_push($this->lists, __('Select a list', WC_SS_TEXT_DOMAIN));
+
+        // we sort sendinblue list by key(id) in reverse order, to add 'Select a list' as first element of the array
+        krsort($this->lists);
+
         add_filter('woocommerce_product_data_tabs', [$this, 'custom_product_data_tab']);
         add_action('woocommerce_product_data_panels', [$this, 'product_data_panel_render']);
         add_action('woocommerce_process_product_meta', [$this, 'process_product_meta']);
     }
 
     /**
-     * Ajout d'un nouvel onglet
+     * Add new tab
      *
      * @param $tabs
      *
@@ -29,7 +39,6 @@ class CustomProductField
      */
     public function custom_product_data_tab($tabs)
     {
-        // add new tab
         $tabs['sendinblue'] = [
             'label'    => __('Sendinblue', WC_SS_TEXT_DOMAIN),
             'target'   => 'sendinblue_data_panel',
@@ -48,13 +57,13 @@ class CustomProductField
      */
     public function product_data_panel_render(): string
     {
-        // we get all lists
-        $lists = Api::get_list();
+        $value = get_post_meta(get_the_ID(), '_wc_sendinblue_synchronize_list') ?: '';
 
         return Renderer::render(
             'admin/woocommerce/product-sendinblue-panel',
             [
-                'lists' => $lists,
+                'lists' => $this->lists,
+                'value' => $value,
             ]
         );
     }

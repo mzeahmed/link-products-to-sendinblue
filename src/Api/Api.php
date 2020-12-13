@@ -9,7 +9,7 @@ class Api
     /**
      * @return array
      */
-    public static function get_list()
+    public static function get_lists(): array
     {
         $data = [];
 
@@ -30,13 +30,13 @@ class Api
     /**
      * Create subscriber
      *
-     * @param  string  $email    email de l'abonnée
-     * @param  int     $list_id  liste(s) à attribuer
-     * @param  array   $info     attributs(nom, prenom, etc)
+     * @param  string  $email    subscriber email
+     * @param  int     $list_id  list to be assigned
+     * @param  array   $info     attributs(name, first-name, etc)
      *
      * @return mixed | void
      */
-    public static function create_subscriber(string $email, int $list_id, array $info)
+    public static function create_subscriber(string $email, int $list_id, array $info): string
     {
         try {
             $api_client = new ApiClient();
@@ -67,6 +67,19 @@ class Api
                 return "failure";
             }
         } catch (Exception $e) {
+        }
+    }
+
+    public static function get_account_info()
+    {
+        $api_client   = new ApiClient();
+        $account_info = [];
+
+        $response = $api_client->getAccount();
+
+        if (ApiClient::RESPONSE_CODE_OK === $api_client->getLastResponseCode()) {
+            $account_info['email']     = $response['email'];
+            $account_info['user_name'] = $response['firstName'] . ' ' . $response['lastName'];
         }
     }
 }
