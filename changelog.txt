@@ -1,3 +1,6 @@
+v 1.0.4 13 - december 2020
+- Added: Product column to display product linked list
+
 v 1.0.3 - 13 december 2020
 - Improved: Add default value to list product field
 - Improved: French translation

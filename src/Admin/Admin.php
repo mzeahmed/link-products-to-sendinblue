@@ -2,6 +2,7 @@
 
 namespace Wc_Sendinblue_Synchronize\Admin;
 
+use Wc_Sendinblue_Synchronize\Admin\Woocommerce\CustomProductColumn;
 use Wc_Sendinblue_Synchronize\Admin\Woocommerce\CustomProductField;
 use Wc_Sendinblue_Synchronize\Admin\Woocommerce\PaymentComplete;
 
@@ -15,6 +16,7 @@ class Admin
         new Options();
         new CustomProductField();
         new PaymentComplete();
+        new CustomProductColumn();
     }
 
     /**

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Sendinblue Synchronize\n"
-"POT-Creation-Date: 2020-12-13 14:18+0100\n"
-"PO-Revision-Date: 2020-12-13 14:20+0100\n"
+"POT-Creation-Date: 2020-12-13 15:57+0100\n"
+"PO-Revision-Date: 2020-12-13 15:57+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -47,6 +47,11 @@ msgstr "Clé API"
 msgid "Settings"
 msgstr "Paramètres"
 
+#: src/Admin/Woocommerce/CustomProductColumn.php:28
+#: templates/admin/woocommerce/product-sendinblue-panel.php:7
+msgid "List"
+msgstr "Liste"
+
 #: src/Admin/Woocommerce/CustomProductField.php:22
 msgid "Select a list"
 msgstr "Sélectionnes une liste"
@@ -62,10 +67,6 @@ msgid ""
 msgstr ""
 "Pour activer WooCommerce Sendinblue Synchronize, veuillez saisir votre clé "
 "d’accès API v3."
-
-#: templates/admin/woocommerce/product-sendinblue-panel.php:7
-msgid "Please select a list"
-msgstr "Veuillez sélectionner une liste"
 
 #: templates/admin/woocommerce/product-sendinblue-panel.php:12
 msgid "The customer will be added to this list"
@@ -94,6 +95,9 @@ msgstr "Ahmed Mze"
 #. Author URI of the plugin/theme
 msgid "https://ahmedmze.fr"
 msgstr "https://ahmedmze.fr"
+
+#~ msgid "Please select a list"
+#~ msgstr "Veuillez sélectionner une liste"
 
 #~ msgid "Woocommerce Sendinblue Synchronize"
 #~ msgstr "Woocommerce Sendinblue Synchronize"
