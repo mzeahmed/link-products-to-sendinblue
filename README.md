@@ -6,6 +6,6 @@ Woocommerce Sendinblue Synchronize add customer to a specific sendinblue list, w
 - product 'foo' => sendinblue list 'foo'
 - product 'bar' => sendinblue list 'bar'
 
-![alt text](https://user-images.githubusercontent.com/45328592/102016105-7770ca00-3d5f-11eb-80f3-1740aa089589.png)
+![alt text](https://user-images.githubusercontent.com/45328592/102016684-61b0d400-3d62-11eb-9a16-6774e41e41ed.png)
 
-![alt text](https://user-images.githubusercontent.com/45328592/102016150-bc94fc00-3d5f-11eb-9536-bf53967e3e52.png)
+![alt text](https://user-images.githubusercontent.com/45328592/102016700-72f9e080-3d62-11eb-91db-c39b42c101ef.png)
