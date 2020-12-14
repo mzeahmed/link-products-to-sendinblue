@@ -1,14 +1,14 @@
 <?php
 
-namespace Wc_Sendinblue_Synchronize;
+namespace WcProToSL;
 
-use Wc_Sendinblue_Synchronize\Admin\Admin;
-use Wc_Sendinblue_Synchronize\Api\ApiClient;
+use WcProToSL\Admin\Admin;
+use WcProToSL\Api\ApiClient;
 
 /**
  * Class App
  *
- * @package Wc_Sendinblue_Synchronize
+ * @package WcProToSL
  */
 class App
 {
@@ -29,9 +29,9 @@ class App
     public function load_text_domain()
     {
         load_plugin_textdomain(
-            WC_SS_TEXT_DOMAIN,
+            WCPROTOSL_TEXT_DOMAIN,
             false,
-            WC_SS_PATH . '/langages'
+            WCPROTOSL_PATH . '/langages'
         );
     }
 }

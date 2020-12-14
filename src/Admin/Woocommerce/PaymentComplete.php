@@ -1,8 +1,8 @@
 <?php
 
-namespace Wc_Sendinblue_Synchronize\Admin\Woocommerce;
+namespace WcProToSL\Admin\Woocommerce;
 
-use Wc_Sendinblue_Synchronize\Api\Api;
+use WcProToSL\Api\ApiManager;
 
 class PaymentComplete
 {
@@ -10,7 +10,7 @@ class PaymentComplete
 
     public function __construct()
     {
-        $this->lists = Api::get_lists();
+        $this->lists = ApiManager::get_lists();
 
         add_action('woocommerce_payment_complete', [$this, 'payment_complete']);
     }
@@ -36,11 +36,11 @@ class PaymentComplete
             $data = $item->get_data();
 
             // recovery of the Sendinblue list linked to the product
-            $postmeta = get_post_meta($data['product_id'], '_wc_sendinblue_synchronize_list');
+            $postmeta = get_post_meta($data['product_id'], '_wcprotosl_list');
             $list_id  = implode('', $postmeta);
 
             if ($postmeta) {
-                Api::create_subscriber($customer->user_email, $list_id, $contact_datas);
+                ApiManager::create_subscriber($customer->user_email, $list_id, $contact_datas);
             }
         }
     }

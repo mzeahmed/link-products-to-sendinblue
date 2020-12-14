@@ -1,50 +1,37 @@
 <?php
 
-namespace Wc_Sendinblue_Synchronize\Admin;
+namespace WcProToSL\Admin;
 
-use Wc_Sendinblue_Synchronize\Renderer\Renderer;
+use WC_Admin_Profile;
+use WcProToSL\Api\ApiManager;
+use WcProToSL\Renderer\Renderer;
 
 /**
  * Class Options
  *
- * @package Wc_Sendinblue_Synchronize\Admin
+ * @package WcProToSL\Admin
  */
 class Options
 {
-    const GROUP = 'wc_sendinblue_synchronize';
-    const WC_SS_API_KEY_V3_OPTION_NAME = 'wc_sendinblue_synchronize_apiKey';
+    // api key option
+    const WCPROTOSL_GROUP = 'woocommerce_product_to_sendinblue_list';
+    const WCPROTOSL_API_KEY_V3_OPTION_NAME = 'wcprotosl_api_key';
+
+    // attributes synch option
+    const WCPROTOSL_ATTRIBUTES_SYNCH_GROUP = "wcprotosl_attributes_synch_group";
+    const WCPROTOSL_ATTRIBUTES_SYNCH_OPTION_NAME = 'wcprotosl_attributes_synch';
 
     public function __construct()
     {
         add_action('admin_menu', [$this, 'add_menu']);
         add_action('admin_init', [$this, 'register_settings']);
 
-        register_activation_hook(__FILE__, [$this, 'wc_ss_activation']);
-        add_action('admin_init', [$this, 'wc_ss_redirect']);
+        register_activation_hook(__FILE__, [$this, 'activation']);
+        add_action('admin_init', [$this, 'redirect']);
 
         add_action('admin_notices', [$this, 'notice']);
 
-        add_filter('plugin_action_links_' . WC_SS_PLUGIN_BASENAME, [$this, 'addPluginSettingsLink']);
-
-//        add_action('admin_init', [$this, 'wc_ss_main_option']);
-    }
-
-    public function wc_ss_main_option()
-    {
-        $option_values = [
-            'access_key'    => get_option(self::WC_SS_API_KEY_V3_OPTION_NAME),
-            'account_email' => 'test',
-        ];
-
-        if ( ! get_option(self::WC_SS_API_KEY_V3_OPTION_NAME)) {
-            return;
-        }
-
-        if (get_option('wc_ss_main_option')) {
-            update_option('wc_ss_main_option', 'test1');
-        } else {
-            add_option('wc_ss_main_option', 'test2');
-        }
+        add_filter('plugin_action_links_' . WCPROTOSL_PLUGIN_BASENAME, [$this, 'addPluginSettingsLink']);
     }
 
     /**
@@ -56,10 +43,10 @@ class Options
     public function add_menu()
     {
         add_options_page(
-            __('WC Sendinblue Synchronize settings', WC_SS_TEXT_DOMAIN),
-            __('WC Sendinblue Synchronize', WC_SS_TEXT_DOMAIN),
+            __('WC Product To Sendinblue list settings', WCPROTOSL_TEXT_DOMAIN),
+            __('WC Product To Sendinblue List', WCPROTOSL_TEXT_DOMAIN),
             'manage_options',
-            self::GROUP,
+            self::WCPROTOSL_GROUP,
             [$this, 'form_render']
         );
     }
@@ -73,68 +60,111 @@ class Options
      */
     public function register_settings()
     {
-        register_setting(self::GROUP, self::WC_SS_API_KEY_V3_OPTION_NAME);
+        register_setting(self::WCPROTOSL_GROUP, self::WCPROTOSL_API_KEY_V3_OPTION_NAME);
+        register_setting(self::WCPROTOSL_ATTRIBUTES_SYNCH_GROUP, self::WCPROTOSL_ATTRIBUTES_SYNCH_OPTION_NAME);
 
         add_settings_section(
-            'wc_sendinblue_synchronize_options_section',
-            __('Enter your API v3 Access key', WC_SS_TEXT_DOMAIN),
+            'wcprotosl_options_section',
+            __('API v3 Access key', WCPROTOSL_TEXT_DOMAIN),
             function () {
                 printf(
-                    __('<p><a href="%s">Get your account API key</a></p>', WC_SS_TEXT_DOMAIN),
+                    __('<p><a href="%s">Get your account API key</a></p>', WCPROTOSL_TEXT_DOMAIN),
                     'https://account.sendinblue.com/advanced/api'
                 );
             },
-            self::GROUP
+            self::WCPROTOSL_GROUP
         );
 
         add_settings_field(
-            'wc_sendinblue_synchronize_api_key',
-            __('API Key', WC_SS_TEXT_DOMAIN),
-            [$this, 'settings_field'],
-            self::GROUP,
-            'wc_sendinblue_synchronize_options_section'
+            'wcprotosl_api_key',
+            __('API Key', WCPROTOSL_TEXT_DOMAIN),
+            [$this, 'api_key_field_render'],
+            self::WCPROTOSL_GROUP,
+            'wcprotosl_options_section'
+        );
+
+        add_settings_section(
+            'wcprotosl_attributes_synch_section',
+            __('User attributes synch', WCPROTOSL_TEXT_DOMAIN),
+            [$this, 'attributes_synch_render'],
+            self::WCPROTOSL_ATTRIBUTES_SYNCH_GROUP
+        );
+
+        add_settings_field(
+            'wcprotosl_attributes_synch_field',
+            __('Attributes', WCPROTOSL_TEXT_DOMAIN),
+            '',
+            self::WCPROTOSL_ATTRIBUTES_SYNCH_GROUP
         );
     }
 
     /**
-     * Display form field
+     * Display form field partial
      *
      * @return string
      * @since 1.0.0
      */
-    public function settings_field(): string
+    public function api_key_field_render(): string
     {
         return Renderer::render(
-            'admin/options/settings_field',
+            'admin/options/partials/api-key-field',
             [
-                'api_key_v3' => get_option(self::WC_SS_API_KEY_V3_OPTION_NAME),
+                'api_key_v3' => get_option(self::WCPROTOSL_API_KEY_V3_OPTION_NAME),
             ]
         );
     }
 
     /**
-     * Display api key form
+     * Display api key section
      *
      * @return string | void
      * @since 1.0.0
      */
     public function form_render(): string
     {
+        $options = get_option(self::WCPROTOSL_API_KEY_V3_OPTION_NAME);
+
         return Renderer::render(
-            'admin/options/apikey_form',
+            'admin/options/form',
             [
-                'group' => self::GROUP,
+                'api_field_group'        => self::WCPROTOSL_GROUP,
+                'attributes_synch_group' => self::WCPROTOSL_ATTRIBUTES_SYNCH_GROUP,
+                'options'                => $options,
             ]
         );
+    }
 
+    /**
+     * Display attributes synch section
+     *
+     * @return string
+     * @since 1.0.5
+     */
+    public function attributes_synch_render(): string
+    {
+        // get woocommerce customer's attributes
+        $admin_profile   = new WC_Admin_Profile();
+        $customer_fields = $admin_profile->get_customer_meta_fields();
+
+        // available sendinblue attributes
+        $allAttrs = ApiManager::get_attributes();
+        $attrs    = $allAttrs['attributes']['normal_attributes'];
+
+        return Renderer::render(
+            'admin/options/attributes-synch',
+            [
+                'customer_fields' => $customer_fields,
+                'attrs'           => $attrs,
+            ]
+        );
     }
 
     /**
      * Add option on plugin activation
      */
-    public function wc_ss_activation()
+    public function activation()
     {
-        add_option('wc_sendinblue_synchronize_do_activation_redirect', true);
+        add_option('wcprotosl_do_activation_redirect', true);
     }
 
     /**
@@ -144,12 +174,12 @@ class Options
      * @return void
      * @since   1.0.0
      */
-    public function wc_ss_redirect()
+    public function redirect()
     {
-        if (get_option('wc_sendinblue_synchronize_do_activation_redirect', false)) {
-            delete_option('wc_sendinblue_synchronize_do_activation_redirect');
+        if (get_option('wcprotosl_do_activation_redirect', false)) {
+            delete_option('wcprotosl_do_activation_redirect');
             if (isset($_GET['activate-multi'])) {
-                wp_safe_redirect(admin_url('options-general.php?page=wc_sendinblue_synchronize'));
+                wp_safe_redirect(admin_url('options-general.php?page=woocommerce_product_to_sendinblue_list'));
                 exit();
             }
         }
@@ -164,10 +194,10 @@ class Options
      */
     public function notice(): string
     {
-        $option = get_option(self::WC_SS_API_KEY_V3_OPTION_NAME);
+        $option = get_option(self::WCPROTOSL_API_KEY_V3_OPTION_NAME);
 
         if ( ! $option) {
-            return Renderer::render('admin/options/notice');
+            return Renderer::render('admin/options/partials/notice');
         }
 
         return false;
@@ -184,8 +214,8 @@ class Options
      */
     public function addPluginSettingsLink($links)
     {
-        $links[] = '<a href="' . admin_url('options-general.php?page=wc_sendinblue_synchronize') . '">' .
-                   __('Settings', WC_SS_TEXT_DOMAIN) . '</a>';
+        $links[] = '<a href="' . admin_url('options-general.php?page=woocommerce_product_to_sendinblue_list') . '">' .
+                   __('Settings', WCPROTOSL_TEXT_DOMAIN) . '</a>';
 
         return $links;
     }

@@ -1,14 +1,14 @@
 <?php
 
-namespace Wc_Sendinblue_Synchronize\Admin\Woocommerce;
+namespace WcProToSL\Admin\Woocommerce;
 
-use Wc_Sendinblue_Synchronize\Api\Api;
-use Wc_Sendinblue_Synchronize\Renderer\Renderer;
+use WcProToSL\Api\ApiManager;
+use WcProToSL\Renderer\Renderer;
 
 /**
  * Class CustomProductField
  *
- * @package Wc_Sendinblue_Synchronize\Admin\Woocommerce
+ * @package WcProToSL\Admin\Woocommerce
  */
 class CustomProductField
 {
@@ -16,10 +16,10 @@ class CustomProductField
 
     public function __construct()
     {
-        $this->lists = Api::get_lists();
+        $this->lists = ApiManager::get_lists();
 
         // push 'Select a list' to $this->list
-        array_push($this->lists, __('Select a list', WC_SS_TEXT_DOMAIN));
+        array_push($this->lists, __('Select a list', WCPROTOSL_TEXT_DOMAIN));
 
         // we sort sendinblue list by key(id) in reverse order, to add 'Select a list' as first element of the array
         krsort($this->lists);
@@ -40,7 +40,7 @@ class CustomProductField
     public function custom_product_data_tab($tabs)
     {
         $tabs['sendinblue'] = [
-            'label'    => __('Sendinblue', WC_SS_TEXT_DOMAIN),
+            'label'    => __('Sendinblue', WCPROTOSL_TEXT_DOMAIN),
             'target'   => 'sendinblue_data_panel',
             'class'    => ['hide_if_external'],
             'priority' => 100,
@@ -57,7 +57,7 @@ class CustomProductField
      */
     public function product_data_panel_render(): string
     {
-        $value = get_post_meta(get_the_ID(), '_wc_sendinblue_synchronize_list') ?: '';
+        $value = get_post_meta(get_the_ID(), '_wcprotosl_list') ?: '';
 
         return Renderer::render(
             'admin/woocommerce/product-sendinblue-panel',
@@ -79,7 +79,7 @@ class CustomProductField
     {
         $product = wc_get_product($post_id);
 
-        $product->update_meta_data('_wc_sendinblue_synchronize_list', sanitize_text_field($_POST['_selec_list']));
+        $product->update_meta_data('_wcprotosl_list', sanitize_text_field($_POST['_selec_list']));
 
         $product->save();
     }

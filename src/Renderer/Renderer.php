@@ -1,11 +1,11 @@
 <?php
 
-namespace Wc_Sendinblue_Synchronize\Renderer;
+namespace WcProToSL\Renderer;
 
 /**
  * Class Renderer
  *
- * @package Wc_Sendinblue_Synchronize\Renderer
+ * @package WcProToSL\Renderer
  */
 class Renderer
 {
@@ -40,6 +40,6 @@ class Renderer
      */
     private static function getTemplatePath(): string
     {
-        return WC_SS_PATH . 'templates' . DIRECTORY_SEPARATOR;
+        return WCPROTOSL_PATH . 'templates' . DIRECTORY_SEPARATOR;
     }
 }

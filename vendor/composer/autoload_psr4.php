@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Wc_Sendinblue_Synchronize\\' => array($baseDir . '/src'),
+    'WcProToSL\\' => array($baseDir . '/src'),
 );

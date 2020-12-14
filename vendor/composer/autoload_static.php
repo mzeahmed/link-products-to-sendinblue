@@ -9,12 +9,12 @@ class ComposerStaticInit7cffa8dcbda6dc086e96559a0786f08b
     public static $prefixLengthsPsr4 = array (
         'W' => 
         array (
-            'Wc_Sendinblue_Synchronize\\' => 26,
+            'WcProToSL\\' => 26,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Wc_Sendinblue_Synchronize\\' => 
+        'WcProToSL\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

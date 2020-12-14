@@ -1,10 +1,10 @@
 <?php
 
-namespace Wc_Sendinblue_Synchronize\Admin;
+namespace WcProToSL\Admin;
 
-use Wc_Sendinblue_Synchronize\Admin\Woocommerce\CustomProductColumn;
-use Wc_Sendinblue_Synchronize\Admin\Woocommerce\CustomProductField;
-use Wc_Sendinblue_Synchronize\Admin\Woocommerce\PaymentComplete;
+use WcProToSL\Admin\Woocommerce\CustomProductColumn;
+use WcProToSL\Admin\Woocommerce\CustomProductField;
+use WcProToSL\Admin\Woocommerce\PaymentComplete;
 
 class Admin
 {
@@ -27,10 +27,10 @@ class Admin
     public function enqueue_styles()
     {
         wp_enqueue_style(
-            'wc-sendinblue-synchronize',
+            'woocommerce-product-to-sendinblue-list',
             plugin_dir_url(__FILE__) . 'dist/admin/css/admin-app.css',
             [],
-            WC_SS_VERSION,
+            WCPROTOSL_VERSION,
             'all'
         );
     }
@@ -43,10 +43,10 @@ class Admin
     public function enqueue_scripts()
     {
         wp_enqueue_script(
-            'wc-sendinblue-synchronize',
+            'woocommerce-product-to-sendinblue-list',
             plugin_dir_url(__FILE__) . 'dist/admin/js/admin-app.js',
             ['jquery'],
-            WC_SS_VERSION,
+            WCPROTOSL_VERSION,
             false
         );
     }

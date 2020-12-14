@@ -1,11 +1,15 @@
 <?php
 
-namespace Wc_Sendinblue_Synchronize\Api;
+namespace WcProToSL\Api;
 
 use Exception;
+use WcProToSL\Admin\Options;
 
-class Api
+class ApiManager
 {
+    /** Transient delay time */
+    const DELAYTIME = HOUR_IN_SECONDS;
+
     /**
      * @return array
      */
@@ -25,6 +29,47 @@ class Api
         $lists = $list_data;
 
         return $lists;
+    }
+
+    /**
+     * Get all attributes
+     *
+     * @return \array[][]|mixed
+     */
+    public static function get_attributes(): array
+    {
+        $attrs = get_transient('wc_ss_attributes' . md5(get_option(Options::WCPROTOSL_API_KEY_V3_OPTION_NAME)));
+
+        if ($attrs === false || $attrs == false) {
+            $api_client = new ApiClient();
+            $response   = $api_client->getAttributes();
+            $attributes = $response['attributes'];
+            $attrs      = [
+                'attributes' => [
+                    'normal_attributes'   => [],
+                    'category_attributes' => [],
+                ],
+            ];
+
+            if (count($attributes) > 0) {
+                foreach ($attributes as $key => $value) {
+                    if ($value["category"] == "normal") {
+                        $attrs['attributes']['normal_attributes'][] = $value;
+                    } elseif ($value["category"] == "category") {
+                        $value["type"]                                = "category";
+                        $attrs['attributes']['category_attributes'][] = $value;
+                    }
+                }
+            }
+
+            set_transient(
+                'wc_ss_attributes' . md5(get_option(Options::WCPROTOSL_API_KEY_V3_OPTION_NAME)),
+                $attrs,
+                self::DELAYTIME
+            );
+        }
+
+        return $attrs;
     }
 
     /**
@@ -60,7 +105,7 @@ class Api
 
             if (in_array(
                 $api_client->getLastResponseCode(),
-                [ApiClient::RESPONSE_CODE_UPDATED, ApiClient::  RESPONSE_CODE_CREATED]
+                [ApiClient::RESPONSE_CODE_UPDATED, ApiClient::RESPONSE_CODE_CREATED]
             )) {
                 return "success";
             } else {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Wc_Sendinblue_Synchronize\Api;
+namespace WcProToSL\Api;
 
-use Wc_Sendinblue_Synchronize\Admin\Options;
+use WcProToSL\Admin\Options;
 
 class ApiClient
 {
@@ -19,13 +19,13 @@ class ApiClient
     /**
      * @var false|mixed|void
      */
-    private $apiKey;
+    public $apiKey;
 
     private $lastResponseCode;
 
     public function __construct()
     {
-        $this->apiKey = get_option(Options::WC_SS_API_KEY_V3_OPTION_NAME);
+        $this->apiKey = get_option(Options::WCPROTOSL_API_KEY_V3_OPTION_NAME);
     }
 
     /**

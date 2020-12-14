@@ -1,11 +1,11 @@
 {
-    "name": "mzeahmed/wc-sendinblue-synchronize",
+    "name": "mzeahmed/woocommerce-product-to-sendinblue-list",
     "description": "",
     "keywords": [
         "wordpress",
         "plugin"
     ],
-    "homepage": "https://github.com/mzeahmed/wc-sendinblue-synchronize",
+    "homepage": "https://github.com/mzeahmed/woocommerce-product-to-sendinblue-list",
     "authors": [
         {
             "name": "Ahmed Mze",
@@ -14,7 +14,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Wc_Sendinblue_Synchronize\\": "src/"
+            "WcProToSL\\": "src/"
         }
     },
     "type": "wordpress-plugin",

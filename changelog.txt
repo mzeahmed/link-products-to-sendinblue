@@ -1,3 +1,6 @@
+v 1.0.6 14 december 2020
+- Improved: renaming of plugin and repository name to make it more explicit
+
 v 1.0.5 - 13 december 2020
 - Improved: add images to README.md
 

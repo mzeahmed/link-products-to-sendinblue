@@ -1,8 +1,8 @@
-# Woocommerce Sendinblue Synchronize
+# Woocommerce product to Sendinlue list
 
-Woocommerce Sendinblue Synchronize add customer to a specific sendinblue list, we can create list for each product. 
+Linked WooCommerce product to a specific Sendinblue list to add customer to that list
 
-### For example 
+### For example
 - product 'foo' => sendinblue list 'foo'
 - product 'bar' => sendinblue list 'bar'
 
