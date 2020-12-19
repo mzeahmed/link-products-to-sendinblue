@@ -13,6 +13,9 @@ use WcProToSL\Renderer\Renderer;
  */
 class Options
 {
+    // main settings
+    const WCPROTOSL_MAIN_OPTION_NAME = 'wcprotosl_main_OPTIONS';
+
     // api key option
     const WCPROTOSL_GROUP = 'woocommerce_product_to_sendinblue_list';
     const WCPROTOSL_API_KEY_V3_OPTION_NAME = 'wcprotosl_api_key';
@@ -25,13 +28,10 @@ class Options
     {
         add_action('admin_menu', [$this, 'add_menu']);
         add_action('admin_init', [$this, 'register_settings']);
-
-        register_activation_hook(__FILE__, [$this, 'activation']);
-        add_action('admin_init', [$this, 'redirect']);
-
         add_action('admin_notices', [$this, 'notice']);
-
         add_filter('plugin_action_links_' . WCPROTOSL_PLUGIN_BASENAME, [$this, 'addPluginSettingsLink']);
+        add_action('admin_init', [$this, 'main_settings']);
+        add_action('admin_init', [$this, 'delete_api_key']);
     }
 
     /**
@@ -127,9 +127,9 @@ class Options
         return Renderer::render(
             'admin/options/form',
             [
-                'api_field_group'        => self::WCPROTOSL_GROUP,
+                'api_field_group' => self::WCPROTOSL_GROUP,
                 'attributes_synch_group' => self::WCPROTOSL_ATTRIBUTES_SYNCH_GROUP,
-                'options'                => $options,
+                'options' => $options,
             ]
         );
     }
@@ -143,46 +143,20 @@ class Options
     public function attributes_synch_render(): string
     {
         // get woocommerce customer's attributes
-        $admin_profile   = new WC_Admin_Profile();
+        $admin_profile = new WC_Admin_Profile();
         $customer_fields = $admin_profile->get_customer_meta_fields();
 
         // available sendinblue attributes
         $allAttrs = ApiManager::get_attributes();
-        $attrs    = $allAttrs['attributes']['normal_attributes'];
+        $attrs = $allAttrs['attributes']['normal_attributes'];
 
         return Renderer::render(
             'admin/options/attributes-synch',
             [
                 'customer_fields' => $customer_fields,
-                'attrs'           => $attrs,
+                'attrs' => $attrs,
             ]
         );
-    }
-
-    /**
-     * Add option on plugin activation
-     */
-    public function activation()
-    {
-        add_option('wcprotosl_do_activation_redirect', true);
-    }
-
-    /**
-     * Redirect after activate plugin
-     *
-     * @wp-hook admin_init
-     * @return void
-     * @since   1.0.0
-     */
-    public function redirect()
-    {
-        if (get_option('wcprotosl_do_activation_redirect', false)) {
-            delete_option('wcprotosl_do_activation_redirect');
-            if (isset($_GET['activate-multi'])) {
-                wp_safe_redirect(admin_url('options-general.php?page=woocommerce_product_to_sendinblue_list'));
-                exit();
-            }
-        }
     }
 
     /**
@@ -194,13 +168,12 @@ class Options
      */
     public function notice(): string
     {
-        $option = get_option(self::WCPROTOSL_API_KEY_V3_OPTION_NAME);
-
-        if ( ! $option) {
+        if ( !get_option(self::WCPROTOSL_API_KEY_V3_OPTION_NAME)) {
             return Renderer::render('admin/options/partials/notice');
         }
 
         return false;
+
     }
 
     /**
@@ -215,8 +188,50 @@ class Options
     public function addPluginSettingsLink($links)
     {
         $links[] = '<a href="' . admin_url('options-general.php?page=woocommerce_product_to_sendinblue_list') . '">' .
-                   __('Settings', WCPROTOSL_TEXT_DOMAIN) . '</a>';
+            __('Settings', WCPROTOSL_TEXT_DOMAIN) . '</a>';
 
         return $links;
+    }
+
+    /**
+     * Add main settings | $account_email $account_user_name $access_key
+     *
+     * @return void
+     * @since 1.0.6
+     */
+    public function main_settings()
+    {
+        get_option(self::WCPROTOSL_MAIN_OPTION_NAME) == false ? add_option(self::WCPROTOSL_MAIN_OPTION_NAME, []) : null;
+
+        if (get_option(self::WCPROTOSL_API_KEY_V3_OPTION_NAME)) {
+            $accoun_info = ApiManager::get_account_info();
+
+            $args = [
+                'account_email' => $accoun_info['account_email'],
+                'account_first_name' => $accoun_info['account_first_name'],
+                'account_last_name' => $accoun_info['account_last_name'],
+                'access_key' => get_option(self::WCPROTOSL_API_KEY_V3_OPTION_NAME)
+            ];
+
+            update_option(self::WCPROTOSL_MAIN_OPTION_NAME, $args);
+        } else {
+            update_option(self::WCPROTOSL_MAIN_OPTION_NAME, []);
+        }
+    }
+
+    /**
+     * Delete API KEY
+     *
+     * @return void
+     * @since 1.0.6
+     */
+    public function delete_api_key()
+    {
+        if (isset($_POST['wcprotosl_delete_api_key'])) {
+            delete_option(self::WCPROTOSL_API_KEY_V3_OPTION_NAME);
+
+            wp_safe_redirect(wp_get_referer());
+            exit();
+        }
     }
 }

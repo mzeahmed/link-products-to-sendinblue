@@ -17,8 +17,8 @@ class ApiManager
     {
         $data = [];
 
-        $account = new ApiClient();
-        $lists   = $account->getAllLists();
+        $account = new Api();
+        $lists = $account->getAllLists();
 
         $list_data = [];
 
@@ -41,12 +41,12 @@ class ApiManager
         $attrs = get_transient('wc_ss_attributes' . md5(get_option(Options::WCPROTOSL_API_KEY_V3_OPTION_NAME)));
 
         if ($attrs === false || $attrs == false) {
-            $api_client = new ApiClient();
-            $response   = $api_client->getAttributes();
+            $api_client = new Api();
+            $response = $api_client->getAttributes();
             $attributes = $response['attributes'];
-            $attrs      = [
+            $attrs = [
                 'attributes' => [
-                    'normal_attributes'   => [],
+                    'normal_attributes' => [],
                     'category_attributes' => [],
                 ],
             ];
@@ -56,7 +56,7 @@ class ApiManager
                     if ($value["category"] == "normal") {
                         $attrs['attributes']['normal_attributes'][] = $value;
                     } elseif ($value["category"] == "category") {
-                        $value["type"]                                = "category";
+                        $value["type"] = "category";
                         $attrs['attributes']['category_attributes'][] = $value;
                     }
                 }
@@ -84,19 +84,19 @@ class ApiManager
     public static function create_subscriber(string $email, int $list_id, array $info): string
     {
         try {
-            $api_client = new ApiClient();
+            $api_client = new Api();
 
             $data = [
-                "email"            => $email,
-                "attributes"       => $info,
+                "email" => $email,
+                "attributes" => $info,
                 "emailBlacklisted" => false,
-                "listIds"          => [intval($list_id)],
-                "smsBlacklisted"   => false,
+                "listIds" => [intval($list_id)],
+                "smsBlacklisted" => false,
             ];
 
             $api_client->getUser($email);
 
-            if (ApiClient::RESPONSE_CODE_OK === $api_client->getLastResponseCode()) {
+            if (Api::RESPONSE_CODE_OK === $api_client->getLastResponseCode()) {
                 unset($data["email"]);
                 $response = $api_client->updateUser($email, $data);
             } else {
@@ -105,7 +105,7 @@ class ApiManager
 
             if (in_array(
                 $api_client->getLastResponseCode(),
-                [ApiClient::RESPONSE_CODE_UPDATED, ApiClient::RESPONSE_CODE_CREATED]
+                [Api::RESPONSE_CODE_UPDATED, Api::RESPONSE_CODE_CREATED]
             )) {
                 return "success";
             } else {
@@ -115,16 +115,37 @@ class ApiManager
         }
     }
 
+
+    /**
+     * @return array|false|mixed
+     */
     public static function get_account_info()
     {
-        $api_client   = new ApiClient();
-        $account_info = [];
+        $account_info =
+            get_transient('wcprotosl_client_credit_' . md5(get_option(Options::WCPROTOSL_API_KEY_V3_OPTION_NAME)));
 
-        $response = $api_client->getAccount();
+        if ($account_info === false || $account_info == false) {
+            $api = new Api();
+            $account = $api->getAccount();
 
-        if (ApiClient::RESPONSE_CODE_OK === $api_client->getLastResponseCode()) {
-            $account_info['email']     = $response['email'];
-            $account_info['user_name'] = $response['firstName'] . ' ' . $response['lastName'];
+            if ($api->getLastResponseCode() === Api::RESPONSE_CODE_OK && !empty($account['email'])) {
+                $account_email = $account['email'];
+
+                $account_info = [
+                    'account_email' => $account_email,
+                    'account_first_name' => $account['firstName'],
+                    'account_last_name' => $account['lastName'],
+                    'account_data' => $account['plan']
+                ];
+            } else {
+                delete_option(Options::WCPROTOSL_API_KEY_V3_OPTION_NAME);
+            }
+
+            set_transient('wcprotosl_client_credit_' . md5(get_option(Options::WCPROTOSL_API_KEY_V3_OPTION_NAME)),
+                $account_info,
+                self::DELAYTIME);
         }
+
+        return $account_info;
     }
 }

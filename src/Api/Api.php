@@ -4,7 +4,7 @@ namespace WcProToSL\Api;
 
 use WcProToSL\Admin\Options;
 
-class ApiClient
+class Api
 {
     public const API_BASE_URL = 'https://api.sendinblue.com/v3';
     public const HTTP_METHOD_GET = 'GET';
@@ -176,7 +176,7 @@ class ApiClient
     /**
      * @return int
      */
-    public function getLastResponseCode()
+    public function getLastResponseCode(): int
     {
         return $this->lastResponseCode;
     }

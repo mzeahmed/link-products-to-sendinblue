@@ -3,7 +3,7 @@
 namespace WcProToSL;
 
 use WcProToSL\Admin\Admin;
-use WcProToSL\Api\ApiClient;
+use WcProToSL\Api\Api;
 
 /**
  * Class App
@@ -16,7 +16,7 @@ class App
     {
         add_action('plugins_loaded', [$this, 'load_text_domain']);
 
-        new ApiClient();
+        new Api();
         new Admin();
     }
 

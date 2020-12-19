@@ -13,7 +13,7 @@
         <?php
         printf(
             __(
-                'To activate WooCommerce Sendinblue Synchronize, please enter your API v3 Access key.',
+                'To use WooCommerce Product To Sendinblue List, please enter your <a href="%s">API v3 Access key</a>.',
                 WCPROTOSL_TEXT_DOMAIN
             ),
             admin_url('options-general.php?page=woocommerce_product_to_sendinblue_list')

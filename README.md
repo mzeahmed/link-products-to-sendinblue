@@ -1,8 +1,8 @@
 # Woocommerce product to Sendinlue list
 
-Linked WooCommerce product to a specific Sendinblue list to add customer to that list
+Link a WooCommerce product to a specific Sendinblue list to add the customer to that list
 
-### For example
+### Example
 - product 'foo' => sendinblue list 'foo'
 - product 'bar' => sendinblue list 'bar'
 
