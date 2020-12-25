@@ -3,6 +3,7 @@
 namespace WcProToSL;
 
 use WcProToSL\Admin\Admin;
+use WcProToSL\Admin\WcProToSl_Settings;
 use WcProToSL\Api\Api;
 
 /**

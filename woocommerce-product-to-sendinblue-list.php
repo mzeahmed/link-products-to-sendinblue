@@ -35,6 +35,10 @@ define('WCPROTOSL_TEXT_DOMAIN', $plugin_data['TextDomain']);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+add_action('after_setup_theme', function () {
+    \Carbon_Fields\Carbon_Fields::boot();
+});
+
 function wcprotosl()
 {
     new WcProToSL\App();

@@ -5,8 +5,6 @@ namespace WcProToSL\Admin;
 use WcProToSL\Admin\Woocommerce\CustomProductColumn;
 use WcProToSL\Admin\Woocommerce\CustomProductField;
 use WcProToSL\Admin\Woocommerce\PaymentComplete;
-use WcProToSL\Api\Api;
-use WcProToSL\Api\ApiManager;
 
 class Admin
 {
@@ -21,7 +19,7 @@ class Admin
         add_action('admin_enqueue_scripts', [$this, 'enqueue_styles']);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
 
-        new Options();
+        new WcProToSL_Settings();
         new CustomProductField();
         new PaymentComplete();
         new CustomProductColumn();

@@ -20,7 +20,8 @@
     "type": "wordpress-plugin",
     "require": {
         "php": ">=7.1",
-        "ext-json": "*"
+        "ext-json": "*",
+        "htmlburger/carbon-fields-plugin": "^3.2"
     },
     "config": {
         "sort-packages": true

@@ -1,20 +1,58 @@
-function cloneMatchAttributes() {
-    // var section = document.getElementById('wcprotosl-match-attr');
-    // var match_fields = document.createElement(section);
-    //
-    // document.body.appendChild(match_fields);
+/**
+ * Clone user attributes synch form fields
+ */
+// function user_attributes_synch_fields_clone() {
+//     let item = document.querySelector('tbody');
+//
+//     let clone = item.cloneNode(true);
+//     clone.id = 'user_attrs_field' + 1;
+//
+//     document.querySelector('table').appendChild(clone);
+//
+//     let b = document.getElementById('user_attr_less');
+//     if (b.style.display === 'none') {
+//         b.style.display = 'block';
+//     }
+// }
 
-    let match_fields = document.getElementById('wcprotosl-match-attr');
-    let match_fields_copy = match_fields.cloneNode(true);
-    match_fields_copy.id = 'wcprotosl-match-attr_2';
+var counter = 0;
 
-    match_fields.after(match_fields_copy);
+/**
+ * Add fields
+ */
+function moreUserAttrSynchFields() {
+    counter++;
+
+    let newFields = document.querySelector('table').cloneNode(true);
+    newFields.classList.add('table_plus');
+
+    let newField = newFields.childNodes;
+
+    for (let i = 0; i < newField.length; i++) {
+        let theName = newField[i].name;
+        if (theName) {
+            newField[i] = theName + counter;
+        }
+    }
+
+    let b = document.getElementById('user_attr_less');
+    if (b.style.display === 'none') {
+        b.style.display = 'block';
+    }
+
+    let insertHere = document.getElementById('write_root');
+    insertHere.parentNode.insertBefore(newFields, insertHere);
 }
 
-function init() {
-    let click = document.getElementById('wcprotosl-match-list-plus');
+/**
+ * Remove added fields
+ */
+function lessUserAttrSynchFields() {
+    let item = document.querySelector('.form-table.table_plus');
+    item.parentNode.removeChild(item);
 
-    click.onClick = cloneMatchAttributes();
+    // if (typeof (item) == 'undefined') {
+    //     let b = document.getElementById('user_attr_less');
+    //     b.style.display = 'none';
+    // }
 }
-
-init();

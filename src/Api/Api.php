@@ -2,7 +2,7 @@
 
 namespace WcProToSL\Api;
 
-use WcProToSL\Admin\Options;
+use WcProToSL\Admin\WcProToSL_Settings;
 
 class Api
 {
@@ -25,7 +25,7 @@ class Api
 
     public function __construct()
     {
-        $this->apiKey = get_option(Options::WCPROTOSL_API_KEY_V3_OPTION_NAME);
+        $this->apiKey = get_option(WcProToSL_Settings::WCPROTOSL_API_KEY_V3_OPTION);
     }
 
     /**
