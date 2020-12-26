@@ -22,7 +22,6 @@ class WcProToSL_Settings
 
     // attributes synch options
     const WCPROTOSL_ATTRIBUTES_SYNCH_GROUP = "wcprotosl_attributes_synch_group";
-    const WCPROTOSL_MATCHED_ATTRIBUTES = 'wcprotosl_matched_attributes';
     const WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION = 'wcprotosl_woocommerce_customer_attributes';
     const WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION = 'wcprotosl_sendinblue_contact_attributes';
 
@@ -37,7 +36,6 @@ class WcProToSL_Settings
 
         add_action('admin_init', [$this, 'main_settings']);
         add_action('admin_init', [$this, 'delete_api_key']);
-        add_action('admin_init', [$this, 'matched_attributes_option']);
     }
 
     /**
@@ -161,20 +159,18 @@ class WcProToSL_Settings
      */
     public function form_render(): string
     {
-        $api_key               = get_option(self::WCPROTOSL_API_KEY_V3_OPTION);
-        $customer_attributes   = get_option(self::WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION);
+        $api_key = get_option(self::WCPROTOSL_API_KEY_V3_OPTION);
+        $customer_attributes = get_option(self::WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION);
         $sendinblue_attributes = get_option(self::WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION);
-        $matched_lists         = get_option(self::WCPROTOSL_MATCHED_ATTRIBUTES);
 
         return Renderer::render(
             'admin/options/form',
             [
-                'api_field_group'        => self::WCPROTOSL_API_KEY_GROUP,
+                'api_field_group' => self::WCPROTOSL_API_KEY_GROUP,
                 'attributes_synch_group' => self::WCPROTOSL_ATTRIBUTES_SYNCH_GROUP,
-                'api_key'                => $api_key,
-                'customer_attributes'    => $customer_attributes,
-                'sendinblue_attributes'  => $sendinblue_attributes,
-                'matched_lists'          => $matched_lists,
+                'api_key' => $api_key,
+                'customer_attributes' => $customer_attributes,
+                'sendinblue_attributes' => $sendinblue_attributes
             ]
         );
     }
@@ -187,13 +183,14 @@ class WcProToSL_Settings
      */
     public function woocommerce_customer_attributes_field_render(): string
     {
-        $admin_profile   = new WC_Admin_Profile();
+        $admin_profile = new WC_Admin_Profile();
         $customer_fields = $admin_profile->get_customer_meta_fields();
 
         return Renderer::render(
             'admin/options/partials/woocommerce-customer-attributes-field',
             [
                 'customer_fields' => $customer_fields,
+                'option_values' => get_option(self::WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION)
             ]
         );
     }
@@ -207,12 +204,14 @@ class WcProToSL_Settings
     public function sendinblue_contact_attributes_field_render(): string
     {
         $allAttrs = ApiManager::get_attributes();
-        $attrs    = $allAttrs['attributes']['normal_attributes'];
+        $contact_attributes = $allAttrs['attributes']['normal_attributes'];
 
         return Renderer::render(
             'admin/options/partials/sendinblue-contact-attributes-fields',
             [
-                'attrs' => $attrs,
+                'contact_attributes' => $contact_attributes,
+                'option_values' => get_option(self::WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION)
+
             ]
         );
     }
@@ -246,7 +245,7 @@ class WcProToSL_Settings
     public function addPluginSettingsLink($links)
     {
         $links[] = '<a href="' . admin_url('options-general.php?page=woocommerce_product_to_sendinblue_list') . '">' .
-                   __('Settings', WCPROTOSL_TEXT_DOMAIN) . '</a>';
+            __('Settings', WCPROTOSL_TEXT_DOMAIN) . '</a>';
 
         return $links;
     }
@@ -266,7 +265,7 @@ class WcProToSL_Settings
 
             $args = [
                 'account_email' => $accoun_info['account_email'],
-                'access_key'    => get_option(self::WCPROTOSL_API_KEY_V3_OPTION),
+                'access_key' => get_option(self::WCPROTOSL_API_KEY_V3_OPTION),
             ];
 
             update_option(self::WCPROTOSL_MAIN_OPTION_NAME, $args);
@@ -292,26 +291,16 @@ class WcProToSL_Settings
     }
 
     /**
-     * Update self::WCPROTOSL_MAIN_USER_ATTRIBUTES_OPTION on plugin's option save
+     * Combine self::WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION and self::WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION and return result
      *
-     * @return void
+     * @return array
      * @since 1.0.7
      */
-    public function matched_attributes_option()
+    public function get_matched_attributes(): array
     {
-        get_option(
-            self::WCPROTOSL_MATCHED_ATTRIBUTES == false ?
-                add_option(self::WCPROTOSL_MATCHED_ATTRIBUTES, []) : null
-        );
+        $customer_attributes = get_option(self::WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION);
+        $contact_attributes = get_option(self::WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION);
 
-        if (isset($_POST['wcprotosl_woocommerce_customer_attributes'])
-            && isset($_POST['wcprotosl_sendinblue_contact_attributes'])) {
-            $matched_lists = array_combine(
-                get_option(self::WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION),
-                get_option(self::WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION)
-            );
-
-            update_option(self::WCPROTOSL_MATCHED_ATTRIBUTES, $matched_lists);
-        }
+        return array_combine($customer_attributes, $contact_attributes);
     }
 }

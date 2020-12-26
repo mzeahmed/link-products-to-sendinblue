@@ -1,13 +1,10 @@
 <?php
-
 /**
  * Api key form view
  *
  * @package WcProToSL
  * @since   1.0.0
  */
-
-dump($matched_lists);
 
 ?>
 
