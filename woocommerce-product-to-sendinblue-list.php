@@ -8,8 +8,8 @@
  * @wordpress-plugin
  * Plugin Name:       WooCommerce Product To Sendinblue List
  * Plugin URI:        https://github.com/mzeahmed/woocommerce-product-to-sendinblue-list
- * Description:       Link a WooCommerce product to a specific Sendinblue list to add the customer to that list
- * Version:           1.0.7
+ * Description:       Link WooCommerce product to a specific Sendinblue list to add the customer to that list
+ * Version:           1.0.8
  * Author:            Ahmed Mze
  * Author URI:        https://ahmedmze.fr
  * License:           GPL-2.0+
@@ -20,28 +20,22 @@
 
 defined('ABSPATH') || die;
 
-if ( !function_exists('get_plugin_data')) {
-    require_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
-
-$plugin_data = get_plugin_data(__FILE__);
-
-define('WCPROTOSL_PLUGIN_BASENAME', plugin_basename(__FILE__));
-define('WCPROTOSL_VERSION', $plugin_data['Version']);
-define('WCPROTOSL_PATH', plugin_dir_path(__FILE__));
-define('WCPROTOSL_URL', plugin_dir_url(__FILE__));
-define('WCPROTOSL_NAME', $plugin_data['Name']);
-define('WCPROTOSL_TEXT_DOMAIN', $plugin_data['TextDomain']);
-
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/src/constants.php';
 
-add_action('after_setup_theme', function () {
-    \Carbon_Fields\Carbon_Fields::boot();
-});
-
-function wcprotosl()
+/**
+ * @return false | \WcProToSL\WoocommerceProductToSendinblueList
+ * @since 1.0.8
+ */
+function woocommerce_product_to_sendinblue_list()
 {
-    new WcProToSL\App();
+    if ( ! is_plugin_active('woocommerce/woocommerce.php')) {
+        add_action('admin_notices', function () {
+            return \WcProToSL\View\View::render('admin/woocommerce/dependency-notice', []);
+        });
+    }
+
+    return \WcProToSL\WoocommerceProductToSendinblueList::get_instance();
 }
 
-wcprotosl();
+woocommerce_product_to_sendinblue_list();

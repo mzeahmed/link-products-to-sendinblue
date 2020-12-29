@@ -4,7 +4,7 @@ namespace WcProToSL\Admin;
 
 use WC_Admin_Profile;
 use WcProToSL\Api\ApiManager;
-use WcProToSL\Renderer\Renderer;
+use WcProToSL\View\View;
 
 /**
  * Class Options
@@ -13,17 +13,9 @@ use WcProToSL\Renderer\Renderer;
  */
 class WcProToSL_Settings
 {
-    // main settings
-    const WCPROTOSL_MAIN_OPTION_NAME = 'wcprotosl_main_option';
-
-    // api key option
     const WCPROTOSL_API_KEY_GROUP = 'woocommerce_product_to_sendinblue_list';
-    const WCPROTOSL_API_KEY_V3_OPTION = 'wcprotosl_api_key';
 
-    // attributes synch options
     const WCPROTOSL_ATTRIBUTES_SYNCH_GROUP = "wcprotosl_attributes_synch_group";
-    const WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION = 'wcprotosl_woocommerce_customer_attributes';
-    const WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION = 'wcprotosl_sendinblue_contact_attributes';
 
     public function __construct()
     {
@@ -31,8 +23,8 @@ class WcProToSL_Settings
         add_action('admin_init', [$this, 'register_api_key_settings']);
         add_action('admin_init', [$this, 'register_user_attributes_settings']);
 
-        add_action('admin_notices', [$this, 'notice']);
-        add_filter('plugin_action_links_' . WCPROTOSL_PLUGIN_BASENAME, [$this, 'addPluginSettingsLink']);
+        add_action('admin_notices', [$this, 'api_key_notice']);
+        add_filter('plugin_action_links', [$this, 'plugin_action_links'], WCPROTOSL_PLUGIN_BASENAME);
 
         add_action('admin_init', [$this, 'main_settings']);
         add_action('admin_init', [$this, 'delete_api_key']);
@@ -64,7 +56,7 @@ class WcProToSL_Settings
      */
     public function register_api_key_settings()
     {
-        register_setting(self::WCPROTOSL_API_KEY_GROUP, self::WCPROTOSL_API_KEY_V3_OPTION);
+        register_setting(self::WCPROTOSL_API_KEY_GROUP, WCPROTOSL_API_KEY_V3_OPTION);
 
         add_settings_section(
             'api_key_section',
@@ -98,14 +90,14 @@ class WcProToSL_Settings
     {
         register_setting(
             self::WCPROTOSL_ATTRIBUTES_SYNCH_GROUP,
-            self::WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION,
+            WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION,
             [
                 'type' => 'array',
             ]
         );
         register_setting(
             self::WCPROTOSL_ATTRIBUTES_SYNCH_GROUP,
-            self::WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION,
+            WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION,
             [
                 'type' => 'array',
             ]
@@ -143,10 +135,10 @@ class WcProToSL_Settings
      */
     public function api_key_field_render(): string
     {
-        return Renderer::render(
+        return View::render(
             'admin/options/partials/api-key-field',
             [
-                'api_key_v3' => get_option(self::WCPROTOSL_API_KEY_V3_OPTION),
+                'api_key_v3' => get_option(WCPROTOSL_API_KEY_V3_OPTION),
             ]
         );
     }
@@ -159,11 +151,11 @@ class WcProToSL_Settings
      */
     public function form_render(): string
     {
-        $api_key = get_option(self::WCPROTOSL_API_KEY_V3_OPTION);
-        $customer_attributes = get_option(self::WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION);
-        $sendinblue_attributes = get_option(self::WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION);
+        $api_key = get_option(WCPROTOSL_API_KEY_V3_OPTION);
+        $customer_attributes = get_option(WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION);
+        $sendinblue_attributes = get_option(WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION);
 
-        return Renderer::render(
+        return View::render(
             'admin/options/form',
             [
                 'api_field_group' => self::WCPROTOSL_API_KEY_GROUP,
@@ -186,11 +178,11 @@ class WcProToSL_Settings
         $admin_profile = new WC_Admin_Profile();
         $customer_fields = $admin_profile->get_customer_meta_fields();
 
-        return Renderer::render(
+        return View::render(
             'admin/options/partials/woocommerce-customer-attributes-field',
             [
                 'customer_fields' => $customer_fields,
-                'option_values' => get_option(self::WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION)
+                'option_values' => get_option(WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION)
             ]
         );
     }
@@ -206,11 +198,11 @@ class WcProToSL_Settings
         $allAttrs = ApiManager::get_attributes();
         $contact_attributes = $allAttrs['attributes']['normal_attributes'];
 
-        return Renderer::render(
+        return View::render(
             'admin/options/partials/sendinblue-contact-attributes-fields',
             [
                 'contact_attributes' => $contact_attributes,
-                'option_values' => get_option(self::WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION)
+                'option_values' => get_option(WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION)
 
             ]
         );
@@ -223,11 +215,11 @@ class WcProToSL_Settings
      * @return string | void
      * @since   1.0.0
      */
-    public function notice(): string
+    public function api_key_notice(): string
     {
-        if (empty(get_option(self::WCPROTOSL_API_KEY_V3_OPTION))
-            || get_option(self::WCPROTOSL_API_KEY_V3_OPTION) == false) {
-            return Renderer::render('admin/options/partials/notice');
+        if (empty(get_option(WCPROTOSL_API_KEY_V3_OPTION))
+            || get_option(WCPROTOSL_API_KEY_V3_OPTION) == false) {
+            return View::render('admin/options/partials/notice');
         }
 
         return false;
@@ -242,12 +234,14 @@ class WcProToSL_Settings
      * @return mixed
      * @since   1.0.0
      */
-    public function addPluginSettingsLink($links)
+    public function plugin_action_links($links)
     {
-        $links[] = '<a href="' . admin_url('options-general.php?page=woocommerce_product_to_sendinblue_list') . '">' .
-            __('Settings', WCPROTOSL_TEXT_DOMAIN) . '</a>';
+        $settings_links = [
+            '<a href="' . admin_url('options-general.php?page=woocommerce_product_to_sendinblue_list') . '">' .
+            esc_html__('Settings', WCPROTOSL_TEXT_DOMAIN) . '</a>'
+        ];
 
-        return $links;
+        return array_merge($settings_links, $links);
     }
 
     /**
@@ -258,19 +252,19 @@ class WcProToSL_Settings
      */
     public function main_settings()
     {
-        get_option(self::WCPROTOSL_MAIN_OPTION_NAME) == false ? add_option(self::WCPROTOSL_MAIN_OPTION_NAME, []) : null;
+        get_option(WCPROTOSL_MAIN_OPTION_NAME) == false ? add_option(WCPROTOSL_MAIN_OPTION_NAME, []) : null;
 
-        if (get_option(self::WCPROTOSL_API_KEY_V3_OPTION)) {
+        if (get_option(WCPROTOSL_API_KEY_V3_OPTION)) {
             $accoun_info = ApiManager::get_account_info();
 
             $args = [
                 'account_email' => $accoun_info['account_email'],
-                'access_key' => get_option(self::WCPROTOSL_API_KEY_V3_OPTION),
+                'access_key' => get_option(WCPROTOSL_API_KEY_V3_OPTION),
             ];
 
-            update_option(self::WCPROTOSL_MAIN_OPTION_NAME, $args);
+            update_option(WCPROTOSL_MAIN_OPTION_NAME, $args);
         } else {
-            update_option(self::WCPROTOSL_MAIN_OPTION_NAME, []);
+            update_option(WCPROTOSL_MAIN_OPTION_NAME, []);
         }
     }
 
@@ -283,7 +277,7 @@ class WcProToSL_Settings
     public function delete_api_key()
     {
         if (isset($_POST['wcprotosl_delete_api_key'])) {
-            delete_option(self::WCPROTOSL_API_KEY_V3_OPTION);
+            delete_option(WCPROTOSL_API_KEY_V3_OPTION);
 
             wp_safe_redirect(wp_get_referer());
             exit();
@@ -298,8 +292,8 @@ class WcProToSL_Settings
      */
     public function get_matched_attributes(): array
     {
-        $customer_attributes = get_option(self::WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION);
-        $contact_attributes = get_option(self::WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION);
+        $customer_attributes = get_option(WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION);
+        $contact_attributes = get_option(WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION);
 
         return array_combine($customer_attributes, $contact_attributes);
     }

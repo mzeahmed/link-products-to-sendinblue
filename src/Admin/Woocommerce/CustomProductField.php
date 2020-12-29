@@ -2,9 +2,8 @@
 
 namespace WcProToSL\Admin\Woocommerce;
 
-use WcProToSL\Admin\WcProToSL_Settings;
 use WcProToSL\Api\ApiManager;
-use WcProToSL\Renderer\Renderer;
+use WcProToSL\View\View;
 
 /**
  * Class CustomProductField
@@ -19,7 +18,7 @@ class CustomProductField
     public function __construct()
     {
         $this->lists = ApiManager::get_lists();
-        $this->api_key = get_option(WcProToSL_Settings::WCPROTOSL_API_KEY_V3_OPTION);
+        $this->api_key = get_option(WCPROTOSL_API_KEY_V3_OPTION);
 
         // push 'Select a list' to $this->list
         array_push($this->lists, __('Select a list', WCPROTOSL_TEXT_DOMAIN));
@@ -64,7 +63,7 @@ class CustomProductField
     {
         $value = get_post_meta(get_the_ID(), '_wcprotosl_list') ?: '';
 
-        return Renderer::render(
+        return View::render(
             'admin/woocommerce/product-sendinblue-panel',
             [
                 'lists' => $this->lists,

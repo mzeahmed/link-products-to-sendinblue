@@ -25,7 +25,7 @@ class Api
 
     public function __construct()
     {
-        $this->apiKey = get_option(WcProToSL_Settings::WCPROTOSL_API_KEY_V3_OPTION);
+        $this->apiKey = get_option(WCPROTOSL_API_KEY_V3_OPTION);
     }
 
     /**

@@ -1,3 +1,13 @@
+<?php
+/**
+ * Product panel vieww
+ *
+ * @package WcProToSL
+ * @since   1.0.0
+ */
+
+?>
+
 <div id="sendinblue_data_panel" class="panel woocommerce_options_panel hidden">
     <?php
 

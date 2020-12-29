@@ -3,7 +3,6 @@
 namespace WcProToSL\Api;
 
 use Exception;
-use WcProToSL\Admin\WcProToSL_Settings;
 
 class ApiManager
 {
@@ -34,7 +33,7 @@ class ApiManager
      */
     public static function get_attributes(): array
     {
-        $attrs = get_transient('wcprotosl_attributes' . md5(get_option(WcProToSL_Settings::WCPROTOSL_API_KEY_V3_OPTION)));
+        $attrs = get_transient('wcprotosl_attributes' . md5(get_option(WCPROTOSL_API_KEY_V3_OPTION)));
 
         if ($attrs === false || $attrs == false) {
             $api_client = new Api();
@@ -59,7 +58,7 @@ class ApiManager
             }
 
             set_transient(
-                'wcprotosl_attributes' . md5(get_option(WcProToSL_Settings::WCPROTOSL_API_KEY_V3_OPTION)),
+                'wcprotosl_attributes' . md5(get_option(WCPROTOSL_API_KEY_V3_OPTION)),
                 $attrs,
                 self::DELAYTIME
             );
@@ -118,7 +117,7 @@ class ApiManager
     public static function get_account_info()
     {
         $account_info =
-            get_transient('wcprotosl_client_credit_' . md5(get_option(WcProToSL_Settings::WCPROTOSL_API_KEY_V3_OPTION)));
+            get_transient('wcprotosl_client_credit_' . md5(get_option(WCPROTOSL_API_KEY_V3_OPTION)));
 
         if ($account_info === false || $account_info == false) {
             $api = new Api();
@@ -134,10 +133,10 @@ class ApiManager
                     'account_data' => $account['plan']
                 ];
             } else {
-                delete_option(WcProToSL_Settings::WCPROTOSL_API_KEY_V3_OPTION);
+                delete_option(WCPROTOSL_API_KEY_V3_OPTION);
             }
 
-            set_transient('wcprotosl_client_credit_' . md5(get_option(WcProToSL_Settings::WCPROTOSL_API_KEY_V3_OPTION)),
+            set_transient('wcprotosl_client_credit_' . md5(get_option(WCPROTOSL_API_KEY_V3_OPTION)),
                 $account_info,
                 self::DELAYTIME);
         }

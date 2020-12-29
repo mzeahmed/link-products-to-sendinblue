@@ -40,15 +40,15 @@ class Admin
                 WCPROTOSL_VERSION,
                 'all'
             );
-        }
 
-        wp_enqueue_style(
-            'woocommerce-product-to-sendinblue-list',
-            WCPROTOSL_URL . 'assets/admin/css/admin-app.css',
-            [],
-            WCPROTOSL_VERSION,
-            'all'
-        );
+            wp_enqueue_style(
+                'woocommerce-product-to-sendinblue-list',
+                WCPROTOSL_URL . 'assets/admin/css/admin-app.css',
+                [],
+                WCPROTOSL_VERSION,
+                'all'
+            );
+        }
     }
 
     /**
@@ -58,12 +58,15 @@ class Admin
      */
     public function enqueue_scripts()
     {
-        wp_enqueue_script(
-            'woocommerce-product-to-sendinblue-list',
-            WCPROTOSL_URL . 'assets/admin/js/admin-app.js',
-            ['jquery'],
-            WCPROTOSL_VERSION,
-            false
-        );
+        if (str_contains($this->array[3], 'woocommerce_product_to_sendinblue_list')) {
+            wp_enqueue_script(
+                'woocommerce-product-to-sendinblue-list',
+                WCPROTOSL_URL . 'assets/admin/js/admin-app.js',
+                ['jquery'],
+                WCPROTOSL_VERSION,
+                false
+            );
+        }
+
     }
 }
