@@ -1,3 +1,6 @@
+v 1.0.9 30 december 2020
+- Fixed: Display of plugin's settings link
+
 v 1.0.8 30 december 2020
 - Removed: Laravel mix and Carbon Fields
 - Added: Notice if WooCommerce is not active

@@ -24,7 +24,7 @@ class WcProToSL_Settings
         add_action('admin_init', [$this, 'register_user_attributes_settings']);
 
         add_action('admin_notices', [$this, 'api_key_notice']);
-        add_filter('plugin_action_links', [$this, 'plugin_action_links'], WCPROTOSL_PLUGIN_BASENAME);
+        add_filter('plugin_action_links_' . WCPROTOSL_PLUGIN_BASENAME, [$this, 'plugin_action_links']);
 
         add_action('admin_init', [$this, 'main_settings']);
         add_action('admin_init', [$this, 'delete_api_key']);

@@ -1,12 +1,12 @@
 <?php
 
-if ( ! function_exists('get_plugin_data')) {
-    require_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+! function_exists('get_plugin_data') ? require_once ABSPATH . 'wp-admin/includes/plugin.php' : null;
 
 $plugin_data = get_plugin_data(__FILE__);
 
-define('WCPROTOSL_PLUGIN_BASENAME', plugin_basename(dirname(dirname(__FILE__))));
+define('WCPROTOSL_PLUGIN_BASENAME', 'woocommerce-product-to-sendinblue-list/woocommerce-product-to-sendinblue-list.php');
 define('WCPROTOSL_VERSION', $plugin_data['Version']);
 define('WCPROTOSL_PATH', plugin_dir_path(dirname(__FILE__)));
 define('WCPROTOSL_URL', plugin_dir_url(dirname(__FILE__)));
