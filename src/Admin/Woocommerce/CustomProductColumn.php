@@ -12,8 +12,8 @@ class CustomProductColumn
     {
         $this->sendinblue_lists = ApiManager::get_lists();
 
-        add_filter('manage_edit-product_columns', [$this, 'products_list_column'], 9999);
-        add_action('manage_product_posts_custom_column', [$this, 'products_list_column_content'], 10, 2);
+        add_filter('manage_edit-product_columns', [$this, 'productsListColumn'], 9999);
+        add_action('manage_product_posts_custom_column', [$this, 'productsListColumnContent'], 10, 2);
     }
 
     /**
@@ -22,8 +22,9 @@ class CustomProductColumn
      * @param $columns
      *
      * @return mixed
+     * @since 1.0.0
      */
-    public function products_list_column($columns)
+    public function productsListColumn($columns)
     {
         $columns['list'] = __('List', WCPROTOSL_TEXT_DOMAIN);
 
@@ -35,8 +36,10 @@ class CustomProductColumn
      *
      * @param $column
      * @param $product_id
+     *
+     * @since 1.0.0
      */
-    public function products_list_column_content($column, $product_id)
+    public function productsListColumnContent($column, $product_id)
     {
         if ($column == 'list') {
             $product_list_id = get_post_meta($product_id, '_wcprotosl_list', true);

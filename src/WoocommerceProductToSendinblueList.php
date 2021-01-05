@@ -2,27 +2,41 @@
 
 namespace WcProToSL;
 
+use WcProToSL\Admin\WcProToSL_Settings;
+use WcProToSL\Admin\Woocommerce\CustomProductColumn;
+use WcProToSL\Admin\Woocommerce\CustomProductField;
+use WcProToSL\Admin\Woocommerce\PaymentComplete;
+use WcProToSL\Api\Api;
+
 /**
  * @package WcProToSL
- * @since 1.0.8
+ * @since   1.0.8
  */
 final class WoocommerceProductToSendinblueList
 {
     /**
-     * Instance property of Woocommerce_Product_To_Sendinblue_List Class.
+     * Instance of Woocommerce_Product_To_Sendinblue_List
      *
      * @var WoocommerceProductToSendinblueList|null $instance create only one instance from plugin primary class
-     * @static
      */
     private static ?WoocommerceProductToSendinblueList $instance = null;
 
+    public string $request_uri;
+    public array $array;
+
     public function __construct()
     {
+        $this->request_uri = $_SERVER['REQUEST_URI'];
+        $this->array       = explode('/', $this->request_uri);
+
         add_action('plugins_loaded', [$this, 'init']);
+
+        add_action('admin_enqueue_scripts', [$this, 'enqueueStyles']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueueScripts']);
     }
 
     /**
-     * Create an instance from Woocommerce_Product_To_Sendinblue_List class.
+     * Getting instance This Class is a singleton class
      *
      * @return WoocommerceProductToSendinblueList
      * @since 1.0.8
@@ -41,15 +55,61 @@ final class WoocommerceProductToSendinblueList
      */
     public function init()
     {
-        new \WcProToSL\Api\Api();
-        new \WcProToSL\Admin\Admin();
+        new Api();
+        new WcProToSL_Settings();
+        new CustomProductField();
+        new PaymentComplete();
+        new CustomProductColumn();
 
-        add_action('init', function () {
-            load_plugin_textdomain(
-                WCPROTOSL_TEXT_DOMAIN,
-                false,
-                WCPROTOSL_PATH . '/langages'
+        add_action(
+            'init',
+            function () {
+                load_plugin_textdomain(
+                    WCPROTOSL_TEXT_DOMAIN,
+                    false,
+                    WCPROTOSL_PATH . '/langages'
+                );
+            }
+        );
+    }
+
+    /**
+     * @since 1.0.0
+     */
+    public function enqueueStyles()
+    {
+        if (str_contains($this->array[3], 'woocommerce_product_to_sendinblue_list')) {
+            wp_enqueue_style(
+                'wcprotosl_bootstrap',
+                WCPROTOSL_URL . 'assets/vendor/bootstrap/css/bootstrap.min.css',
+                [],
+                WCPROTOSL_VERSION,
+                'all'
             );
-        });
+
+            wp_enqueue_style(
+                'woocommerce-product-to-sendinblue-list',
+                WCPROTOSL_URL . 'assets/css/app.css',
+                [],
+                WCPROTOSL_VERSION,
+                'all'
+            );
+        }
+    }
+
+    /**
+     * @since 1.0.0
+     */
+    public function enqueueScripts()
+    {
+        if (str_contains($this->array[3], 'woocommerce_product_to_sendinblue_list')) {
+            wp_enqueue_script(
+                'woocommerce-product-to-sendinblue-list',
+                WCPROTOSL_URL . 'assets/js/app.js',
+                ['jquery'],
+                WCPROTOSL_VERSION,
+                true
+            );
+        }
     }
 }

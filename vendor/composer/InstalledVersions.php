@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'dc0bd66d4747307ec17fc9b9db9f80aeca25b3c4',
+    'reference' => 'a258b4134f6572d7c469cc3568dee1e57d1c2a4a',
     'name' => 'mzeahmed/woocommerce-product-to-sendinblue-list',
   ),
   'versions' => 
@@ -41,7 +41,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'dc0bd66d4747307ec17fc9b9db9f80aeca25b3c4',
+      'reference' => 'a258b4134f6572d7c469cc3568dee1e57d1c2a4a',
     ),
   ),
 );

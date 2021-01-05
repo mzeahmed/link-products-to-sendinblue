@@ -7,26 +7,35 @@ use WcProToSL\Api\ApiManager;
 class PaymentComplete
 {
     public array $lists;
+    public $client_matched_attributes;
 
     public function __construct()
     {
-        $this->lists = ApiManager::get_lists();
+        $option                          = get_option(WCPROTOSL_MAIN_OPTION);
+        $this->lists                     = ApiManager::get_lists();
+        $this->client_matched_attributes = $option['client_matched_attributes'];
 
-        add_action('woocommerce_payment_complete', [$this, 'payment_complete']);
+        add_action('woocommerce_payment_complete', [$this, 'paymentComplete']);
     }
 
-    public function payment_complete($order_id)
+    /**
+     * @param $order_id
+     *
+     * @since 1.0.0
+     */
+    public function paymentComplete($order_id)
     {
         // order recovery
         $order = wc_get_order($order_id);
+        $email = $order->get_billing_email();
 
-        // customer recovery
-        $customer = $order->get_user();
+        $info = [];
 
-        $contact_datas = [
-            "PRENOM" => $customer->first_name,
-            "NOM"    => $customer->last_name,
-        ];
+        if (isset($this->client_matched_attributes)) {
+            foreach ($this->client_matched_attributes as $contact_attr => $customer_attr) {
+                $info[$contact_attr] = $order->$customer_attr;
+            }
+        }
 
         // recovery of purchased products
         $items = $order->get_items();
@@ -35,12 +44,12 @@ class PaymentComplete
             // product datas
             $data = $item->get_data();
 
-            // recovery of the Sendinblue list linked to the product
+            // recovery the Sendinblue list linked to the product
             $postmeta = get_post_meta($data['product_id'], '_wcprotosl_list');
             $list_id  = implode('', $postmeta);
 
             if ($postmeta) {
-                ApiManager::create_subscriber($customer->user_email, $list_id, $contact_datas);
+                ApiManager::create_subscriber($email, $list_id, $info);
             }
         }
     }

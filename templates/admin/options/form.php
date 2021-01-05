@@ -23,29 +23,42 @@
     </h2>
     <form action="options.php" method="post">
         <?php if ($tab == 'user_attributes') : ?>
+            <?php if ( ! current_user_can('manage_options')) wp_die(__('Unauthorized user', WCPROTOSL_TEXT_DOMAIN)); ?>
+            <?php wp_nonce_field($nonce_action, '_user_attributes_nonce') ?>
             <div class="mb-4 alert alert-info">
                 <?php _e(
-                    'Match WooCommerce Customers attributes with your Sendinblue contacts attributes',
+                    'Match the WooCommerce Customers attributes with your Sendinblue contacts attributes',
                     WCPROTOSL_TEXT_DOMAIN
                 ) ?>
             </div>
-            <?php settings_fields($attributes_synch_group); ?>
-            <?php do_settings_sections($attributes_synch_group); ?>
 
-            <span id="write_root"></span>
+            <table class="form-table table table-striped" id="attributes_synch_table">
+                <thead>
+                    <tr>
+                        <th class="text-center">
+                            <?php _e('Woocommerce Customer Attributes', WCPROTOSL_TEXT_DOMAIN) ?>
+                        </th>
+                        <th></th>
+                        <th class="text-center">
+                            <?php _e('Sendinblue Contact Attributes', WCPROTOSL_TEXT_DOMAIN) ?>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="wcprotosl_user_attributes_fields">
+                    <?php include 'partials/form-fields.php' ?>
+                </tbody>
+            </table>
 
-            <div class="buttons_plus_less" style="float: right;margin-right: 50%;margin-top: -70px;">
-                <a style="text-decoration: none;" href="#" id="user_attr_plus"
-                   onclick="moreUserAttrSynchFields()">
-                    <span class="dashicons dashicons-plus-alt"></span>
-                    <?php _e('Add more attributes', WCPROTOSL_TEXT_DOMAIN) ?>
-                </a>
-                <a style="display: none;  text-decoration: none; " href="#" id="user_attr_less"
-                   onclick="lessUserAttrSynchFields()">
-                    <span class="dashicons dashicons-no"></span>
-                    <?php _e('Remove ', WCPROTOSL_TEXT_DOMAIN); ?>
-                </a>
+            <div class="buttons_section">
+                <button type="button" class="btn btn-outline-primary" id="userAttributesAdd" onclick="addFields()">
+                    <?php _e('Add section', WCPROTOSL_TEXT_DOMAIN); ?>
+                </button>
+                <button type="button" class="btn btn-outline-danger" id="userAttributesDel" onclick="removeFields()">
+                    <?php _e('Remove section', WCPROTOSL_TEXT_DOMAIN); ?>
+                </button>
             </div>
+
         <?php else : ?>
             <?php settings_fields($api_field_group); ?>
             <?php do_settings_sections($api_field_group); ?>
@@ -53,5 +66,6 @@
 
         <input type="submit" name="submit" id="submit" class="btn btn-outline-primary mt-4"
                value="<?= __('Save Changes', WCPROTOSL_TEXT_DOMAIN) ?>">
+
     </form>
 </div>

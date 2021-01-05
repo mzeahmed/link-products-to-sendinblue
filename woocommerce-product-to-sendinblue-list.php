@@ -20,7 +20,32 @@
 
 defined('ABSPATH') || die;
 
-require_once __DIR__ . '/src/constants.php';
+require_once __DIR__ . '/vendor/autoload.php';
+
+! function_exists('get_plugin_data') ? require_once ABSPATH . 'wp-admin/includes/plugin.php' : null;
+
+$plugin_data = get_plugin_data(__FILE__);
+
+define(
+    'WCPROTOSL_PLUGIN_BASENAME',
+    'woocommerce-product-to-sendinblue-list/woocommerce-product-to-sendinblue-list.php'
+);
+define('WCPROTOSL_VERSION', $plugin_data['Version']);
+define('WCPROTOSL_PATH', plugin_dir_path(__FILE__));
+define('WCPROTOSL_URL', plugin_dir_url(__FILE__));
+define('WCPROTOSL_PLUGIN_NAME', $plugin_data['Name']);
+define('WCPROTOSL_TEXT_DOMAIN', $plugin_data['TextDomain']);
+
+/*** Settings constants ***/
+// main settings
+define('WCPROTOSL_MAIN_OPTION', 'wcprotosl_main_option');
+
+// api key option
+define('WCPROTOSL_API_KEY_V3_OPTION', 'wcprotosl_api_key');
+
+// attributes synch options
+define('WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION', 'wcprotosl_woocommerce_customer_attributes');
+define('WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION', 'wcprotosl_sendinblue_contact_attributes');
 
 /**
  * @return false | \WcProToSL\WoocommerceProductToSendinblueList
@@ -29,9 +54,12 @@ require_once __DIR__ . '/src/constants.php';
 function woocommerce_product_to_sendinblue_list()
 {
     if ( ! is_plugin_active('woocommerce/woocommerce.php')) {
-        add_action('admin_notices', function () {
-            return \WcProToSL\View\View::render('admin/woocommerce/dependency-notice', []);
-        });
+        add_action(
+            'admin_notices',
+            function () {
+                return \WcProToSL\View\View::render('admin/woocommerce/dependency-notice', []);
+            }
+        );
     }
 
     return \WcProToSL\WoocommerceProductToSendinblueList::get_instance();

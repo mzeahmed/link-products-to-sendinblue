@@ -91,16 +91,16 @@ class ApiManager
 
             $api_client->getUser($email);
 
-            if (Api::RESPONSE_CODE_OK === $api_client->getLastResponseCode()) {
+            if (Api::WCPROTOSL_RESPONSE_CODE_OK === $api_client->getLastResponseCode()) {
                 unset($data["email"]);
-                $response = $api_client->updateUser($email, $data);
+                 $api_client->updateUser($email, $data);
             } else {
-                $response = $api_client->createUser($data);
+                 $api_client->createUser($data);
             }
 
             if (in_array(
                 $api_client->getLastResponseCode(),
-                [Api::RESPONSE_CODE_UPDATED, Api::RESPONSE_CODE_CREATED]
+                [Api::WCPROTOSL_RESPONSE_CODE_UPDATED, Api::WCPROTOSL_RESPONSE_CODE_CREATED]
             )) {
                 return "success";
             } else {
@@ -123,7 +123,7 @@ class ApiManager
             $api = new Api();
             $account = $api->getAccount();
 
-            if ($api->getLastResponseCode() === Api::RESPONSE_CODE_OK && !empty($account['email'])) {
+            if ($api->getLastResponseCode() === Api::WCPROTOSL_RESPONSE_CODE_OK && !empty($account['email'])) {
                 $account_email = $account['email'];
 
                 $account_info = [

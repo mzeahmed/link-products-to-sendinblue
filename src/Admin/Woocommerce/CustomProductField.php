@@ -27,9 +27,9 @@ class CustomProductField
         krsort($this->lists);
 
         if ($this->api_key != false && !empty($this->api_key)) {
-            add_filter('woocommerce_product_data_tabs', [$this, 'custom_product_data_tab']);
-            add_action('woocommerce_product_data_panels', [$this, 'product_data_panel_render']);
-            add_action('woocommerce_process_product_meta', [$this, 'process_product_meta']);
+            add_filter('woocommerce_product_data_tabs', [$this, 'customProductDataTab']);
+            add_action('woocommerce_product_data_panels', [$this, 'productDataPanelRender']);
+            add_action('woocommerce_process_product_meta', [$this, 'processProductMeta']);
         }
     }
 
@@ -41,7 +41,7 @@ class CustomProductField
      * @return mixed
      * @since 1.0.0
      */
-    public function custom_product_data_tab($tabs)
+    public function customProductDataTab($tabs)
     {
         $tabs['sendinblue'] = [
             'label' => __('Sendinblue', WCPROTOSL_TEXT_DOMAIN),
@@ -59,7 +59,7 @@ class CustomProductField
      * @return string
      * @since 1.0.0
      */
-    public function product_data_panel_render(): string
+    public function productDataPanelRender(): string
     {
         $value = get_post_meta(get_the_ID(), '_wcprotosl_list') ?: '';
 
@@ -79,7 +79,7 @@ class CustomProductField
      *
      * @since 1.0.0
      */
-    public function process_product_meta($post_id)
+    public function processProductMeta($post_id)
     {
         $product = wc_get_product($post_id);
 

@@ -2,26 +2,21 @@
 
 namespace WcProToSL\Api;
 
-use WcProToSL\Admin\WcProToSL_Settings;
-
 class Api
 {
-    public const API_BASE_URL = 'https://api.sendinblue.com/v3';
-    public const HTTP_METHOD_GET = 'GET';
-    public const HTTP_METHOD_POST = 'POST';
-    public const HTTP_METHOD_PUT = 'PUT';
-    public const HTTP_METHOD_DELETE = 'DELETE';
-    public const RESPONSE_CODE_OK = 200;
-    public const RESPONSE_CODE_CREATED = 201;
-    public const RESPONSE_CODE_ACCEPTED = 202;
-    public const RESPONSE_CODE_UPDATED = 204;
+    public const WCPROTOSL_API_BASE_URL = 'https://api.sendinblue.com/v3';
+    public const WCPROTOSL_HTTP_METHOD_GET = 'GET';
+    public const WCPROTOSL_HTTP_METHOD_POST = 'POST';
+    public const WCPROTOSL_HTTP_METHOD_PUT = 'PUT';
+    public const WCPROTOSL_HTTP_METHOD_DELETE = 'DELETE';
+    public const WCPROTOSL_RESPONSE_CODE_OK = 200;
+    public const WCPROTOSL_RESPONSE_CODE_CREATED = 201;
+    public const WCPROTOSL_RESPONSE_CODE_ACCEPTED = 202;
+    public const WCPROTOSL_RESPONSE_CODE_UPDATED = 204;
 
-    /**
-     * @var false|mixed|void
-     */
     public $apiKey;
 
-    private $lastResponseCode;
+    private int $lastResponseCode;
 
     public function __construct()
     {
@@ -115,7 +110,7 @@ class Api
             $endpoint .= '?' . http_build_query($parameters);
         }
 
-        return $this->makeHttpRequest(self::HTTP_METHOD_GET, $endpoint);
+        return $this->makeHttpRequest(self::WCPROTOSL_HTTP_METHOD_GET, $endpoint);
     }
 
     /**
@@ -126,7 +121,7 @@ class Api
      */
     public function post($endpoint, $data = [])
     {
-        return $this->makeHttpRequest(self::HTTP_METHOD_POST, $endpoint, $data);
+        return $this->makeHttpRequest(self::WCPROTOSL_HTTP_METHOD_POST, $endpoint, $data);
     }
 
     /**
@@ -137,7 +132,7 @@ class Api
      */
     public function put($endpoint, $data = [])
     {
-        return $this->makeHttpRequest(self::HTTP_METHOD_PUT, $endpoint, $data);
+        return $this->makeHttpRequest(self::WCPROTOSL_HTTP_METHOD_PUT, $endpoint, $data);
     }
 
     /**
@@ -149,7 +144,7 @@ class Api
      */
     private function makeHttpRequest($method, $endpoint, $body = [])
     {
-        $url = self::API_BASE_URL . $endpoint;
+        $url = self::WCPROTOSL_API_BASE_URL . $endpoint;
 
         $args = [
             'method'  => $method,
@@ -159,7 +154,7 @@ class Api
             ],
         ];
 
-        if ($method != self::HTTP_METHOD_GET && $method != self::HTTP_METHOD_DELETE) {
+        if ($method != self::WCPROTOSL_HTTP_METHOD_GET && $method != self::WCPROTOSL_HTTP_METHOD_DELETE) {
             if (isset($body['listIds'])) {
                 $body['listIds'] = array_map('intval', (array)$body['listIds']);
             }
