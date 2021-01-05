@@ -6,8 +6,8 @@ Link a WooCommerce product to a specific Sendinblue list to add the customer to 
 - product 'foo' => sendinblue list 'foo'
 - product 'bar' => sendinblue list 'bar'
 
-![alt text](https://user-images.githubusercontent.com/45328592/102016684-61b0d400-3d62-11eb-9a16-6774e41e41ed.png)
+![produit1](https://user-images.githubusercontent.com/45328592/103710313-036bbf80-4fb5-11eb-9f0b-18d6dd0e19d8.png)
 
-![alt text](https://user-images.githubusercontent.com/45328592/102016700-72f9e080-3d62-11eb-91db-c39b42c101ef.png)
+![produit2](https://user-images.githubusercontent.com/45328592/103710347-17afbc80-4fb5-11eb-9c13-f1704a327212.png)
 
-![alt text](https://user-images.githubusercontent.com/45328592/102016895-a5580d80-3d63-11eb-9254-abb32cb4f4bd.png)
+![produits](https://user-images.githubusercontent.com/45328592/103710377-27c79c00-4fb5-11eb-9561-0cb28560c274.png)
