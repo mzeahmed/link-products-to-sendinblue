@@ -67,7 +67,7 @@ final class WoocommerceProductToSendinblueList
                 load_plugin_textdomain(
                     WCPROTOSL_TEXT_DOMAIN,
                     false,
-                    WCPROTOSL_PATH . '/langages'
+                    WCPROTOSL_PATH . 'langages'
                 );
             }
         );
