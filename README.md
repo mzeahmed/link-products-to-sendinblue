@@ -1,16 +1,19 @@
 # Woocommerce product to Sendinlue list
 
-Link a WooCommerce product to a specific Sendinblue list to add the customer to that list
+Link your products to your Sendinblue lists and synchronize your customers after payment validation. 
+Manage your campaigns more easily according to your products.
 
-### Example
-- product 'foo' => sendinblue list 'foo'
-- product 'bar' => sendinblue list 'bar'
+### Choose which list you want to link to your product
 
 ![produit1](https://user-images.githubusercontent.com/45328592/103710313-036bbf80-4fb5-11eb-9f0b-18d6dd0e19d8.png)
 
 ![produit2](https://user-images.githubusercontent.com/45328592/103710347-17afbc80-4fb5-11eb-9c13-f1704a327212.png)
 
+### A quick look at the list related to your products
+
 ![produits](https://user-images.githubusercontent.com/45328592/103710377-27c79c00-4fb5-11eb-9561-0cb28560c274.png)
+
+### Choose the attributes to be synchronised
 
 ![reglages](https://user-images.githubusercontent.com/45328592/103710988-a4a74580-4fb6-11eb-82f2-e5fc378056a4.png)
 

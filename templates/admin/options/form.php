@@ -12,11 +12,11 @@
 
 <div class="wrap">
     <h2 class="nav-tab-wrapper">
-        <a href="?page=woocommerce_product_to_sendinblue_list"
+        <a href="?page=wc_product_to_sendinblue_list"
            class="nav-tab <?= $tab == $api_field_group ? 'nav-tab-active' : ''; ?>">
             <?php _e('API Key', WCPROTOSL_TEXT_DOMAIN); ?>
         </a>
-        <a href="?page=woocommerce_product_to_sendinblue_list&tab=user_attributes"
+        <a href="?page=wc_product_to_sendinblue_list&tab=user_attributes"
            class="nav-tab <?= $tab == 'user_attributes' ? 'nav-tab-active' : ''; ?>">
             <?php _e('User attributes synch', WCPROTOSL_TEXT_DOMAIN); ?>
         </a>

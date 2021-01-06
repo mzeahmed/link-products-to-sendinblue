@@ -16,7 +16,7 @@
                 'To use WooCommerce Product To Sendinblue List, please enter your <a href="%s">API v3 Access key</a>.',
                 WCPROTOSL_TEXT_DOMAIN
             ),
-            admin_url('options-general.php?page=woocommerce_product_to_sendinblue_list')
+            admin_url('options-general.php?page=wc_product_to_sendinblue_list')
         );
         ?>
     </p>

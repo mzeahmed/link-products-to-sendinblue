@@ -13,14 +13,14 @@ use WcProToSL\View\View;
  */
 class WcProToSL_Settings
 {
-    const WCPROTOSL_API_KEY_GROUP = 'woocommerce_product_to_sendinblue_list';
+    const WCPROTOSL_API_KEY_GROUP = 'wc_product_to_sendinblue_list';
 
     public string $nonce_action;
 
     public function __construct()
     {
         $this->nonce_action = admin_url(
-            'options-general.php?page=woocommerce_product_to_sendinblue_list&tab=user_attributes'
+            'options-general.php?page=wc_product_to_sendinblue_list&tab=user_attributes'
         );
 
         add_action('admin_menu', [$this, 'addMenu']);
@@ -35,8 +35,8 @@ class WcProToSL_Settings
 
         //        delete_option(WCPROTOSL_CUSTOMER_ATTRIBUTES_OPTION);
         //        delete_option(WCPROTOSL_SENDINBLUE_ATTRIBUTES_OPTION);
-//                delete_transient('wcprotosl_attributes');
-//                delete_transient('wcprotosl_client_credit_' . md5(get_option(WCPROTOSL_API_KEY_V3_OPTION)));
+        //        delete_transient('wcprotosl_attributes');
+        //        delete_transient('wcprotosl_client_credit_' . md5(get_option(WCPROTOSL_API_KEY_V3_OPTION)));
     }
 
     /**
@@ -209,7 +209,7 @@ class WcProToSL_Settings
     public function pluginActionLinks($links)
     {
         $settings_links = [
-            '<a href="' . admin_url('options-general.php?page=woocommerce_product_to_sendinblue_list') . '">' .
+            '<a href="' . admin_url('options-general.php?page=wc_product_to_sendinblue_list') . '">' .
             esc_html__('Settings', WCPROTOSL_TEXT_DOMAIN) . '</a>',
         ];
 

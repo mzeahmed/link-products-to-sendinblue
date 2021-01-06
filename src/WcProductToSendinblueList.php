@@ -12,14 +12,14 @@ use WcProToSL\Api\Api;
  * @package WcProToSL
  * @since   1.0.8
  */
-final class WoocommerceProductToSendinblueList
+final class WcProductToSendinblueList
 {
     /**
-     * Instance of Woocommerce_Product_To_Sendinblue_List
+     * Instance of Wc_Product_To_Sendinblue_List
      *
-     * @var WoocommerceProductToSendinblueList|null $instance create only one instance from plugin primary class
+     * @var WcProductToSendinblueList|null $instance create only one instance from plugin primary class
      */
-    private static ?WoocommerceProductToSendinblueList $instance = null;
+    private static ?WcProductToSendinblueList $instance = null;
 
     public string $request_uri;
     public array $array;
@@ -38,10 +38,10 @@ final class WoocommerceProductToSendinblueList
     /**
      * Getting instance This Class is a singleton class
      *
-     * @return WoocommerceProductToSendinblueList
+     * @return WcProductToSendinblueList
      * @since 1.0.8
      */
-    public static function get_instance(): WoocommerceProductToSendinblueList
+    public static function get_instance(): WcProductToSendinblueList
     {
         if (is_null((self::$instance))) {
             self::$instance = new self();
@@ -78,7 +78,7 @@ final class WoocommerceProductToSendinblueList
      */
     public function enqueueStyles()
     {
-        if (str_contains($this->array[3], 'woocommerce_product_to_sendinblue_list')) {
+        if (str_contains($this->array[3], 'wc_product_to_sendinblue_list')) {
             wp_enqueue_style(
                 'wcprotosl_bootstrap',
                 WCPROTOSL_URL . 'assets/vendor/bootstrap/css/bootstrap.min.css',
@@ -88,7 +88,7 @@ final class WoocommerceProductToSendinblueList
             );
 
             wp_enqueue_style(
-                'woocommerce-product-to-sendinblue-list',
+                'wc_product_to_sendinblue_list',
                 WCPROTOSL_URL . 'assets/css/app.css',
                 [],
                 WCPROTOSL_VERSION,
@@ -102,9 +102,9 @@ final class WoocommerceProductToSendinblueList
      */
     public function enqueueScripts()
     {
-        if (str_contains($this->array[3], 'woocommerce_product_to_sendinblue_list')) {
+        if (str_contains($this->array[3], 'wc_product_to_sendinblue_list')) {
             wp_enqueue_script(
-                'woocommerce-product-to-sendinblue-list',
+                'wc_product_to_sendinblue_list',
                 WCPROTOSL_URL . 'assets/js/app.js',
                 ['jquery'],
                 WCPROTOSL_VERSION,

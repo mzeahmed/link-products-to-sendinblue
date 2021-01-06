@@ -1,48 +1,51 @@
-v 1.1.3 06 january 2021
-- Added: New images on README.md 
+= 1.1.4 - 7 january 2021 =
+* Improved: Rename repository and plugin name
 
-v 1.1.2 06 january 2021
-- Improved: README.md
+= 1.1.3 - 06 january 2021 =
+* Added: New images on README.md
 
-v 1.1.1 06 january 2021
-- Fixed: Translation load
+= 1.1.2 - 06 january 2021 =
+* Improved: README.md
 
-v 1.1.0 05 january 2021
-- Added: Option to choose attributes to be automatically synchronized to Sendinblue
-- Improved: Javascript functions
+= 1.1.1 - 06 january 2021 =
+* Fixed: Translation load
 
-v 1.0.9 30 december 2020
-- Fixed: Display of plugin's settings link
+= 1.1.0 - 05 january 2021 =
+* Added: Option to choose attributes to be automatically synchronized to Sendinblue
+* Improved: Javascript functions
 
-v 1.0.8 30 december 2020
-- Removed: Laravel mix and Carbon Fields
-- Added: Notice if WooCommerce is not active
-- Improved: plugin structure
+= 1.0.9 - 30 december 2020 =
+* Fixed: Display of plugin's settings link
 
-v 1.0.7 19 december 2020
-- Added: Button to disconnecte Sendinblue account
-- Added: Main option
-- Improved: Refactoring some classes
+= 1.0.8 - 30 december 2020 =
+* Removed: Laravel mix and Carbon Fields
+* Added: Notice if WooCommerce is not active
+* Improved: plugin structure
 
-v 1.0.6 14 december 2020
-- Improved: renaming of plugin and repository name to make it more explicit
+= 1.0.7 - 19 december 2020 =
+* Added: Button to disconnecte Sendinblue account
+* Added: Main option
+* Improved: Refactoring some classes
 
-v 1.0.5 - 13 december 2020
-- Improved: add images to README.md
+= 1.0.6 - 14 december 2020 =
+* Improved: renaming of plugin and repository name to make it more explicit
 
-v 1.0.4 - 13 december 2020
-- Added: Product column to display product linked list
+= 1.0.5 - 13 december 2020 =
+* Improved: add images to README.md
 
-v 1.0.3 - 13 december 2020
-- Improved: Add default value to list product field
-- Improved: French translation
+= 1.0.4 - 13 december 2020 =
+* Added: Product column to display product linked list
 
-v 1.0.2 - 10 december 2020
-- Added: Laravel mix
-- Improved: Some french string characteres to english
+= 1.0.3 - 13 december 2020 =
+* Improved: Add default value to list product field
+* Improved: French translation
 
-v 1.0.1 - 10 december 2020
-- Improved: README.md
+= 1.0.2 - 10 december 2020 =
+* Added: Laravel mix
+* Improved: Some french string characteres to english
 
-v 1.0.0 - 9 december 2020
-- Initial release
+= 1.0.1 - 10 december 2020 =
+* Improved: README.md
+
+= 1.0.0 - 9 december 2020 =
+* Initial release

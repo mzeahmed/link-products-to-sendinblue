@@ -1,11 +1,11 @@
 {
-    "name": "mzeahmed/woocommerce-product-to-sendinblue-list",
+    "name": "mzeahmed/wc-product-to-sendinblue-list",
     "description": "",
     "keywords": [
         "wordpress",
         "plugin"
     ],
-    "homepage": "https://github.com/mzeahmed/woocommerce-product-to-sendinblue-list",
+    "homepage": "https://github.com/mzeahmed/wc-product-to-sendinblue-list",
     "authors": [
         {
             "name": "Ahmed Mze",
@@ -19,7 +19,7 @@
     },
     "type": "wordpress-plugin",
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.4",
         "ext-json": "*"
     },
     "config": {

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product To Sendinblue List\n"
-"POT-Creation-Date: 2021-01-06 00:01+0100\n"
-"PO-Revision-Date: 2021-01-06 00:02+0100\n"
+"Project-Id-Version: WC Product To Sendinblue List\n"
+"POT-Creation-Date: 2021-01-07 00:01+0100\n"
+"PO-Revision-Date: 2021-01-07 00:02+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: woocommerce-product-to-sendinblue-list.php\n"
+"X-Poedit-WPHeader: wc-product-to-sendinblue-list.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
@@ -26,6 +26,7 @@ msgstr ""
 msgid "WC Product To Sendinblue list settings"
 msgstr "Paramètres de WC Product To Sendinblue list"
 
+#. Plugin Name of the plugin/theme
 #: src/Admin/WcProToSL_Settings.php:52
 msgid "WC Product To Sendinblue List"
 msgstr "WC Product To Sendinblue List"
@@ -66,6 +67,26 @@ msgstr "Sélectionnes une liste"
 #: src/Admin/Woocommerce/CustomProductField.php:47
 msgid "Sendinblue"
 msgstr "Sendinblue"
+
+#: src/version-compare.php:4
+msgid "Error"
+msgstr "Erreur"
+
+#: src/version-compare.php:12
+msgid "Please install 7.4 or higher"
+msgstr "Veuillez installer la version 7.4 ou supérieure"
+
+#: src/version-compare.php:13
+msgid "Incompatible PHP version"
+msgstr "Version PHP incompatible"
+
+#: src/version-compare.php:20
+msgid "Please install 5.1 or higher"
+msgstr "Veuillez installer la version 5.1 ou supérieure"
+
+#: src/version-compare.php:21
+msgid "Incompatible WordPress version"
+msgstr "Version WordPress incompatible"
 
 #: templates/admin/options/form.php:21
 msgid "User attributes synch"
@@ -130,14 +151,10 @@ msgstr ""
 msgid "The customer will be added to this list"
 msgstr "Le client sera ajouté à cette liste"
 
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Product To Sendinblue List"
-msgstr "WooCommerce Product To Sendinblue List"
-
 #. Plugin URI of the plugin/theme
 #, fuzzy
-msgid "https://github.com/mzeahmed/woocommerce-product-to-sendinblue-list"
-msgstr "https://github.com/mzeahmed/woocommerce-product-to-sendinblue-list"
+msgid "https://github.com/mzeahmed/wc-product-to-sendinblue-list"
+msgstr "https://github.com/mzeahmed/wc-product-to-sendinblue-list"
 
 #. Description of the plugin/theme
 msgid ""
