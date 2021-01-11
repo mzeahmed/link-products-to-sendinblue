@@ -3,15 +3,17 @@
 Link your products to your Sendinblue contact lists and synchronize your customers after payment validation.
 Manage your campaigns more easily according to your products.
 
-### Example
-- product 'foo' => sendinblue list 'foo'
-- product 'bar' => sendinblue list 'bar'
+#### Link your prodct to your desired Sendinblue contact list
 
 ![produit1](https://user-images.githubusercontent.com/45328592/103710313-036bbf80-4fb5-11eb-9f0b-18d6dd0e19d8.png)
 
 ![produit2](https://user-images.githubusercontent.com/45328592/103710347-17afbc80-4fb5-11eb-9c13-f1704a327212.png)
 
+#### See which lists are linked to your products
+
 ![produits](https://user-images.githubusercontent.com/45328592/103710377-27c79c00-4fb5-11eb-9561-0cb28560c274.png)
+
+#### Choose the user attributes you want to synchronise
 
 ![reglages](https://user-images.githubusercontent.com/45328592/103710988-a4a74580-4fb6-11eb-82f2-e5fc378056a4.png)
 
