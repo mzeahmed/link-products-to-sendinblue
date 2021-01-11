@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WC Product To Sendinblue List\n"
-"POT-Creation-Date: 2021-01-07 00:01+0100\n"
-"PO-Revision-Date: 2021-01-07 00:02+0100\n"
+"Project-Id-Version: Link Products To Sendinblue Lists From Woocommerce\n"
+"POT-Creation-Date: 2021-01-09 00:47+0100\n"
+"PO-Revision-Date: 2021-01-09 00:48+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -13,45 +13,45 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: wc-product-to-sendinblue-list.php\n"
+"X-Poedit-WPHeader: link-products-to-sendinblue.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 
-#: src/Admin/WcProToSL_Settings.php:51
-msgid "WC Product To Sendinblue list settings"
-msgstr "Paramètres de WC Product To Sendinblue list"
+#: src/Admin/LPTS_Settings.php:46
+msgid "Link Products To Sendinblue Lists From Woocommerce settings"
+msgstr "Paramétrés de Link Products To Sendinblue Lists From Woocommerce "
 
 #. Plugin Name of the plugin/theme
-#: src/Admin/WcProToSL_Settings.php:52
-msgid "WC Product To Sendinblue List"
-msgstr "WC Product To Sendinblue List"
+#: src/Admin/LPTS_Settings.php:47
+msgid "Link Products To Sendinblue Lists From Woocommerce"
+msgstr "Link Products To Sendinblue Lists From Woocommerce"
 
-#: src/Admin/WcProToSL_Settings.php:72
+#: src/Admin/LPTS_Settings.php:67
 msgid "API v3 Access key"
 msgstr "Entrez votre clé API v3"
 
-#: src/Admin/WcProToSL_Settings.php:75
+#: src/Admin/LPTS_Settings.php:70
 #, php-format
 msgid "<p><a href=\"%s\" target=\"_blank\">Get your account API key</a></p>"
 msgstr ""
-"<p><a href=\"%s\" target=\"_blank\">Récuperz la clé API de votre compte</a></"
-"p>"
+"<p><a href=\"%s\" target=\"_blank\">Récuperz la clé API de votre compte</"
+"a></p>"
 
-#: src/Admin/WcProToSL_Settings.php:84 templates/admin/options/form.php:17
+#: src/Admin/LPTS_Settings.php:79 templates/admin/options/form.php:17
 msgid "API Key"
 msgstr "Clé API"
 
-#: src/Admin/WcProToSL_Settings.php:109
+#: src/Admin/LPTS_Settings.php:110
 #, php-format
 msgid "Sorry, nonce <strong>%s</strong> did not verify"
 msgstr "Désolé, le nonce <strong>%s</strong> n’a pas vérifié"
 
-#: src/Admin/WcProToSL_Settings.php:213
+#: src/Admin/LPTS_Settings.php:213
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -68,35 +68,35 @@ msgstr "Sélectionnes une liste"
 msgid "Sendinblue"
 msgstr "Sendinblue"
 
-#: src/version-compare.php:4
+#: src/version-compare.php:13
 msgid "Error"
 msgstr "Erreur"
 
-#: src/version-compare.php:12
+#: src/version-compare.php:21
 msgid "Please install 7.4 or higher"
 msgstr "Veuillez installer la version 7.4 ou supérieure"
 
-#: src/version-compare.php:13
+#: src/version-compare.php:22
 msgid "Incompatible PHP version"
 msgstr "Version PHP incompatible"
 
-#: src/version-compare.php:20
+#: src/version-compare.php:29
 msgid "Please install 5.1 or higher"
 msgstr "Veuillez installer la version 5.1 ou supérieure"
 
-#: src/version-compare.php:21
+#: src/version-compare.php:30
 msgid "Incompatible WordPress version"
 msgstr "Version WordPress incompatible"
 
-#: templates/admin/options/form.php:21
+#: templates/admin/options/form.php:20
 msgid "User attributes synch"
 msgstr "Synchronisation des attributs utilisateur"
 
-#: templates/admin/options/form.php:26
+#: templates/admin/options/form.php:25
 msgid "Unauthorized user"
 msgstr "Utilisateur non autorisé"
 
-#: templates/admin/options/form.php:30
+#: templates/admin/options/form.php:29
 msgid ""
 "Match the WooCommerce Customers attributes with your Sendinblue contacts "
 "attributes"
@@ -104,23 +104,23 @@ msgstr ""
 "Faites correspondre les attributs clients WooCommerce avec vos attributs de "
 "contacts Sendinblue"
 
-#: templates/admin/options/form.php:39
+#: templates/admin/options/form.php:38
 msgid "Woocommerce Customer Attributes"
 msgstr "Attributs clients Woocommerce"
 
-#: templates/admin/options/form.php:43
+#: templates/admin/options/form.php:42
 msgid "Sendinblue Contact Attributes"
 msgstr "Attributs de contact Sendinblue"
 
-#: templates/admin/options/form.php:55
+#: templates/admin/options/form.php:54
 msgid "Add section"
 msgstr "Ajouter une section"
 
-#: templates/admin/options/form.php:58
+#: templates/admin/options/form.php:57
 msgid "Remove section"
 msgstr "Supprimer la section"
 
-#: templates/admin/options/form.php:68
+#: templates/admin/options/form.php:66
 msgid "Save Changes"
 msgstr "Sauvegarder"
 
@@ -129,23 +129,24 @@ msgstr "Sauvegarder"
 msgid "xkeysib-...."
 msgstr "xkeysib-...."
 
-#: templates/admin/options/partials/notice.php:16
+#: templates/admin/options/partials/notice.php:17
 #, php-format
 msgid ""
-"To use WooCommerce Product To Sendinblue List, please enter your <a href=\"%s"
-"\">API v3 Access key</a>."
+"To use Link Products To Sendinblue Lists From Woocommerce plugin, please "
+"enter your <a href=\"%s\">API v3 Access key</a>."
 msgstr ""
-"Pour utiliser WooCommerce Product To Sendinblue List, veuillez entrer <a "
-"href=\"%s\">votre API v3 Clé d’accès</a>."
+"Pour utiliser l'extension Link Products To Sendinblue Lists From "
+"Woocommerce, veuillez entrer votre <a href=\"%s\">clé d’accès API v3</a>."
 
 #: templates/admin/woocommerce/dependency-notice.php:17
 #, php-format
 msgid ""
-"WooCommerce Product To Sendinblue List requires WooCommerce to be installed "
-"and active. You can download %s here."
+"Link Products To Sendinblue Lists From Woocommerce plugin requires "
+"WooCommerce to be installed and active. You can download %s here."
 msgstr ""
-"WooCommerce Product To Sendinblue List nécessite l’installation et "
-"l'activation de WooCommerce. Vous pouvez télécharger %s ici."
+"L'extension \"Link Products To Sendinblue Lists From Woocommerce\" "
+"nécessite woocommerce pour être installé et actif. Vous pouvez télécharger "
+"%s ici."
 
 #: templates/admin/woocommerce/product-sendinblue-panel.php:22
 msgid "The customer will be added to this list"
@@ -153,16 +154,16 @@ msgstr "Le client sera ajouté à cette liste"
 
 #. Plugin URI of the plugin/theme
 #, fuzzy
-msgid "https://github.com/mzeahmed/wc-product-to-sendinblue-list"
-msgstr "https://github.com/mzeahmed/wc-product-to-sendinblue-list"
+msgid "https://github.com/mzeahmed/link-products-to-sendinblue"
+msgstr "https://github.com/mzeahmed/link-products-to-sendinblue"
 
 #. Description of the plugin/theme
 msgid ""
-"Link WooCommerce product to a specific Sendinblue list to add the customer "
+"Link WooCommerce products to a specific Sendinblue list to add the customer "
 "to that list"
 msgstr ""
-"Relie le produit WooCommerce à une liste Sendinblue spécifique pour ajouter "
-"le client à cette liste"
+"Lier les produits WooCommerce à une liste Sendinblue spécifique pour "
+"ajouter le client à cette liste"
 
 #. Author of the plugin/theme
 msgid "Ahmed Mze"

@@ -1,8 +1,8 @@
 <?php
 
-namespace WcProToSL\Admin\Woocommerce;
+namespace LPTS\Admin\Woocommerce;
 
-use WcProToSL\Api\ApiManager;
+use LPTS\Api\ApiManager;
 
 class PaymentComplete
 {
@@ -11,7 +11,7 @@ class PaymentComplete
 
     public function __construct()
     {
-        $option                          = get_option(WCPROTOSL_MAIN_OPTION);
+        $option                          = get_option(LPTS_MAIN_OPTION);
         $this->lists                     = ApiManager::get_lists();
         $this->client_matched_attributes = $option['client_matched_attributes'];
 
@@ -45,7 +45,7 @@ class PaymentComplete
             $data = $item->get_data();
 
             // recovery the Sendinblue list linked to the product
-            $postmeta = get_post_meta($data['product_id'], '_wcprotosl_list');
+            $postmeta = get_post_meta($data['product_id'], '_lpts_list');
             $list_id  = implode('', $postmeta);
 
             if ($postmeta) {

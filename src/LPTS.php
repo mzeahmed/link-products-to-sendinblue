@@ -1,25 +1,24 @@
 <?php
 
-namespace WcProToSL;
+namespace LPTS;
 
-use WcProToSL\Admin\WcProToSL_Settings;
-use WcProToSL\Admin\Woocommerce\CustomProductColumn;
-use WcProToSL\Admin\Woocommerce\CustomProductField;
-use WcProToSL\Admin\Woocommerce\PaymentComplete;
-use WcProToSL\Api\Api;
+use LPTS\Admin\LPTS_Settings;
+use LPTS\Admin\Woocommerce\CustomProductColumn;
+use LPTS\Admin\Woocommerce\CustomProductField;
+use LPTS\Admin\Woocommerce\PaymentComplete;
 
 /**
- * @package WcProToSL
+ * @package LPTS
  * @since   1.0.8
  */
-final class WcProductToSendinblueList
+final class LPTS
 {
     /**
-     * Instance of Wc_Product_To_Sendinblue_List
+     * Instance of LPTS
      *
-     * @var WcProductToSendinblueList|null $instance create only one instance from plugin primary class
+     * @var LPTS|null $instance create only one instance from plugin primary class
      */
-    private static ?WcProductToSendinblueList $instance = null;
+    private static ?LPTS $instance = null;
 
     public string $request_uri;
     public array $array;
@@ -29,7 +28,7 @@ final class WcProductToSendinblueList
         $this->request_uri = $_SERVER['REQUEST_URI'];
         $this->array       = explode('/', $this->request_uri);
 
-        add_action('plugins_loaded', [$this, 'init']);
+        add_action('init', [$this, 'load']);
 
         add_action('admin_enqueue_scripts', [$this, 'enqueueStyles']);
         add_action('admin_enqueue_scripts', [$this, 'enqueueScripts']);
@@ -38,10 +37,10 @@ final class WcProductToSendinblueList
     /**
      * Getting instance This Class is a singleton class
      *
-     * @return WcProductToSendinblueList
+     * @return LPTS
      * @since 1.0.8
      */
-    public static function get_instance(): WcProductToSendinblueList
+    public static function get_instance(): LPTS
     {
         if (is_null((self::$instance))) {
             self::$instance = new self();
@@ -51,12 +50,13 @@ final class WcProductToSendinblueList
     }
 
     /**
+     * Loads the necessary classes of the plugin
+     *
      * @since 1.0.8
      */
-    public function init()
+    public function load()
     {
-        new Api();
-        new WcProToSL_Settings();
+        new LPTS_Settings();
         new CustomProductField();
         new PaymentComplete();
         new CustomProductColumn();
@@ -65,49 +65,53 @@ final class WcProductToSendinblueList
             'init',
             function () {
                 load_plugin_textdomain(
-                    WCPROTOSL_TEXT_DOMAIN,
+                    LPTS_TEXT_DOMAIN,
                     false,
-                    WCPROTOSL_PATH . 'langages'
+                    LPTS_PATH . 'langages'
                 );
             }
         );
     }
 
     /**
+     * Load plugin stylesheet
+     *
      * @since 1.0.0
      */
     public function enqueueStyles()
     {
-        if (str_contains($this->array[3], 'wc_product_to_sendinblue_list')) {
+        if (str_contains($this->array[3], 'link_products_to_sendinblue')) {
             wp_enqueue_style(
-                'wcprotosl_bootstrap',
-                WCPROTOSL_URL . 'assets/vendor/bootstrap/css/bootstrap.min.css',
+                'lpts_bootstrap',
+                LPTS_URL . 'assets/vendor/bootstrap/css/bootstrap.min.css',
                 [],
-                WCPROTOSL_VERSION,
+                LPTS_VERSION,
                 'all'
             );
 
             wp_enqueue_style(
-                'wc_product_to_sendinblue_list',
-                WCPROTOSL_URL . 'assets/css/app.css',
+                'link_products_to_sendinblue',
+                LPTS_URL . 'assets/css/app.css',
                 [],
-                WCPROTOSL_VERSION,
+                LPTS_VERSION,
                 'all'
             );
         }
     }
 
     /**
+     * Load plugin scipt
+     *
      * @since 1.0.0
      */
     public function enqueueScripts()
     {
-        if (str_contains($this->array[3], 'wc_product_to_sendinblue_list')) {
+        if (str_contains($this->array[3], 'link_products_to_sendinblue')) {
             wp_enqueue_script(
-                'wc_product_to_sendinblue_list',
-                WCPROTOSL_URL . 'assets/js/app.js',
+                'link_products_to_sendinblue',
+                LPTS_URL . 'assets/js/app.js',
                 ['jquery'],
-                WCPROTOSL_VERSION,
+                LPTS_VERSION,
                 true
             );
         }

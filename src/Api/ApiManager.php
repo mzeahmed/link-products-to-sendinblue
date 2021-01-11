@@ -1,6 +1,6 @@
 <?php
 
-namespace WcProToSL\Api;
+namespace LPTS\Api;
 
 use Exception;
 
@@ -33,7 +33,7 @@ class ApiManager
      */
     public static function get_attributes(): array
     {
-        $attrs = get_transient('wcprotosl_attributes' . md5(get_option(WCPROTOSL_API_KEY_V3_OPTION)));
+        $attrs = get_transient('lpts_attributes' . md5(get_option(LPTS_API_KEY_V3_OPTION)));
 
         if ($attrs === false || $attrs == false) {
             $api_client = new Api();
@@ -58,7 +58,7 @@ class ApiManager
             }
 
             set_transient(
-                'wcprotosl_attributes' . md5(get_option(WCPROTOSL_API_KEY_V3_OPTION)),
+                'lpts_attributes' . md5(get_option(LPTS_API_KEY_V3_OPTION)),
                 $attrs,
                 self::DELAYTIME
             );
@@ -91,7 +91,7 @@ class ApiManager
 
             $api_client->getUser($email);
 
-            if (Api::WCPROTOSL_RESPONSE_CODE_OK === $api_client->getLastResponseCode()) {
+            if (Api::LPTS_RESPONSE_CODE_OK === $api_client->getLastResponseCode()) {
                 unset($data["email"]);
                  $api_client->updateUser($email, $data);
             } else {
@@ -100,7 +100,7 @@ class ApiManager
 
             if (in_array(
                 $api_client->getLastResponseCode(),
-                [Api::WCPROTOSL_RESPONSE_CODE_UPDATED, Api::WCPROTOSL_RESPONSE_CODE_CREATED]
+                [Api::LPTS_RESPONSE_CODE_UPDATED, Api::LPTS_RESPONSE_CODE_CREATED]
             )) {
                 return "success";
             } else {
@@ -117,13 +117,13 @@ class ApiManager
     public static function get_account_info()
     {
         $account_info =
-            get_transient('wcprotosl_client_credit_' . md5(get_option(WCPROTOSL_API_KEY_V3_OPTION)));
+            get_transient('lpts_client_credit_' . md5(get_option(LPTS_API_KEY_V3_OPTION)));
 
         if ($account_info === false || $account_info == false) {
             $api = new Api();
             $account = $api->getAccount();
 
-            if ($api->getLastResponseCode() === Api::WCPROTOSL_RESPONSE_CODE_OK && !empty($account['email'])) {
+            if ($api->getLastResponseCode() === Api::LPTS_RESPONSE_CODE_OK && !empty($account['email'])) {
                 $account_email = $account['email'];
 
                 $account_info = [
@@ -133,10 +133,10 @@ class ApiManager
                     'account_data' => $account['plan']
                 ];
             } else {
-                delete_option(WCPROTOSL_API_KEY_V3_OPTION);
+                delete_option(LPTS_API_KEY_V3_OPTION);
             }
 
-            set_transient('wcprotosl_client_credit_' . md5(get_option(WCPROTOSL_API_KEY_V3_OPTION)),
+            set_transient('lpts_client_credit_' . md5(get_option(LPTS_API_KEY_V3_OPTION)),
                 $account_info,
                 self::DELAYTIME);
         }

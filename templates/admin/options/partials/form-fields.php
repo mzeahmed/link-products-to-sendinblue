@@ -3,7 +3,7 @@
 /**
  * Form fields patial
  *
- * @package WcProToSL
+ * @package LPTS
  * @since   1.0.7
  */
 
@@ -12,22 +12,22 @@
 <?php if (empty($matched_attributes)): ?>
     <tr class="attributes_match_row">
         <td>
-            <select name="wcprotosl_woocommerce_customer_attributes[]" id="wcprotosl_woocommerce_customer_attributes"
+            <select name="lpts_woocommerce_customer_attributes[]" id="lpts_woocommerce_customer_attributes"
                     class="form-select">
                 <?php foreach ($customer_fields['billing']['fields'] as $id => $label): ?>
                     <option value="<?php echo $id ? $id : ''; ?>">
-                        <?php echo $label['label'] ? $label['label'] : ''; ?>
+                        <?php echo $label['label'] ? esc_attr($label['label']) : ''; ?>
                     </option>
                 <?php endforeach; ?>
             </select>
         </td>
         <td class="text-center"><span class="dashicons dashicons-leftright"></span></td>
         <td>
-            <select name="wcprotosl_sendinblue_contact_attributes[]" id="wcprotosl_sendinblue_contact_attributes"
+            <select name="lpts_sendinblue_contact_attributes[]" id="lpts_sendinblue_contact_attributes"
                     class="form-select">
                 <?php foreach ($contact_attributes as $attribute): ?>
                     <option value="<?= $attribute['name'] ? $attribute['name'] : ''; ?>">
-                        <?php echo $attribute['name'] ? $attribute['name'] : ''; ?>
+                        <?php echo $attribute['name'] ? esc_attr($attribute['name']) : ''; ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -38,8 +38,8 @@
     <?php foreach ($matched_attributes as $k => $v): ?>
         <tr class="attributes_match_row">
             <td>
-                <select name="wcprotosl_woocommerce_customer_attributes[]" class="form-select"
-                        id="wcprotosl_woocommerce_customer_attributes">
+                <select name="lpts_woocommerce_customer_attributes[]" class="form-select"
+                        id="lpts_woocommerce_customer_attributes">
                     <?php foreach ($customer_fields['billing']['fields'] as $id => $label): ?>
                         <option value="<?php echo $id ? $id : ''; ?>"
                             <?php if ($k == $id) {
@@ -55,7 +55,7 @@
             </td>
             <td class="text-center"><span class="dashicons dashicons-leftright"></span></td>
             <td>
-                <select name="wcprotosl_sendinblue_contact_attributes[]" id="wcprotosl_sendinblue_contact_attributes"
+                <select name="lpts_sendinblue_contact_attributes[]" id="lpts_sendinblue_contact_attributes"
                         class="form-select">
                     <?php foreach ($contact_attributes as $attribute): ?>
                         <option value="<?= $attribute['name'] ? $attribute['name'] : ''; ?>"

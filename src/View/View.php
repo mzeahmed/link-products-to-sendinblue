@@ -1,11 +1,11 @@
 <?php
 
-namespace WcProToSL\View;
+namespace LPTS\View;
 
 /**
  * Class View
  *
- * @package WcProToSL\View
+ * @package LPTS\View
  */
 class View
 {
@@ -40,6 +40,6 @@ class View
      */
     private static function getTemplatePath(): string
     {
-        return WCPROTOSL_PATH . 'templates' . DIRECTORY_SEPARATOR;
+        return LPTS_PATH . 'templates' . DIRECTORY_SEPARATOR;
     }
 }

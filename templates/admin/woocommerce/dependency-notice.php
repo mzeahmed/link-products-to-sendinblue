@@ -2,7 +2,7 @@
 /**
  * Dependency notice view
  *
- * @package WcProToSL
+ * @package LPTS
  * @since   1.0.8
  */
 
@@ -13,9 +13,9 @@
         <strong>
             <?php
             printf(
-                esc_html__(
-                    'WooCommerce Product To Sendinblue List requires WooCommerce to be installed and active. You can download %s here.',
-                    WCPROTOSL_TEXT_DOMAIN
+                __(
+                    'Link Products To Sendinblue Lists From Woocommerce plugin requires WooCommerce to be installed and active. You can download %s here.',
+                    LPTS_TEXT_DOMAIN
                 ),
                 '<a href="https://wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a>'
             );

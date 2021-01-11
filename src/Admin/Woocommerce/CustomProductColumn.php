@@ -1,8 +1,8 @@
 <?php
 
-namespace WcProToSL\Admin\Woocommerce;
+namespace LPTS\Admin\Woocommerce;
 
-use WcProToSL\Api\ApiManager;
+use LPTS\Api\ApiManager;
 
 class CustomProductColumn
 {
@@ -26,7 +26,7 @@ class CustomProductColumn
      */
     public function productsListColumn($columns)
     {
-        $columns['list'] = __('List', WCPROTOSL_TEXT_DOMAIN);
+        $columns['list'] = __('List', LPTS_TEXT_DOMAIN);
 
         return $columns;
     }
@@ -42,7 +42,7 @@ class CustomProductColumn
     public function productsListColumnContent($column, $product_id)
     {
         if ($column == 'list') {
-            $product_list_id = get_post_meta($product_id, '_wcprotosl_list', true);
+            $product_list_id = get_post_meta($product_id, '_lpts_list', true);
 
             // we check if $product_list_id exist in $this->sendinblue_lists
             // if true we echo the value(list name)

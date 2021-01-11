@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'WcProToSL\\' => array($baseDir . '/src'),
+    'LPTS\\' => array($baseDir . '/src'),
 );

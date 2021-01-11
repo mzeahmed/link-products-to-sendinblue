@@ -2,13 +2,13 @@
 /**
  * Api key field partial
  *
- * @package WcProToSL
+ * @package LPTS
  * @since   1.0.5
  */
 
 ?>
 
 <div class="input-group">
-    <input class="form-control" placeholder="<?= __('xkeysib-....', WCPROTOSL_TEXT_DOMAIN) ?>" type="text"
-           name="wcprotosl_api_key" size="105" value="<?= $api_key_v3 ?: ''; ?>"/>
+    <input class="form-control" placeholder="<?= __('xkeysib-....', LPTS_TEXT_DOMAIN) ?>" type="text"
+           name="lpts_api_key" size="105" value="<?= $api_key_v3 ?: ''; ?>"/>
 </div>

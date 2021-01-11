@@ -1,14 +1,14 @@
 <?php
 
-namespace WcProToSL\Admin\Woocommerce;
+namespace LPTS\Admin\Woocommerce;
 
-use WcProToSL\Api\ApiManager;
-use WcProToSL\View\View;
+use LPTS\Api\ApiManager;
+use LPTS\View\View;
 
 /**
  * Class CustomProductField
  *
- * @package WcProToSL\Admin\Woocommerce
+ * @package LPTS\Admin\Woocommerce
  */
 class CustomProductField
 {
@@ -18,10 +18,10 @@ class CustomProductField
     public function __construct()
     {
         $this->lists = ApiManager::get_lists();
-        $this->api_key = get_option(WCPROTOSL_API_KEY_V3_OPTION);
+        $this->api_key = get_option(LPTS_API_KEY_V3_OPTION);
 
         // push 'Select a list' to $this->list
-        array_push($this->lists, __('Select a list', WCPROTOSL_TEXT_DOMAIN));
+        array_push($this->lists, __('Select a list', LPTS_TEXT_DOMAIN));
 
         // we sort sendinblue list by key(id) in reverse order, to add 'Select a list' as first element of the array
         krsort($this->lists);
@@ -44,7 +44,7 @@ class CustomProductField
     public function customProductDataTab($tabs)
     {
         $tabs['sendinblue'] = [
-            'label' => __('Sendinblue', WCPROTOSL_TEXT_DOMAIN),
+            'label' => __('Sendinblue', LPTS_TEXT_DOMAIN),
             'target' => 'sendinblue_data_panel',
             'class' => ['hide_if_external'],
             'priority' => 100,
@@ -61,7 +61,7 @@ class CustomProductField
      */
     public function productDataPanelRender(): string
     {
-        $value = get_post_meta(get_the_ID(), '_wcprotosl_list') ?: '';
+        $value = get_post_meta(get_the_ID(), '_lpts_list') ?: '';
 
         return View::render(
             'admin/woocommerce/product-sendinblue-panel',
@@ -83,7 +83,7 @@ class CustomProductField
     {
         $product = wc_get_product($post_id);
 
-        $product->update_meta_data('_wcprotosl_list', sanitize_text_field($_POST['_selec_list']));
+        $product->update_meta_data('_lpts_list', sanitize_text_field($_POST['_selec_list']));
 
         $product->save();
     }

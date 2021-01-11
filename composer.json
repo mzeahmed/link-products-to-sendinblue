@@ -1,11 +1,11 @@
 {
-    "name": "mzeahmed/wc-product-to-sendinblue-list",
+    "name": "mzeahmed/link-products-to-sendinblue",
     "description": "",
     "keywords": [
         "wordpress",
         "plugin"
     ],
-    "homepage": "https://github.com/mzeahmed/wc-product-to-sendinblue-list",
+    "homepage": "https://github.com/mzeahmed/link-products-to-sendinblue",
     "authors": [
         {
             "name": "Ahmed Mze",
@@ -14,7 +14,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "WcProToSL\\": "src/"
+            "LPTS\\": "src/"
         }
     },
     "type": "wordpress-plugin",

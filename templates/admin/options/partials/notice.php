@@ -1,8 +1,9 @@
 <?php
+
 /**
- * Notice view
+ * Empty api key notice view
  *
- * @package WcProToSL
+ * @package LPTS
  * @since   1.0.0
  */
 
@@ -13,10 +14,10 @@
         <?php
         printf(
             __(
-                'To use WooCommerce Product To Sendinblue List, please enter your <a href="%s">API v3 Access key</a>.',
-                WCPROTOSL_TEXT_DOMAIN
+                'To use Link Products To Sendinblue Lists From Woocommerce plugin, please enter your <a href="%s">API v3 Access key</a>.',
+                LPTS_TEXT_DOMAIN
             ),
-            admin_url('options-general.php?page=wc_product_to_sendinblue_list')
+            admin_url('options-general.php?page=link_products_to_sendinblue')
         );
         ?>
     </p>
