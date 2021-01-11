@@ -14,9 +14,11 @@ Link your products to your Sendinblue contact lists and synchronize your custome
 Manage your campaigns more easily according to your products.
 
 == Screenshots ==
-
+1. Link your product to your desired Sendinblue contact list
+2. See which lists are linked to your products
+3. Choose user attributes you want to synchronise
 
 == Changelog ==
 
-= 1.1.4 - 11 january 2021
+= 1.0.0 - 11 january 2021
 * Initial release
