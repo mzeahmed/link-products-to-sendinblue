@@ -2,6 +2,12 @@
 
 namespace LPTS\Api;
 
+/**
+ * Connecte to the Sendinblue API
+ *
+ * @package LPTS\Api
+ * @since   1.0.0
+ */
 class Api
 {
     public const LPTS_API_BASE_URL = 'https://api.sendinblue.com/v3';

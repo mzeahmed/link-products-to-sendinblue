@@ -3,7 +3,7 @@
  * Dependency notice view
  *
  * @package LPTS
- * @since   1.0.8
+ * @since   1.0.0
  */
 
 ?>

@@ -4,6 +4,12 @@ namespace LPTS\Api;
 
 use Exception;
 
+/**
+ * Class to manage API
+ *
+ * @package LPTS\Api
+ * @since   1.0.0
+ */
 class ApiManager
 {
     /** Transient delay time */
@@ -15,7 +21,7 @@ class ApiManager
     public static function get_lists(): array
     {
         $account = new Api();
-        $lists = $account->getAllLists();
+        $lists   = $account->getAllLists();
 
         $list_data = [];
 
@@ -37,11 +43,11 @@ class ApiManager
 
         if ($attrs === false || $attrs == false) {
             $api_client = new Api();
-            $response = $api_client->getAttributes();
+            $response   = $api_client->getAttributes();
             $attributes = $response['attributes'];
-            $attrs = [
+            $attrs      = [
                 'attributes' => [
-                    'normal_attributes' => [],
+                    'normal_attributes'   => [],
                     'category_attributes' => [],
                 ],
             ];
@@ -51,7 +57,7 @@ class ApiManager
                     if ($value["category"] == "normal") {
                         $attrs['attributes']['normal_attributes'][] = $value;
                     } elseif ($value["category"] == "category") {
-                        $value["type"] = "category";
+                        $value["type"]                                = "category";
                         $attrs['attributes']['category_attributes'][] = $value;
                     }
                 }
@@ -82,20 +88,20 @@ class ApiManager
             $api_client = new Api();
 
             $data = [
-                "email" => $email,
-                "attributes" => $info,
+                "email"            => $email,
+                "attributes"       => $info,
                 "emailBlacklisted" => false,
-                "listIds" => [intval($list_id)],
-                "smsBlacklisted" => false,
+                "listIds"          => [intval($list_id)],
+                "smsBlacklisted"   => false,
             ];
 
             $api_client->getUser($email);
 
             if (Api::LPTS_RESPONSE_CODE_OK === $api_client->getLastResponseCode()) {
                 unset($data["email"]);
-                 $api_client->updateUser($email, $data);
+                $api_client->updateUser($email, $data);
             } else {
-                 $api_client->createUser($data);
+                $api_client->createUser($data);
             }
 
             if (in_array(
@@ -120,25 +126,27 @@ class ApiManager
             get_transient('lpts_client_credit_' . md5(get_option(LPTS_API_KEY_V3_OPTION)));
 
         if ($account_info === false || $account_info == false) {
-            $api = new Api();
+            $api     = new Api();
             $account = $api->getAccount();
 
-            if ($api->getLastResponseCode() === Api::LPTS_RESPONSE_CODE_OK && !empty($account['email'])) {
+            if ($api->getLastResponseCode() === Api::LPTS_RESPONSE_CODE_OK && ! empty($account['email'])) {
                 $account_email = $account['email'];
 
                 $account_info = [
-                    'account_email' => $account_email,
+                    'account_email'      => $account_email,
                     'account_first_name' => $account['firstName'],
-                    'account_last_name' => $account['lastName'],
-                    'account_data' => $account['plan']
+                    'account_last_name'  => $account['lastName'],
+                    'account_data'       => $account['plan']
                 ];
             } else {
                 delete_option(LPTS_API_KEY_V3_OPTION);
             }
 
-            set_transient('lpts_client_credit_' . md5(get_option(LPTS_API_KEY_V3_OPTION)),
+            set_transient(
+                'lpts_client_credit_' . md5(get_option(LPTS_API_KEY_V3_OPTION)),
                 $account_info,
-                self::DELAYTIME);
+                self::DELAYTIME
+            );
         }
 
         return $account_info;

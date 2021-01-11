@@ -9,7 +9,7 @@ use LPTS\Admin\Woocommerce\PaymentComplete;
 
 /**
  * @package LPTS
- * @since   1.0.8
+ * @since   1.0.0
  */
 final class LPTS
 {
@@ -38,7 +38,7 @@ final class LPTS
      * Getting instance This Class is a singleton class
      *
      * @return LPTS
-     * @since 1.0.8
+     * @since 1.0.0
      */
     public static function get_instance(): LPTS
     {
@@ -52,7 +52,7 @@ final class LPTS
     /**
      * Loads the necessary classes of the plugin
      *
-     * @since 1.0.8
+     * @since 1.0.0
      */
     public function load()
     {

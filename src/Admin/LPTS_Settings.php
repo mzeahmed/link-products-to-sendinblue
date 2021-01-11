@@ -88,7 +88,7 @@ class LPTS_Settings
      * Save user attributes form datas
      *
      * @return void
-     * @since 1.0.9
+     * @since 1.0.0
      */
     public function saveUserAttributes()
     {
@@ -221,7 +221,7 @@ class LPTS_Settings
      * Register main settings option
      *
      * @return void
-     * @since 1.0.6
+     * @since 1.0.0
      */
     public function mainSettings()
     {
@@ -249,7 +249,7 @@ class LPTS_Settings
      * Delete API KEY
      *
      * @return void
-     * @since 1.0.6
+     * @since 1.0.0
      */
     public function deleteApiKey()
     {
@@ -265,7 +265,7 @@ class LPTS_Settings
      * Combine options LPTS_CUSTOMER_ATTRIBUTES_OPTION and LPTS_SENDINBLUE_ATTRIBUTES_OPTION and return result in array
      *
      * @return mixed
-     * @since 1.0.7
+     * @since 1.0.0
      */
     private function getMatchedAttributes()
     {
@@ -281,7 +281,7 @@ class LPTS_Settings
      * @param $datas
      *
      * @return array
-     * @since 1.1.5
+     * @since 1.0.0
      */
     private function sanitize_user_attributes_form_fields($datas): array
     {

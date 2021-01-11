@@ -3,7 +3,7 @@
  * Api key field partial
  *
  * @package LPTS
- * @since   1.0.5
+ * @since   1.0.0
  */
 
 ?>

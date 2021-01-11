@@ -1,4 +1,4 @@
-# Woocommerce product to Sendinlue list
+# Link Products To Sendinblue Lists From Woocommerce
 
 Link your products to your Sendinblue contact lists and synchronize your customers after payment validation.
 Manage your campaigns more easily according to your products.

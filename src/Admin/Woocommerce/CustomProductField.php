@@ -9,6 +9,7 @@ use LPTS\View\View;
  * Class CustomProductField
  *
  * @package LPTS\Admin\Woocommerce
+ * @since   1.0.0
  */
 class CustomProductField
 {
@@ -17,7 +18,7 @@ class CustomProductField
 
     public function __construct()
     {
-        $this->lists = ApiManager::get_lists();
+        $this->lists   = ApiManager::get_lists();
         $this->api_key = get_option(LPTS_API_KEY_V3_OPTION);
 
         // push 'Select a list' to $this->list
@@ -26,7 +27,7 @@ class CustomProductField
         // we sort sendinblue list by key(id) in reverse order, to add 'Select a list' as first element of the array
         krsort($this->lists);
 
-        if ($this->api_key != false && !empty($this->api_key)) {
+        if ($this->api_key != false && ! empty($this->api_key)) {
             add_filter('woocommerce_product_data_tabs', [$this, 'customProductDataTab']);
             add_action('woocommerce_product_data_panels', [$this, 'productDataPanelRender']);
             add_action('woocommerce_process_product_meta', [$this, 'processProductMeta']);
@@ -44,9 +45,9 @@ class CustomProductField
     public function customProductDataTab($tabs)
     {
         $tabs['sendinblue'] = [
-            'label' => __('Sendinblue', LPTS_TEXT_DOMAIN),
-            'target' => 'sendinblue_data_panel',
-            'class' => ['hide_if_external'],
+            'label'    => __('Sendinblue', LPTS_TEXT_DOMAIN),
+            'target'   => 'sendinblue_data_panel',
+            'class'    => ['hide_if_external'],
             'priority' => 100,
         ];
 

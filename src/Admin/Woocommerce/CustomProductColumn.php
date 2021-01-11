@@ -4,6 +4,12 @@ namespace LPTS\Admin\Woocommerce;
 
 use LPTS\Api\ApiManager;
 
+/**
+ * Class CustomProductColumn
+ *
+ * @package LPTS\Admin\Woocommerce
+ * @since   1.0.0
+ */
 class CustomProductColumn
 {
     public array $sendinblue_lists;

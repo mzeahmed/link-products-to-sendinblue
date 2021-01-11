@@ -6,6 +6,7 @@ namespace LPTS\View;
  * Class View
  *
  * @package LPTS\View
+ * @since   1.0.0
  */
 class View
 {
