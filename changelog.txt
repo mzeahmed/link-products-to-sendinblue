@@ -1,2 +1,5 @@
-= 1.0.0 - 11 january 2021
+= 1.0.1 - 12 janauary 2021 =
+* Update plugin URI, Using WordPress uri instead of Github uri
+
+= 1.0.0 - 11 january 2021 =
 * Initial release
