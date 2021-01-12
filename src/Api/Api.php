@@ -22,7 +22,7 @@ class Api
 
     public $apiKey;
 
-    private int $lastResponseCode;
+    private $lastResponseCode;
 
     public function __construct()
     {
@@ -174,10 +174,7 @@ class Api
         return json_decode($data, true);
     }
 
-    /**
-     * @return int
-     */
-    public function getLastResponseCode(): int
+    public function getLastResponseCode()
     {
         return $this->lastResponseCode;
     }
