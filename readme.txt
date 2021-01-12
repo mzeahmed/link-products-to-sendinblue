@@ -20,5 +20,11 @@ Manage your campaigns more easily according to your products.
 
 == Changelog ==
 
-= 1.0.0 - 11 january 2021
+= 1.0.2 - 13 january 2021 =
+* Fixed: Fatal error during Sendinblue Api call
+
+= 1.0.1 - 12 janauary 2021 =
+* Update: Plugin URI, Using WordPress uri instead of Github uri
+
+= 1.0.0 - 11 january 2021 =
 * Initial release
