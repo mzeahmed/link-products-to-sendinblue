@@ -16,9 +16,9 @@ $errors = function ($message, $subtitle = '', $title = '') {
 };
 
 /** Ensure PHP version compatibility */
-if (version_compare('7.4', phpversion(), '>=')) {
+if (version_compare('7.1', phpversion(), '>=')) {
     $errors(
-        esc_html__('Please install 7.4 or higher', LPTS_TEXT_DOMAIN),
+        esc_html__('Please install 7.1 or higher', LPTS_TEXT_DOMAIN),
         esc_html__('Incompatible PHP version', LPTS_TEXT_DOMAIN)
     );
 }
