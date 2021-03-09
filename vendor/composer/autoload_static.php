@@ -4,11 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita5e8f7d43afe99712845ea5c589a44cc
+class ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c
 {
     public static $files = array (
-        'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     );
 
@@ -45,8 +45,8 @@ class ComposerStaticInita5e8f7d43afe99712845ea5c589a44cc
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -485,6 +485,7 @@ class ComposerStaticInita5e8f7d43afe99712845ea5c589a44cc
         'PharIo\\Version\\GreaterThanOrEqualToVersionConstraint' => __DIR__ . '/..' . '/phar-io/version/src/constraints/GreaterThanOrEqualToVersionConstraint.php',
         'PharIo\\Version\\InvalidPreReleaseSuffixException' => __DIR__ . '/..' . '/phar-io/version/src/exceptions/InvalidPreReleaseSuffixException.php',
         'PharIo\\Version\\InvalidVersionException' => __DIR__ . '/..' . '/phar-io/version/src/exceptions/InvalidVersionException.php',
+        'PharIo\\Version\\NoPreReleaseSuffixException' => __DIR__ . '/..' . '/phar-io/version/src/exceptions/NoPreReleaseSuffixException.php',
         'PharIo\\Version\\OrVersionConstraintGroup' => __DIR__ . '/..' . '/phar-io/version/src/constraints/OrVersionConstraintGroup.php',
         'PharIo\\Version\\PreReleaseSuffix' => __DIR__ . '/..' . '/phar-io/version/src/PreReleaseSuffix.php',
         'PharIo\\Version\\SpecificMajorAndMinorVersionConstraint' => __DIR__ . '/..' . '/phar-io/version/src/constraints/SpecificMajorAndMinorVersionConstraint.php',
@@ -707,9 +708,9 @@ class ComposerStaticInita5e8f7d43afe99712845ea5c589a44cc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita5e8f7d43afe99712845ea5c589a44cc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita5e8f7d43afe99712845ea5c589a44cc::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita5e8f7d43afe99712845ea5c589a44cc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c::$classMap;
 
         }, null, ClassLoader::class);
     }

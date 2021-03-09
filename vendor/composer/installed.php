@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7a511d8a3ef75004def20be562057086a7985a0f',
+    'reference' => 'db3a5de22fd34a2bab870b4342566868554f2e9d',
     'name' => 'mzeahmed/link-products-to-sendinblue',
   ),
   'versions' => 
@@ -40,7 +40,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7a511d8a3ef75004def20be562057086a7985a0f',
+      'reference' => 'db3a5de22fd34a2bab870b4342566868554f2e9d',
     ),
     'nikic/php-parser' => 
     array (
@@ -62,12 +62,12 @@
     ),
     'phar-io/version' => 
     array (
-      'pretty_version' => '3.0.4',
-      'version' => '3.0.4.0',
+      'pretty_version' => '3.1.0',
+      'version' => '3.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e4782611070e50613683d2b9a57730e9a3ba5451',
+      'reference' => 'bae7c545bef187884426f042434e561ab1ddb182',
     ),
     'phpdocumentor/reflection-common' => 
     array (
@@ -152,12 +152,12 @@
     ),
     'phpunit/phpunit' => 
     array (
-      'pretty_version' => '9.5.0',
-      'version' => '9.5.0.0',
+      'pretty_version' => '9.5.2',
+      'version' => '9.5.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8e16c225d57c3d6808014df6b1dd7598d0a5bbbe',
+      'reference' => 'f661659747f2f87f9e72095bb207bceb0f151cb4',
     ),
     'sebastian/cli-parser' => 
     array (
@@ -305,8 +305,8 @@
     ),
     'symfony/polyfill-ctype' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
@@ -323,12 +323,12 @@
     ),
     'webmozart/assert' => 
     array (
-      'pretty_version' => '1.9.1',
-      'version' => '1.9.1.0',
+      'pretty_version' => '1.10.0',
+      'version' => '1.10.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'bafc69caeb4d49c39fd0779086c03a3738cbb389',
+      'reference' => '6964c76c7804814a842473e0c8fd15bab0f18e25',
     ),
   ),
 );
