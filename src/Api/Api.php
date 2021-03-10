@@ -26,7 +26,7 @@ class Api
 
     public function __construct()
     {
-        $this->apiKey = get_option(LPTS_API_KEY_V3_OPTION);
+        $this->apiKey = get_option(LPTS_API_KEY_V3_OPTION) ?? null;
     }
 
     /**
@@ -87,21 +87,25 @@ class Api
     }
 
     /**
-     * @return mixed
+     * @return array|false
      */
-    public function getAllLists(): array
+    public function getAllLists()
     {
-        $lists  = ["lists" => [], "count" => 0];
-        $offset = 0;
-        $limit  = 50;
-        do {
-            $list_data      = $this->getLists(['limit' => $limit, 'offset' => $offset]);
-            $lists["lists"] = array_merge($lists["lists"], $list_data["lists"]);
-            $offset         += 50;
-        } while (count($lists["lists"]) < $list_data["count"]);
-        $lists["count"] = $list_data["count"];
+        if ( ! empty($this->apiKey)) {
+            $lists  = ["lists" => [], "count" => 0];
+            $offset = 0;
+            $limit  = 50;
+            do {
+                $list_data      = $this->getLists(['limit' => $limit, 'offset' => $offset]);
+                $lists["lists"] = array_merge($lists["lists"], $list_data["lists"]);
+                $offset         += 50;
+            } while (count($lists["lists"]) < $list_data["count"]);
+            $lists["count"] = $list_data["count"];
 
-        return $lists;
+            return $lists;
+        }
+
+        return false;
     }
 
     /**

@@ -13,16 +13,22 @@
 
 <div class="wrap">
     <h2 class="nav-tab-wrapper">
-        <a href="?page=link_products_to_sendinblue" class="nav-tab <?= $tab == $api_field_group ? 'nav-tab-active' : ''; ?>">
+        <a href="?page=link_products_to_sendinblue"
+           class="nav-tab <?= $tab == $api_field_group ? 'nav-tab-active' : ''; ?>">
             <?php _e('API Key', LPTS_TEXT_DOMAIN); ?>
         </a>
-        <a href="?page=link_products_to_sendinblue&tab=user_attributes" class="nav-tab <?= $tab == 'user_attributes' ? 'nav-tab-active' : ''; ?>">
-            <?php _e('User attributes synch', LPTS_TEXT_DOMAIN); ?>
-        </a>
+        <?php if ( ! empty(get_option(LPTS_API_KEY_V3_OPTION))): ?>
+            <a href="?page=link_products_to_sendinblue&tab=user_attributes"
+               class="nav-tab <?= $tab == 'user_attributes' ? 'nav-tab-active' : ''; ?>">
+                <?php _e('User attributes synch', LPTS_TEXT_DOMAIN); ?>
+            </a>
+        <?php endif; ?>
     </h2>
     <form action="options.php" method="post">
         <?php if ($tab == 'user_attributes') : ?>
-            <?php if (!current_user_can('manage_options')) wp_die(__('Unauthorized user', LPTS_TEXT_DOMAIN)); ?>
+            <?php if ( ! current_user_can('manage_options')) {
+                wp_die(__('Unauthorized user', LPTS_TEXT_DOMAIN));
+            } ?>
             <?php wp_nonce_field($nonce_action, '_user_attributes_nonce') ?>
             <div class="mb-4 alert alert-info">
                 <?php _e(
@@ -63,7 +69,8 @@
             <?php do_settings_sections($api_field_group); ?>
         <?php endif; ?>
 
-        <input type="submit" name="submit" id="submit" class="btn btn-outline-primary mt-4" value="<?= __('Save Changes', LPTS_TEXT_DOMAIN) ?>">
+        <input type="submit" name="submit" id="submit" class="btn btn-outline-primary mt-4"
+               value="<?= __('Save Changes', LPTS_TEXT_DOMAIN) ?>">
 
     </form>
 </div>

@@ -3,7 +3,7 @@ Contributors: mzeahmed
 Tags: woocommerce, sendinblue
 Requires at last: 5.1
 Tested up to: 5.7
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 Requires PHP: 7.1 or higher
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,6 +19,10 @@ Manage your campaigns more easily according to your products.
 3. Choose user attributes you want to synchronise
 
 == Changelog ==
+
+= 1.0.5 - 10 march 2021 =
+* Fixed: Some PHP notice when Sendinblue api key is empty
+* Improved: Hide User attibutes synch form when api key is empty
 
 = 1.0.2 - 13 january 2021 =
 * Fixed: Fatal error during Sendinblue Api call

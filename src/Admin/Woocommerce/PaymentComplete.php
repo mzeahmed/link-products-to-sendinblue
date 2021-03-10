@@ -17,9 +17,12 @@ class PaymentComplete
 
     public function __construct()
     {
-        $option                          = get_option(LPTS_MAIN_OPTION);
-        $this->lists                     = ApiManager::get_lists();
-        $this->client_matched_attributes = $option['client_matched_attributes'];
+        $main_option = get_option(LPTS_MAIN_OPTION);
+        $this->lists = ApiManager::get_lists();
+
+        if ( ! empty(get_option(LPTS_API_KEY_V3_OPTION))) {
+            $this->client_matched_attributes = $main_option['client_matched_attributes'];
+        }
 
         add_action('woocommerce_payment_complete', [$this, 'paymentComplete']);
     }

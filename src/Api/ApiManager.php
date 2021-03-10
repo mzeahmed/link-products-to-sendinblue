@@ -15,9 +15,6 @@ class ApiManager
     /** Transient delay time */
     const DELAYTIME = HOUR_IN_SECONDS;
 
-    /**
-     * @return array
-     */
     public static function get_lists(): array
     {
         $account = new Api();
@@ -25,8 +22,10 @@ class ApiManager
 
         $list_data = [];
 
-        foreach ($lists['lists'] as $list) {
-            $list_data[$list['id']] = $list['name'];
+        if ($lists !== false) {
+            foreach ($lists['lists'] as $list) {
+                $list_data[$list['id']] = $list['name'];
+            }
         }
 
         return $list_data;
@@ -44,6 +43,7 @@ class ApiManager
         if ($attrs === false || $attrs == false) {
             $api_client = new Api();
             $response   = $api_client->getAttributes();
+
             $attributes = $response['attributes'];
             $attrs      = [
                 'attributes' => [
@@ -136,7 +136,7 @@ class ApiManager
                     'account_email'      => $account_email,
                     'account_first_name' => $account['firstName'],
                     'account_last_name'  => $account['lastName'],
-                    'account_data'       => $account['plan']
+                    'account_data'       => $account['plan'],
                 ];
             } else {
                 delete_option(LPTS_API_KEY_V3_OPTION);
