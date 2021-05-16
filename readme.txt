@@ -3,7 +3,7 @@ Contributors: mzeahmed
 Tags: woocommerce, sendinblue
 Requires at last: 5.1
 Tested up to: 5.7
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 Requires PHP: 7.1 or higher
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,6 +19,9 @@ Manage your campaigns more easily according to your products.
 3. Choose user attributes you want to synchronise
 
 == Changelog ==
+
+= 1.0.7 - 16 may 2021 =
+* Fixed: Fatal error on plugin activation
 
 = 1.0.6 - 16 may 2021 =
 * Update: Upgrade Bootstrap to version 5
