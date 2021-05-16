@@ -68,7 +68,10 @@ class LPTS_Settings
             __('API v3 Access key', LPTS_TEXT_DOMAIN),
             function () {
                 printf(
-                    __('<p><a href="%s" target="_blank">Get your account API key</a></p>', LPTS_TEXT_DOMAIN),
+                    __(
+                        '<p><a href="%s" target="_blank">Get your account API key</a></p>',
+                        LPTS_TEXT_DOMAIN
+                    ),
                     'https://account.sendinblue.com/advanced/api'
                 );
             },
@@ -105,10 +108,13 @@ class LPTS_Settings
         $contact_attributes == false ? add_option(LPTS_SENDINBLUE_ATTRIBUTES_OPTION, []) : null;
 
         if (isset($_POST['_user_attributes_nonce'])) {
-            if ( ! wp_verify_nonce($_POST['_user_attributes_nonce'], $this->nonce_action)) {
+            if (! wp_verify_nonce($_POST['_user_attributes_nonce'], $this->nonce_action)) {
                 wp_die(
                     printf(
-                        esc_html__('Sorry, nonce <strong>%s</strong> did not verify', LPTS_TEXT_DOMAIN),
+                        esc_html__(
+                            'Sorry, nonce <strong>%s</strong> did not verify',
+                            LPTS_TEXT_DOMAIN
+                        ),
                         '_user_attributes_nonce'
                     )
                 );
@@ -177,7 +183,7 @@ class LPTS_Settings
                 'customer_fields'              => $customer_fields,
                 'contact_attributes'           => $contact_attributes,
                 'nonce_action'                 => $this->nonce_action,
-                'matched_attributes'           => $this->getMatchedAttributes()
+                'matched_attributes'           => $this->getMatchedAttributes(),
             ]
         );
     }
@@ -227,7 +233,7 @@ class LPTS_Settings
     {
         get_option(LPTS_MAIN_OPTION) == false ? add_option(LPTS_MAIN_OPTION, []) : null;
 
-        if ( ! empty(get_option(LPTS_API_KEY_V3_OPTION))) {
+        if (! empty(get_option(LPTS_API_KEY_V3_OPTION))) {
             $accoun_info = ApiManager::get_account_info();
 
             $args = [
@@ -236,7 +242,7 @@ class LPTS_Settings
                 'client_matched_attributes' => array_combine(
                     get_option(LPTS_SENDINBLUE_ATTRIBUTES_OPTION),
                     get_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION)
-                )
+                ),
             ];
 
             update_option(LPTS_MAIN_OPTION, $args);

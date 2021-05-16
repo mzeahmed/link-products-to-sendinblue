@@ -34,7 +34,7 @@ class ApiManager
     /**
      * Get all attributes
      *
-     * @return \array[][]|mixed
+     * @return array
      */
     public static function get_attributes(): array
     {

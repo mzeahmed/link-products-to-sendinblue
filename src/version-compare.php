@@ -9,7 +9,7 @@
  *
  * @since 1.0.0
  */
-$errors = function ($message, $subtitle = '', $title = '') {
+$errors = function ($message, string $subtitle = '', string $title = '') {
     $title   = $title ? esc_html__('Error', LPTS_TEXT_DOMAIN) : '';
     $message = "<h1>{$title}<br><small>{$subtitle}</small></h1><p>{$message}</p>";
     wp_die($message);
