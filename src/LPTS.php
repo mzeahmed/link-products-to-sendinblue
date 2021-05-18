@@ -40,7 +40,7 @@ final class LPTS
      * @return LPTS
      * @since 1.0.0
      */
-    public static function getInstance() :LPTS
+    public static function getInstance(): LPTS
     {
         if (is_null((self::$instance))) {
             self::$instance = new self();

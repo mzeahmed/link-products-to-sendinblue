@@ -14,7 +14,7 @@ use LPTS\View\View;
  */
 class LPTS_Settings
 {
-    const LPTS_API_KEY_GROUP = 'link_products_to_sendinblue';
+    public const LPTS_API_KEY_GROUP = 'link_products_to_sendinblue';
 
     public $nonce_action;
 
@@ -123,14 +123,14 @@ class LPTS_Settings
             if (isset($_POST['lpts_woocommerce_customer_attributes'])) {
                 update_option(
                     LPTS_CUSTOMER_ATTRIBUTES_OPTION,
-                    $this->sanitize_user_attributes_form_fields($_POST['lpts_woocommerce_customer_attributes'])
+                    $this->sanitizeUserAttributesFormFields($_POST['lpts_woocommerce_customer_attributes'])
                 );
             }
 
             if (isset($_POST['lpts_sendinblue_contact_attributes'])) {
                 update_option(
                     LPTS_SENDINBLUE_ATTRIBUTES_OPTION,
-                    $this->sanitize_user_attributes_form_fields($_POST['lpts_sendinblue_contact_attributes'])
+                    $this->sanitizeUserAttributesFormFields($_POST['lpts_sendinblue_contact_attributes'])
                 );
             }
 
@@ -289,7 +289,7 @@ class LPTS_Settings
      * @return array
      * @since 1.0.0
      */
-    private function sanitize_user_attributes_form_fields($datas): array
+    private function sanitizeUserAttributesFormFields($datas): array
     {
         $field = [];
 

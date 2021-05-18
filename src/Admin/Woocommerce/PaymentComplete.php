@@ -20,7 +20,7 @@ class PaymentComplete
         $main_option = get_option(LPTS_MAIN_OPTION);
         $this->lists = ApiManager::get_lists();
 
-        if ( ! empty(get_option(LPTS_API_KEY_V3_OPTION))) {
+        if (! empty(get_option(LPTS_API_KEY_V3_OPTION))) {
             $this->client_matched_attributes = $main_option['client_matched_attributes'];
         }
 
