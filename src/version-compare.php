@@ -16,9 +16,12 @@ $errors = function ($message, string $subtitle = '', string $title = '') {
 };
 
 /** Ensure PHP version compatibility */
-if (version_compare('7.1', phpversion(), '>=')) {
+if (version_compare('7.3', phpversion(), '>=')) {
     $errors(
-        esc_html__('Please install 7.1 or higher', LPTS_TEXT_DOMAIN),
+        esc_html__(
+            'To use Link Products to Sendinblue Lists From WooCommerce plugin, please install php 7.3 or higher',
+            LPTS_TEXT_DOMAIN
+        ),
         esc_html__('Incompatible PHP version', LPTS_TEXT_DOMAIN)
     );
 }
@@ -26,7 +29,10 @@ if (version_compare('7.1', phpversion(), '>=')) {
 /** Ensure WordPress version compatibility*/
 if (version_compare('5.1', get_bloginfo('version'), '>=')) {
     $errors(
-        esc_html__('Please install 5.1 or higher', LPTS_TEXT_DOMAIN),
+        esc_html__(
+            'To use Link Products to Sendinblue Lists From WooCommerce plugin, please install WordPress 5.1 or higher',
+            LPTS_TEXT_DOMAIN
+        ),
         esc_html__('Incompatible WordPress version', LPTS_TEXT_DOMAIN)
     );
 }

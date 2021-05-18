@@ -16,7 +16,7 @@ class LPTS_Settings
 {
     const LPTS_API_KEY_GROUP = 'link_products_to_sendinblue';
 
-    public string $nonce_action;
+    public $nonce_action;
 
     public function __construct()
     {

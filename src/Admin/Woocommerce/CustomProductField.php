@@ -13,7 +13,7 @@ use LPTS\View\View;
  */
 class CustomProductField
 {
-    public array $lists;
+    public $lists;
     public $api_key;
 
     public function __construct()

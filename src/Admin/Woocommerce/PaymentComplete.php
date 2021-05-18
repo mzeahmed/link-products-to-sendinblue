@@ -12,7 +12,7 @@ use LPTS\Api\ApiManager;
  */
 class PaymentComplete
 {
-    public array $lists;
+    public $lists;
     public $client_matched_attributes;
 
     public function __construct()

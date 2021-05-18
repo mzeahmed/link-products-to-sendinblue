@@ -16,12 +16,12 @@ final class LPTS
     /**
      * Instance of LPTS
      *
-     * @var LPTS|null $instance create only one instance from plugin primary class
+     * @var LPTS $instance create only one instance from plugin primary class
      */
-    private static ?LPTS $instance = null;
+    private static $instance;
 
-    public string $request_uri;
-    public array $array;
+    public $request_uri;
+    public $array;
 
     public function __construct()
     {
@@ -40,7 +40,7 @@ final class LPTS
      * @return LPTS
      * @since 1.0.0
      */
-    public static function get_instance(): LPTS
+    public static function getInstance() :LPTS
     {
         if (is_null((self::$instance))) {
             self::$instance = new self();
@@ -61,16 +61,13 @@ final class LPTS
         new PaymentComplete();
         new CustomProductColumn();
 
-        add_action(
-            'init',
-            function () {
-                load_plugin_textdomain(
-                    LPTS_TEXT_DOMAIN,
-                    false,
-                    LPTS_PATH . 'langages'
-                );
-            }
-        );
+        add_action('init', function () {
+            load_plugin_textdomain(
+                LPTS_TEXT_DOMAIN,
+                false,
+                LPTS_PATH . 'langages'
+            );
+        });
     }
 
     /**
