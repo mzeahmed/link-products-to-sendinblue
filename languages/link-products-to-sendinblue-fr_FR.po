@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Link Products To Sendinblue Lists From Woocommerce\n"
-"POT-Creation-Date: 2021-03-10 00:42+0100\n"
-"PO-Revision-Date: 2021-03-10 00:43+0100\n"
+"POT-Creation-Date: 2021-05-18 21:15+0200\n"
+"PO-Revision-Date: 2021-05-18 21:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
@@ -36,23 +36,23 @@ msgstr "Link Products To Sendinblue Lists From Woocommerce"
 msgid "API v3 Access key"
 msgstr "Entrez votre clé API v3"
 
-#: src/Admin/LPTS_Settings.php:71
+#: src/Admin/LPTS_Settings.php:72
 #, php-format
 msgid "<p><a href=\"%s\" target=\"_blank\">Get your account API key</a></p>"
 msgstr ""
 "<p><a href=\"%s\" target=\"_blank\">Récuperz la clé API de votre compte</a></"
 "p>"
 
-#: src/Admin/LPTS_Settings.php:80 templates/admin/options/form.php:17
+#: src/Admin/LPTS_Settings.php:83 templates/admin/options/form.php:18
 msgid "API Key"
 msgstr "Clé API"
 
-#: src/Admin/LPTS_Settings.php:111
+#: src/Admin/LPTS_Settings.php:115
 #, php-format
 msgid "Sorry, nonce <strong>%s</strong> did not verify"
 msgstr "Désolé, le nonce <strong>%s</strong> n’a pas vérifié"
 
-#: src/Admin/LPTS_Settings.php:214
+#: src/Admin/LPTS_Settings.php:220
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -73,31 +73,39 @@ msgstr "Sendinblue"
 msgid "Error"
 msgstr "Erreur"
 
-#: src/version-compare.php:21
-msgid "Please install 7.1 or higher"
-msgstr "Veuillez installer la version 7.1 ou supérieure"
-
 #: src/version-compare.php:22
+msgid ""
+"To use Link Products to Sendinblue Lists From WooCommerce plugin, please "
+"install php 7.3 or higher"
+msgstr ""
+"Pour utiliser le plugin Link Products to Sendinblue Lists From WooCommerce, "
+"veuillez installer php 7.3 ou une version plus récente"
+
+#: src/version-compare.php:25
 msgid "Incompatible PHP version"
 msgstr "Version PHP incompatible"
 
-#: src/version-compare.php:29
-msgid "Please install 5.1 or higher"
-msgstr "Veuillez installer la version 5.1 ou supérieure"
+#: src/version-compare.php:33
+msgid ""
+"To use Link Products to Sendinblue Lists From WooCommerce plugin, please "
+"install WordPress 5.1 or higher"
+msgstr ""
+"Pour utiliser le plugin Link Products to Sendinblue Lists From WooCommerce, "
+"veuillez installer WordPress 5.1 ou supérieur"
 
-#: src/version-compare.php:30
+#: src/version-compare.php:36
 msgid "Incompatible WordPress version"
 msgstr "Version WordPress incompatible"
 
-#: templates/admin/options/form.php:20
+#: templates/admin/options/form.php:23
 msgid "User attributes synch"
 msgstr "Synchronisation des attributs utilisateur"
 
-#: templates/admin/options/form.php:25
+#: templates/admin/options/form.php:30
 msgid "Unauthorized user"
 msgstr "Utilisateur non autorisé"
 
-#: templates/admin/options/form.php:29
+#: templates/admin/options/form.php:35
 msgid ""
 "Match the WooCommerce Customers attributes with your Sendinblue contacts "
 "attributes"
@@ -105,23 +113,23 @@ msgstr ""
 "Faites correspondre les attributs clients WooCommerce avec vos attributs de "
 "contacts Sendinblue"
 
-#: templates/admin/options/form.php:38
+#: templates/admin/options/form.php:44
 msgid "Woocommerce Customer Attributes"
 msgstr "Attributs clients Woocommerce"
 
-#: templates/admin/options/form.php:42
+#: templates/admin/options/form.php:48
 msgid "Sendinblue Contact Attributes"
 msgstr "Attributs de contact Sendinblue"
 
-#: templates/admin/options/form.php:54
+#: templates/admin/options/form.php:60
 msgid "Add section"
 msgstr "Ajouter une section"
 
-#: templates/admin/options/form.php:57
+#: templates/admin/options/form.php:63
 msgid "Remove section"
 msgstr "Supprimer la section"
 
-#: templates/admin/options/form.php:66
+#: templates/admin/options/form.php:73
 msgid "Save Changes"
 msgstr "Sauvegarder"
 
@@ -177,6 +185,12 @@ msgstr "Ahmed Mze"
 #, fuzzy
 msgid "https://github.com/mzeahmed"
 msgstr "https://github.com/mzeahmed/link-products-to-sendinblue"
+
+#~ msgid "Please install 7.1 or higher"
+#~ msgstr "Veuillez installer la version 7.1 ou supérieure"
+
+#~ msgid "Please install 5.1 or higher"
+#~ msgstr "Veuillez installer la version 5.1 ou supérieure"
 
 #~ msgid "https://ahmedmze.fr"
 #~ msgstr "https://ahmedmze.fr"

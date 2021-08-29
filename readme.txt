@@ -19,6 +19,8 @@ Manage your campaigns more easily according to your products.
 3. Choose user attributes you want to synchronise
 
 == Changelog ==
+= 1.1 - 29 august 2021
+* Update: add required attibute on setting field
 
 = 1.0.8 - 18 may 2021 =
 * Fixed: 7.2 / 7.3 compatibilty
