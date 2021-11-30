@@ -91,7 +91,7 @@ class Api
      */
     public function getAllLists()
     {
-        if ( ! empty($this->apiKey)) {
+        if (! empty($this->apiKey)) {
             $lists  = ["lists" => [], "count" => 0];
             $offset = 0;
             $limit  = 50;
@@ -114,7 +114,7 @@ class Api
      *
      * @return mixed
      */
-    public function get($endpoint, $parameters = [])
+    public function get($endpoint, array $parameters = [])
     {
         if ($parameters) {
             $endpoint .= '?' . http_build_query($parameters);

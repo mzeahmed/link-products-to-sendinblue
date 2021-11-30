@@ -4,11 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c
+class ComposerStaticInitffaf18605695ace4863a4fbea0fe1619
 {
     public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     );
 
@@ -45,8 +45,8 @@ class ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -680,8 +680,10 @@ class ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c
         'SebastianBergmann\\Timer\\Timer' => __DIR__ . '/..' . '/phpunit/php-timer/src/Timer.php',
         'SebastianBergmann\\Type\\CallableType' => __DIR__ . '/..' . '/sebastian/type/src/CallableType.php',
         'SebastianBergmann\\Type\\Exception' => __DIR__ . '/..' . '/sebastian/type/src/exception/Exception.php',
+        'SebastianBergmann\\Type\\FalseType' => __DIR__ . '/..' . '/sebastian/type/src/FalseType.php',
         'SebastianBergmann\\Type\\GenericObjectType' => __DIR__ . '/..' . '/sebastian/type/src/GenericObjectType.php',
         'SebastianBergmann\\Type\\IterableType' => __DIR__ . '/..' . '/sebastian/type/src/IterableType.php',
+        'SebastianBergmann\\Type\\LogicException' => __DIR__ . '/..' . '/sebastian/type/src/exception/LogicException.php',
         'SebastianBergmann\\Type\\MixedType' => __DIR__ . '/..' . '/sebastian/type/src/MixedType.php',
         'SebastianBergmann\\Type\\NullType' => __DIR__ . '/..' . '/sebastian/type/src/NullType.php',
         'SebastianBergmann\\Type\\ObjectType' => __DIR__ . '/..' . '/sebastian/type/src/ObjectType.php',
@@ -708,9 +710,9 @@ class ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit540f4bbbb83e7925686c6e7a8d61602c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitffaf18605695ace4863a4fbea0fe1619::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitffaf18605695ace4863a4fbea0fe1619::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitffaf18605695ace4863a4fbea0fe1619::$classMap;
 
         }, null, ClassLoader::class);
     }

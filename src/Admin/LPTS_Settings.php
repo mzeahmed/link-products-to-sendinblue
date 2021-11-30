@@ -158,10 +158,10 @@ class LPTS_Settings
     /**
      * Display form
      *
-     * @return string | void
+     * @return string|null
      * @since 1.0.0
      */
-    public function formRender(): string
+    public function formRender(): ?string
     {
         $api_key                      = get_option(LPTS_API_KEY_V3_OPTION);
         $customer_attributes_option   = get_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION);
@@ -169,21 +169,21 @@ class LPTS_Settings
 
         $admin_profile   = new WC_Admin_Profile();
         $customer_fields = $admin_profile->get_customer_meta_fields();
-        $allAttrs        = ApiManager::get_attributes();
+        $attrs           = ApiManager::getAttributes();
 
-        $contact_attributes = $allAttrs['attributes']['normal_attributes'];
+        $contact_attributes = $attrs['attributes']['normal_attributes'];
 
         return View::render(
             'admin/options/form',
             [
-                'api_field_group'              => self::LPTS_API_KEY_GROUP,
-                'api_key'                      => $api_key,
-                'customer_attributes_option'   => $customer_attributes_option,
+                'api_field_group' => self::LPTS_API_KEY_GROUP,
+                'api_key' => $api_key,
+                'customer_attributes_option' => $customer_attributes_option,
                 'sendinblue_attributes_option' => $sendinblue_attributes_option,
-                'customer_fields'              => $customer_fields,
-                'contact_attributes'           => $contact_attributes,
-                'nonce_action'                 => $this->nonce_action,
-                'matched_attributes'           => $this->getMatchedAttributes(),
+                'customer_fields' => $customer_fields,
+                'contact_attributes' => $contact_attributes,
+                'nonce_action' => $this->nonce_action,
+                'matched_attributes' => $this->getMatchedAttributes(),
             ]
         );
     }
@@ -210,7 +210,7 @@ class LPTS_Settings
      * @param $links
      *
      * @wp-hook plugin_action_links_ . __FILE__
-     * @return mixed
+     * @return array|string[]
      * @since   1.0.0
      */
     public function pluginActionLinks($links)
@@ -234,11 +234,11 @@ class LPTS_Settings
         get_option(LPTS_MAIN_OPTION) == false ? add_option(LPTS_MAIN_OPTION, []) : null;
 
         if (! empty(get_option(LPTS_API_KEY_V3_OPTION))) {
-            $accoun_info = ApiManager::get_account_info();
+            $accoun_info = ApiManager::getAccountInfo();
 
             $args = [
-                'account_email'             => $accoun_info['account_email'],
-                'access_key'                => get_option(LPTS_API_KEY_V3_OPTION),
+                'account_email' => $accoun_info['account_email'],
+                'access_key' => get_option(LPTS_API_KEY_V3_OPTION),
                 'client_matched_attributes' => array_combine(
                     get_option(LPTS_SENDINBLUE_ATTRIBUTES_OPTION),
                     get_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION)
@@ -273,7 +273,7 @@ class LPTS_Settings
      * @return mixed
      * @since 1.0.0
      */
-    private function getMatchedAttributes()
+    private function getMatchedAttributes(): mixed
     {
         return array_combine(
             get_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION),

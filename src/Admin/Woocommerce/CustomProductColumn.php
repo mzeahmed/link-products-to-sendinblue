@@ -16,7 +16,7 @@ class CustomProductColumn
 
     public function __construct()
     {
-        $this->sendinblue_lists = ApiManager::get_lists();
+        $this->sendinblue_lists = ApiManager::getLists();
 
         add_filter('manage_edit-product_columns', [$this, 'productsListColumn'], 9999);
         add_action('manage_product_posts_custom_column', [$this, 'productsListColumnContent'], 10, 2);

@@ -22,7 +22,7 @@ function addFields() {
 }
 
 /**
- * Remove last setion of user attributes fields
+ * Remove last section of user attributes fields
  */
 function removeFields() {
     let tbody = document.querySelector('#lpts_user_attributes_fields');

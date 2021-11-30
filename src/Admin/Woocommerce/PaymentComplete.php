@@ -18,7 +18,7 @@ class PaymentComplete
     public function __construct()
     {
         $main_option = get_option(LPTS_MAIN_OPTION);
-        $this->lists = ApiManager::get_lists();
+        $this->lists = ApiManager::getLists();
 
         if (! empty(get_option(LPTS_API_KEY_V3_OPTION))) {
             $this->client_matched_attributes = $main_option['client_matched_attributes'];
@@ -58,7 +58,7 @@ class PaymentComplete
             $list_id  = implode('', $postmeta);
 
             if ($postmeta) {
-                ApiManager::create_subscriber($email, $list_id, $info);
+                ApiManager::createSubscriber($email, $list_id, $info);
             }
         }
     }

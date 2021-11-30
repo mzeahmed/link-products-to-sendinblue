@@ -18,7 +18,7 @@ class CustomProductField
 
     public function __construct()
     {
-        $this->lists   = ApiManager::get_lists();
+        $this->lists   = ApiManager::getLists();
         $this->api_key = get_option(LPTS_API_KEY_V3_OPTION);
 
         // push 'Select a list' to $this->list
