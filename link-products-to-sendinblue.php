@@ -9,7 +9,7 @@
  * Plugin Name:       Link Products To Sendinblue Lists From Woocommerce
  * Plugin URI:        https://wordpress.org/plugins/link-products-to-sendinblue/
  * Description:       Link WooCommerce products to a specific Sendinblue list to add the customer to that list
- * Version:           1.1.3
+ * Version:           1.1.4
  * Author:            Ahmed Mze
  * Author URI:        https://github.com/mzeahmed
  * License:           GPLv2 or later
