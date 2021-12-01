@@ -140,6 +140,25 @@ class LPTS_Settings
     }
 
     /**
+     * Sanitize datas of user attributes synch form
+     *
+     * @param $datas
+     *
+     * @return array
+     * @since 1.0.0
+     */
+    private function sanitizeUserAttributesFormFields($datas): array
+    {
+        $field = [];
+
+        foreach ($datas as $k => $v) {
+            $field[$k] = sanitize_text_field($v);
+        }
+
+        return $field;
+    }
+
+    /**
      * Display api key fields
      *
      * @return string
@@ -189,6 +208,20 @@ class LPTS_Settings
     }
 
     /**
+     * Combine options LPTS_CUSTOMER_ATTRIBUTES_OPTION and LPTS_SENDINBLUE_ATTRIBUTES_OPTION and return result in array
+     *
+     * @return array|null
+     * @since 1.0.0
+     */
+    private function getMatchedAttributes(): ?array
+    {
+        return array_combine(
+            get_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION),
+            get_option(LPTS_SENDINBLUE_ATTRIBUTES_OPTION)
+        );
+    }
+
+    /**
      * Notice if the sendinblue API key is empty
      *
      * @wp-hook admin_notices
@@ -213,7 +246,7 @@ class LPTS_Settings
      * @return array|string[]
      * @since   1.0.0
      */
-    public function pluginActionLinks($links)
+    public function pluginActionLinks($links): ?array
     {
         $settings_links = [
             '<a href="' . admin_url('options-general.php?page=link_products_to_sendinblue') . '">' .
@@ -265,38 +298,5 @@ class LPTS_Settings
             wp_safe_redirect(wp_get_referer());
             exit();
         }
-    }
-
-    /**
-     * Combine options LPTS_CUSTOMER_ATTRIBUTES_OPTION and LPTS_SENDINBLUE_ATTRIBUTES_OPTION and return result in array
-     *
-     * @return mixed
-     * @since 1.0.0
-     */
-    private function getMatchedAttributes(): mixed
-    {
-        return array_combine(
-            get_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION),
-            get_option(LPTS_SENDINBLUE_ATTRIBUTES_OPTION)
-        );
-    }
-
-    /**
-     * Sanitize datas of user attributes synch form
-     *
-     * @param $datas
-     *
-     * @return array
-     * @since 1.0.0
-     */
-    private function sanitizeUserAttributesFormFields($datas): array
-    {
-        $field = [];
-
-        foreach ($datas as $k => $v) {
-            $field[$k] = sanitize_text_field($v);
-        }
-
-        return $field;
     }
 }

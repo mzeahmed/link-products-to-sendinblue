@@ -13,9 +13,12 @@ use Exception;
 class ApiManager
 {
     /** Transient delay time */
-    const DELAYTIME = HOUR_IN_SECONDS;
+    public const DELAYTIME = HOUR_IN_SECONDS;
 
-    public static function getLists(): array
+    /**
+     * @return array|null
+     */
+    public static function getLists(): ?array
     {
         $account = new Api();
         $lists   = $account->getAllLists();
@@ -104,7 +107,11 @@ class ApiManager
                 $api_client->createUser($data);
             }
 
-            if (in_array($api_client->getLastResponseCode(), [Api::LPTS_RESPONSE_CODE_UPDATED, Api::LPTS_RESPONSE_CODE_CREATED])
+            if (
+                in_array(
+                    $api_client->getLastResponseCode(),
+                    [Api::LPTS_RESPONSE_CODE_UPDATED, Api::LPTS_RESPONSE_CODE_CREATED]
+                )
             ) {
                 return "success";
             } else {
@@ -114,11 +121,10 @@ class ApiManager
         }
     }
 
-
     /**
-     * @return mixed
+     * @return array|null
      */
-    public static function getAccountInfo(): mixed
+    public static function getAccountInfo(): ?array
     {
         $account_info = get_transient('lpts_client_credit_' . md5(get_option(LPTS_API_KEY_V3_OPTION)));
 

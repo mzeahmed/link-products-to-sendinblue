@@ -12,7 +12,7 @@ use LPTS\Api\ApiManager;
  */
 class CustomProductColumn
 {
-    public $sendinblue_lists;
+    public ?array $sendinblue_lists;
 
     public function __construct()
     {

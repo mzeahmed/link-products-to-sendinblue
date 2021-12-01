@@ -10,15 +10,15 @@ namespace LPTS\Api;
  */
 class Api
 {
-    public const LPTS_API_BASE_URL = 'https://api.sendinblue.com/v3';
-    public const LPTS_HTTP_METHOD_GET = 'GET';
-    public const LPTS_HTTP_METHOD_POST = 'POST';
-    public const LPTS_HTTP_METHOD_PUT = 'PUT';
-    public const LPTS_HTTP_METHOD_DELETE = 'DELETE';
-    public const LPTS_RESPONSE_CODE_OK = 200;
-    public const LPTS_RESPONSE_CODE_CREATED = 201;
+    public const LPTS_API_BASE_URL           = 'https://api.sendinblue.com/v3';
+    public const LPTS_HTTP_METHOD_GET        = 'GET';
+    public const LPTS_HTTP_METHOD_POST       = 'POST';
+    public const LPTS_HTTP_METHOD_PUT        = 'PUT';
+    public const LPTS_HTTP_METHOD_DELETE     = 'DELETE';
+    public const LPTS_RESPONSE_CODE_OK       = 200;
+    public const LPTS_RESPONSE_CODE_CREATED  = 201;
     public const LPTS_RESPONSE_CODE_ACCEPTED = 202;
-    public const LPTS_RESPONSE_CODE_UPDATED = 204;
+    public const LPTS_RESPONSE_CODE_UPDATED  = 204;
 
     public $apiKey;
 
@@ -29,88 +29,14 @@ class Api
         $this->apiKey = get_option(LPTS_API_KEY_V3_OPTION) ?? null;
     }
 
-    /**
-     * @return mixed
-     */
     public function getAccount()
     {
         return $this->get('/account');
     }
 
     /**
-     * @param $email
-     *
-     * @return mixed
-     */
-    public function getUser($email)
-    {
-        return $this->get("/contacts/" . urlencode($email));
-    }
-
-    /**
-     * @param  array  $data
-     *
-     * @return mixed
-     */
-    public function createUser(array $data)
-    {
-        return $this->post("/contacts", $data);
-    }
-
-    /**
-     * @param  string  $email
-     * @param  array   $data
-     *
-     * @return mixed
-     */
-    public function updateUser(string $email, array $data)
-    {
-        return $this->put("/contacts/" . $email, $data);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAttributes()
-    {
-        return $this->get("/contacts/attributes");
-    }
-
-    /**
-     * @param $data
-     *
-     * @return mixed
-     */
-    public function getLists($data)
-    {
-        return $this->get("/contacts/lists", $data);
-    }
-
-    /**
-     * @return array|false
-     */
-    public function getAllLists()
-    {
-        if (! empty($this->apiKey)) {
-            $lists  = ["lists" => [], "count" => 0];
-            $offset = 0;
-            $limit  = 50;
-            do {
-                $list_data      = $this->getLists(['limit' => $limit, 'offset' => $offset]);
-                $lists["lists"] = array_merge($lists["lists"], $list_data["lists"]);
-                $offset         += 50;
-            } while (count($lists["lists"]) < $list_data["count"]);
-            $lists["count"] = $list_data["count"];
-
-            return $lists;
-        }
-
-        return false;
-    }
-
-    /**
      * @param         $endpoint
-     * @param  array  $parameters
+     * @param array   $parameters
      *
      * @return mixed
      */
@@ -124,31 +50,9 @@ class Api
     }
 
     /**
-     * @param         $endpoint
-     * @param  array  $data
-     *
-     * @return mixed
-     */
-    public function post($endpoint, $data = [])
-    {
-        return $this->makeHttpRequest(self::LPTS_HTTP_METHOD_POST, $endpoint, $data);
-    }
-
-    /**
-     * @param         $endpoint
-     * @param  array  $data
-     *
-     * @return mixed
-     */
-    public function put($endpoint, $data = [])
-    {
-        return $this->makeHttpRequest(self::LPTS_HTTP_METHOD_PUT, $endpoint, $data);
-    }
-
-    /**
      * @param         $method
      * @param         $endpoint
-     * @param  array  $body
+     * @param array   $body
      *
      * @return mixed
      */
@@ -157,9 +61,9 @@ class Api
         $url = self::LPTS_API_BASE_URL . $endpoint;
 
         $args = [
-            'method'  => $method,
+            'method' => $method,
             'headers' => [
-                'api-key'      => $this->apiKey,
+                'api-key' => $this->apiKey,
                 'Content-Type' => 'application/json',
             ],
         ];
@@ -176,6 +80,98 @@ class Api
         $this->lastResponseCode = wp_remote_retrieve_response_code($response);
 
         return json_decode($data, true);
+    }
+
+    /**
+     * @param $email
+     *
+     * @return mixed
+     */
+    public function getUser($email)
+    {
+        return $this->get("/contacts/" . urlencode($email));
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return mixed
+     */
+    public function createUser(array $data)
+    {
+        return $this->post("/contacts", $data);
+    }
+
+    /**
+     * @param         $endpoint
+     * @param array   $data
+     *
+     * @return mixed
+     */
+    public function post($endpoint, $data = [])
+    {
+        return $this->makeHttpRequest(self::LPTS_HTTP_METHOD_POST, $endpoint, $data);
+    }
+
+    /**
+     * @param string $email
+     * @param array  $data
+     *
+     * @return mixed
+     */
+    public function updateUser(string $email, array $data)
+    {
+        return $this->put("/contacts/" . $email, $data);
+    }
+
+    /**
+     * @param         $endpoint
+     * @param array   $data
+     *
+     * @return mixed
+     */
+    public function put($endpoint, $data = [])
+    {
+        return $this->makeHttpRequest(self::LPTS_HTTP_METHOD_PUT, $endpoint, $data);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttributes()
+    {
+        return $this->get("/contacts/attributes");
+    }
+    
+    public function getAllLists()
+    {
+        if (! empty($this->apiKey)) {
+            $lists  = ["lists" => [], "count" => 0];
+            $offset = 0;
+            $limit  = 50;
+            do {
+                $list_data = $this->getLists(['limit' => $limit, 'offset' => $offset]);
+                if (isset($list_data["lists"]) && is_array($list_data["lists"])) {
+                    $lists["lists"] = array_merge($lists["lists"], $list_data["lists"]);
+                    $offset         += 50;
+                    $lists["count"] = $list_data["count"];
+                }
+            } while (! empty($lists['lists']) && count($lists["lists"]) < $list_data["count"]);
+
+            return $lists;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $data
+     *
+     * @return mixed
+     */
+    public function getLists($data)
+    {
+        return $this->get("/contacts/lists", $data);
     }
 
     public function getLastResponseCode()
