@@ -19,6 +19,9 @@ Manage your campaigns more easily according to your products.
 3. Choose user attributes you want to synchronise
 
 == Changelog ==
+= 1.1.1 - 1 december 2021
+* Update: PHP 8 compatibility
+
 = 1.1 - 29 august 2021
 * Update: add required attibute on setting field
 
