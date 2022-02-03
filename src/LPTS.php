@@ -16,17 +16,16 @@ final class LPTS
     /**
      * Instance of LPTS
      *
-     * @var LPTS $instance create only one instance from plugin primary class
+     * @var LPTS|null $instance create only one instance from plugin primary class
      */
-    private static $instance;
-
-    public $request_uri;
-    public $array;
+    private static ?LPTS $instance = null;
+    public mixed $request_uri;
+    public array $array;
 
     public function __construct()
     {
         $this->request_uri = $_SERVER['REQUEST_URI'];
-        $this->array       = explode('/', $this->request_uri);
+        $this->array = explode('/', $this->request_uri);
 
         add_action('init', [$this, 'load']);
 
@@ -37,10 +36,10 @@ final class LPTS
     /**
      * Getting instance This Class is a singleton class
      *
-     * @return LPTS
+     * @return LPTS|null
      * @since 1.0.0
      */
-    public static function getInstance(): LPTS
+    public static function getInstance(): ?LPTS
     {
         if (is_null((self::$instance))) {
             self::$instance = new self();

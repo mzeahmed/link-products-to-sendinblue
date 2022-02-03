@@ -69,7 +69,8 @@
             <?php do_settings_sections($api_field_group); ?>
         <?php endif; ?>
 
-        <input type="submit" name="submit" id="submit" class="btn btn-outline-primary mt-4" value="<?= __('Save Changes', LPTS_TEXT_DOMAIN) ?>">
+        <input type="submit" name="submit" id="submit" class="btn btn-outline-primary mt-4"
+               value="<?= __('Save Changes', LPTS_TEXT_DOMAIN) ?>">
 
     </form>
 </div>
