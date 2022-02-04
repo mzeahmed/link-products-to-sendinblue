@@ -19,7 +19,7 @@ final class LPTS
      * @var LPTS|null $instance create only one instance from plugin primary class
      */
     private static ?LPTS $instance = null;
-    public mixed $request_uri;
+    public string $request_uri;
     public array $array;
 
     public function __construct()
