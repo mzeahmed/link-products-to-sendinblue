@@ -61,7 +61,7 @@ final class LPTS
             load_plugin_textdomain(
                 LPTS_TEXT_DOMAIN,
                 false,
-                LPTS_PATH . 'langages'
+                LPTS_PATH . 'languages'
             );
         });
     }
@@ -93,7 +93,7 @@ final class LPTS
     }
 
     /**
-     * Load plugin scipt
+     * Load plugin script
      *
      * @since 1.0.0
      */
