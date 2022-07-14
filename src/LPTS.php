@@ -24,9 +24,6 @@ final class LPTS
 
     public function __construct()
     {
-        $this->request_uri = $_SERVER['REQUEST_URI'];
-        $this->array = explode('/', $this->request_uri);
-
         add_action('init', [$this, 'load']);
 
         add_action('admin_enqueue_scripts', [$this, 'enqueueStyles']);
@@ -76,7 +73,7 @@ final class LPTS
      */
     public function enqueueStyles()
     {
-        if (strpos($this->array[3], 'link_products_to_sendinblue')) {
+        if (isset($_GET['page']) && $_GET['page'] === 'link_products_to_sendinblue') {
             wp_enqueue_style(
                 'lpts_bootstrap',
                 LPTS_URL . 'assets/vendor/bootstrap/css/bootstrap.min.css',
@@ -102,7 +99,7 @@ final class LPTS
      */
     public function enqueueScripts()
     {
-        if (strpos($this->array[3], 'link_products_to_sendinblue')) {
+        if (isset($_GET['page']) && $_GET['page'] === 'link_products_to_sendinblue') {
             wp_enqueue_script(
                 'link_products_to_sendinblue',
                 LPTS_URL . 'assets/js/app.js',
