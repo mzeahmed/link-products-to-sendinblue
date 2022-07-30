@@ -3,7 +3,7 @@
 namespace LPTS\Api;
 
 /**
- * Connecte to the Sendinblue API
+ * Connect to the Sendinblue API
  *
  * @package LPTS\Api
  * @since   1.0.0
@@ -142,7 +142,7 @@ class Api
     {
         return $this->get("/contacts/attributes");
     }
-    
+
     public function getAllLists()
     {
         if (! empty($this->apiKey)) {
