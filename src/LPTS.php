@@ -36,7 +36,7 @@ final class LPTS
      * @return LPTS|null
      * @since 1.0.0
      */
-    public static function getInstance(): ?LPTS
+    public static function getInstance() : ? LPTS
     {
         if (is_null((self::$instance))) {
             self::$instance = new self();
@@ -73,6 +73,7 @@ final class LPTS
      */
     public function enqueueStyles()
     {
+        // Load CSS on all plugin options pages
         if (isset($_GET['page']) && $_GET['page'] === 'link_products_to_sendinblue') {
             wp_enqueue_style(
                 'lpts_bootstrap',
@@ -99,7 +100,8 @@ final class LPTS
      */
     public function enqueueScripts()
     {
-        if (isset($_GET['page']) && $_GET['page'] === 'link_products_to_sendinblue') {
+        // Load JS only on the plugin options "User attributes sync" tab
+        if (isset($_GET['page']) && $_GET['page'] === 'link_products_to_sendinblue' && isset($_GET['tab']) && $_GET['tab'] === 'user_attributes') {
             wp_enqueue_script(
                 'link_products_to_sendinblue',
                 LPTS_URL . 'assets/js/app.js',
