@@ -140,7 +140,7 @@ class LPTS_Settings
     }
 
     /**
-     * Sanitize datas of user attributes synch form
+     * Sanitize datas of user attributes sync form
      *
      * @param $datas
      *

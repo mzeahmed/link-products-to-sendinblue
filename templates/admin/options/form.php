@@ -20,7 +20,7 @@
         <?php if (! empty(get_option(LPTS_API_KEY_V3_OPTION))) : ?>
             <a href="?page=link_products_to_sendinblue&tab=user_attributes"
                class="nav-tab <?= $tab == 'user_attributes' ? 'nav-tab-active' : ''; ?>">
-                <?php _e('User attributes synch', LPTS_TEXT_DOMAIN); ?>
+                <?php _e('User attributes sync', LPTS_TEXT_DOMAIN); ?>
             </a>
         <?php endif; ?>
     </h2>

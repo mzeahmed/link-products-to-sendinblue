@@ -87,7 +87,7 @@ msgid "Incompatible WordPress version"
 msgstr ""
 
 #: templates/admin/options/form.php:20
-msgid "User attributes synch"
+msgid "User attributes sync"
 msgstr ""
 
 #: templates/admin/options/form.php:25
