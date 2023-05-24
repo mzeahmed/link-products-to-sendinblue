@@ -86,13 +86,15 @@ final class LPTS {
 				'all'
 			);
 
-			wp_enqueue_script(
-				'link_products_to_sendinblue',
-				LPTS_URL . 'assets/js/app.js',
-				array( 'jquery' ),
-				LPTS_VERSION,
-				true
-			);
+			if ( isset( $_GET['tab'] ) && $_GET['tab'] === 'user_attributes' ) {
+				wp_enqueue_script(
+					'link_products_to_sendinblue',
+					LPTS_URL . 'assets/js/app.js',
+					array( 'jquery' ),
+					LPTS_VERSION,
+					true
+				);
+			}
 		}
 	}
 }

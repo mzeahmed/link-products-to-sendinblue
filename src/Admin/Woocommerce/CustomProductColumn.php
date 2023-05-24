@@ -32,7 +32,7 @@ class CustomProductColumn {
 	 * @since 1.0.0
 	 */
 	public function products_list_column( array $columns ): array {
-		$columns['list'] = __( 'List', 'link-products-to-sendinblue' );
+		$columns['list'] = __( 'Brevo list', 'link-products-to-sendinblue' );
 
 		return $columns;
 	}

@@ -45,7 +45,7 @@ class CustomProductField {
 	 */
 	public function custom_product_data_tab( array $tabs ): array {
 		$tabs['sendinblue'] = array(
-			'label' => __( 'Sendinblue', LPTS_TEXT_DOMAIN ),
+			'label' => __( 'Brevo (ex Sendinblue)', LPTS_TEXT_DOMAIN ),
 			'target' => 'sendinblue_data_panel',
 			'class' => array( 'hide_if_external' ),
 			'priority' => 100,

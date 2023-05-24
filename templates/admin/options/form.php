@@ -14,12 +14,12 @@
 <div class="wrap">
     <h2 class="nav-tab-wrapper">
         <a href="?page=link_products_to_sendinblue"
-           class="nav-tab <?= $tab == $api_field_group ? 'nav-tab-active' : ''; ?>">
+           class="nav-tab <?php echo $tab === $api_field_group ? 'nav-tab-active' : ''; ?>">
 			<?php _e( 'API Key', 'link-products-to-sendinblue' ); ?>
         </a>
 		<?php if ( ! empty( get_option( LPTS_API_KEY_V3_OPTION ) ) ) : ?>
             <a href="?page=link_products_to_sendinblue&tab=user_attributes"
-               class="nav-tab <?= $tab == 'user_attributes' ? 'nav-tab-active' : ''; ?>">
+               class="nav-tab <?php echo $tab === 'user_attributes' ? 'nav-tab-active' : ''; ?>">
 				<?php _e( 'User attributes sync', 'link-products-to-sendinblue' ); ?>
             </a>
 		<?php endif; ?>
@@ -32,7 +32,7 @@
 			<?php wp_nonce_field( $nonce_action, '_user_attributes_nonce' ) ?>
             <div class="mb-4 alert alert-info">
 				<?php esc_html_e(
-					'Match the WooCommerce Customers attributes with your Sendinblue contacts attributes',
+					'Match the WooCommerce Customers attributes with your Brevo contacts attributes',
 					'link-products-to-sendinblue'
 				) ?>
             </div>
@@ -45,7 +45,7 @@
                     </th>
                     <th></th>
                     <th class="text-center">
-						<?php esc_html_e( 'Sendinblue Contact Attributes', 'link-products-to-sendinblue' ) ?>
+						<?php esc_html_e( 'Brevo (ex Sendinblue) Contact Attributes', 'link-products-to-sendinblue' ) ?>
                     </th>
                     <th></th>
                 </tr>
