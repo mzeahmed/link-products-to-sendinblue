@@ -2,7 +2,7 @@
 Contributors: mzeahmed
 Tags: woocommerce, sendinblue
 Requires at last: 5.1
-Tested up to: 5.8.2
+Tested up to: 6.0
 Stable tag: 1.1.4.2
 Requires PHP: 8.0
 License: GPLv2 or later
