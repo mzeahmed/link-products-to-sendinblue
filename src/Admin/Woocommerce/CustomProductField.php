@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types=1 );
+
 namespace LPTS\Admin\Woocommerce;
 
 use LPTS\View\View;
@@ -7,16 +9,17 @@ use LPTS\Api\ApiManager;
 
 /**
  * Class CustomProductField
+ * Add a custom field to the product page
  *
  * @package LPTS\Admin\Woocommerce
  * @since   1.0.0
  */
 class CustomProductField {
 	public ?array $lists;
-	public $api_key;
+	public ?string $api_key;
 
 	public function __construct() {
-		$this->lists   = ApiManager::getLists();
+		$this->lists = ApiManager::get_lists();
 		$this->api_key = get_option( LPTS_API_KEY_V3_OPTION );
 
 		// push 'Select a list' to $this->list
@@ -26,27 +29,27 @@ class CustomProductField {
 		krsort( $this->lists );
 
 		if ( $this->api_key != false && ! empty( $this->api_key ) ) {
-			add_filter( 'woocommerce_product_data_tabs', array( $this, 'customProductDataTab' ) );
-			add_action( 'woocommerce_product_data_panels', array( $this, 'productDataPanelRender' ) );
-			add_action( 'woocommerce_process_product_meta', array( $this, 'processProductMeta' ) );
+			add_filter( 'woocommerce_product_data_tabs', array( $this, 'custom_product_data_tab' ) );
+			add_action( 'woocommerce_product_data_panels', array( $this, 'product_data_panel_render' ) );
+			add_action( 'woocommerce_process_product_meta', array( $this, 'process_product_meta' ) );
 		}
 	}
 
 	/**
 	 * Add new tab
 	 *
-	 * @param $tabs
+	 * @param array $tabs
 	 *
-	 * @return mixed
+	 * @return array
 	 * @since 1.0.0
 	 */
-	public function customProductDataTab( $tabs ) {
-		$tabs['sendinblue'] = [
-			'label'    => __( 'Sendinblue', LPTS_TEXT_DOMAIN ),
-			'target'   => 'sendinblue_data_panel',
-			'class'    => [ 'hide_if_external' ],
+	public function custom_product_data_tab( array $tabs ): array {
+		$tabs['sendinblue'] = array(
+			'label' => __( 'Sendinblue', LPTS_TEXT_DOMAIN ),
+			'target' => 'sendinblue_data_panel',
+			'class' => array( 'hide_if_external' ),
 			'priority' => 100,
-		];
+		);
 
 		return $tabs;
 	}
@@ -57,26 +60,25 @@ class CustomProductField {
 	 * @return string
 	 * @since 1.0.0
 	 */
-	public function productDataPanelRender(): string {
+	public function product_data_panel_render(): string {
 		$value = get_post_meta( get_the_ID(), '_lpts_list' ) ?: '';
 
-		return View::render(
-			'admin/woocommerce/product-sendinblue-panel',
-			[
+		return View::render( 'admin/woocommerce/product-sendinblue-panel',
+			array(
 				'lists' => $this->lists,
 				'value' => $value,
-			]
+			)
 		);
 	}
 
 	/**
 	 * Saving field in the database
 	 *
-	 * @param $post_id
+	 * @param int $post_id Id of product
 	 *
 	 * @since 1.0.0
 	 */
-	public function processProductMeta( $post_id ) {
+	public function process_product_meta( int $post_id ): void {
 		$product = wc_get_product( $post_id );
 
 		$product->update_meta_data( '_lpts_list', sanitize_text_field( $_POST['_selec_list'] ) );

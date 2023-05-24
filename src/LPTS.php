@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types=1 );
+
 namespace LPTS;
 
 use LPTS\Admin\LPTS_Settings;
@@ -87,7 +89,7 @@ final class LPTS {
 			wp_enqueue_script(
 				'link_products_to_sendinblue',
 				LPTS_URL . 'assets/js/app.js',
-				[ 'jquery' ],
+				array( 'jquery' ),
 				LPTS_VERSION,
 				true
 			);

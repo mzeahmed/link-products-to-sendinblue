@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types=1 );
+
 namespace LPTS\Admin;
 
 use LPTS\View\View;
@@ -94,13 +96,13 @@ class LPTS_Settings {
 		 * Options
 		 */
 		$customer_attributes = get_option( LPTS_CUSTOMER_ATTRIBUTES_OPTION );
-		$contact_attributes  = get_option( LPTS_SENDINBLUE_ATTRIBUTES_OPTION );
+		$contact_attributes = get_option( LPTS_SENDINBLUE_ATTRIBUTES_OPTION );
 
 		/**
 		 * Add options if they don't exists
 		 */
-		$customer_attributes == false ? add_option( LPTS_CUSTOMER_ATTRIBUTES_OPTION, [] ) : null;
-		$contact_attributes == false ? add_option( LPTS_SENDINBLUE_ATTRIBUTES_OPTION, [] ) : null;
+		false === $customer_attributes ? add_option( LPTS_CUSTOMER_ATTRIBUTES_OPTION, [] ) : null;
+		false === $contact_attributes ? add_option( LPTS_SENDINBLUE_ATTRIBUTES_OPTION, [] ) : null;
 
 		if ( isset( $_POST['_user_attributes_nonce'] ) ) {
 			if ( ! wp_verify_nonce( $_POST['_user_attributes_nonce'], $this->nonce_action ) ) {
@@ -172,25 +174,25 @@ class LPTS_Settings {
 	 * @since 1.0.0
 	 */
 	public function form_render(): ?string {
-		$api_key                      = get_option( LPTS_API_KEY_V3_OPTION );
-		$customer_attributes_option   = get_option( LPTS_CUSTOMER_ATTRIBUTES_OPTION );
+		$api_key = get_option( LPTS_API_KEY_V3_OPTION );
+		$customer_attributes_option = get_option( LPTS_CUSTOMER_ATTRIBUTES_OPTION );
 		$sendinblue_attributes_option = get_option( LPTS_SENDINBLUE_ATTRIBUTES_OPTION );
 
-		$admin_profile   = new WC_Admin_Profile();
+		$admin_profile = new WC_Admin_Profile();
 		$customer_fields = $admin_profile->get_customer_meta_fields();
-		$attrs           = ApiManager::getAttributes();
+		$attrs = ApiManager::get_attributes();
 
 		$contact_attributes = $attrs['attributes']['normal_attributes'];
 
 		return View::render( 'admin/options/form', array(
-				'api_field_group'              => self::LPTS_API_KEY_GROUP,
-				'api_key'                      => $api_key,
-				'customer_attributes_option'   => $customer_attributes_option,
+				'api_field_group' => self::LPTS_API_KEY_GROUP,
+				'api_key' => $api_key,
+				'customer_attributes_option' => $customer_attributes_option,
 				'sendinblue_attributes_option' => $sendinblue_attributes_option,
-				'customer_fields'              => $customer_fields,
-				'contact_attributes'           => $contact_attributes,
-				'nonce_action'                 => $this->nonce_action,
-				'matched_attributes'           => $this->getMatchedAttributes(),
+				'customer_fields' => $customer_fields,
+				'contact_attributes' => $contact_attributes,
+				'nonce_action' => $this->nonce_action,
+				'matched_attributes' => $this->getMatchedAttributes(),
 			)
 		);
 	}
@@ -216,11 +218,11 @@ class LPTS_Settings {
 	 * @since   1.0.0
 	 */
 	public function api_key_notice(): ?string {
-		if ( empty( get_option( LPTS_API_KEY_V3_OPTION ) ) || get_option( LPTS_API_KEY_V3_OPTION ) == false ) {
+		if ( empty( get_option( LPTS_API_KEY_V3_OPTION ) ) || ! get_option( LPTS_API_KEY_V3_OPTION ) ) {
 			return View::render( 'admin/options/partials/notice', array() );
 		}
 
-		return false;
+		return null;
 	}
 
 	/**
@@ -251,11 +253,11 @@ class LPTS_Settings {
 		get_option( LPTS_MAIN_OPTION ) == false ? add_option( LPTS_MAIN_OPTION, [] ) : null;
 
 		if ( ! empty( get_option( LPTS_API_KEY_V3_OPTION ) ) ) {
-			$accoun_info = ApiManager::getAccountInfo();
+			$accoun_info = ApiManager::get_account_info();
 
 			$args = array(
-				'account_email'             => $accoun_info['account_email'],
-				'access_key'                => get_option( LPTS_API_KEY_V3_OPTION ),
+				'account_email' => $accoun_info['account_email'],
+				'access_key' => get_option( LPTS_API_KEY_V3_OPTION ),
 				'client_matched_attributes' => array_combine(
 					get_option( LPTS_SENDINBLUE_ATTRIBUTES_OPTION ),
 					get_option( LPTS_CUSTOMER_ATTRIBUTES_OPTION )

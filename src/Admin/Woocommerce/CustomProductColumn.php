@@ -1,11 +1,14 @@
 <?php
 
+declare( strict_types=1 );
+
 namespace LPTS\Admin\Woocommerce;
 
 use LPTS\Api\ApiManager;
 
 /**
  * Class CustomProductColumn
+ * Add custom column to product list
  *
  * @package LPTS\Admin\Woocommerce
  * @since   1.0.0
@@ -14,7 +17,7 @@ class CustomProductColumn {
 	public ?array $sendinblue_lists;
 
 	public function __construct() {
-		$this->sendinblue_lists = ApiManager::getLists();
+		$this->sendinblue_lists = ApiManager::get_lists();
 
 		add_filter( 'manage_edit-product_columns', array( $this, 'products_list_column' ), 9999 );
 		add_action( 'manage_product_posts_custom_column', array( $this, 'products_list_column_content' ), 10, 2 );
@@ -29,7 +32,7 @@ class CustomProductColumn {
 	 * @since 1.0.0
 	 */
 	public function products_list_column( array $columns ): array {
-		$columns['list'] = __( 'List', LPTS_TEXT_DOMAIN );
+		$columns['list'] = __( 'List', 'link-products-to-sendinblue' );
 
 		return $columns;
 	}

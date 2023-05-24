@@ -24,10 +24,12 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/src/version-compare.php';
 require_once __DIR__ . '/constants.php';
 
-! function_exists( 'get_plugin_data' ) ? require ABSPATH . 'wp-admin/includes/plugin.php' : null;
+if ( ! function_exists( 'get_plugin_data' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
 
 /**
- * let's retrieve plugin's datas
+ * Let's retrieve plugin's datas
  *
  * @var $plugin_data
  */
@@ -39,17 +41,6 @@ define( 'LPTS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LPTS_URL', plugin_dir_url( __FILE__ ) );
 define( 'LPTS_PLUGIN_NAME', $plugin_data['Name'] );
 define( 'LPTS_TEXT_DOMAIN', $plugin_data['TextDomain'] );
-
-/*** Settings constants ***/
-// main settings
-define( 'LPTS_MAIN_OPTION', 'lpts_main_option' );
-
-// api key option
-define( 'LPTS_API_KEY_V3_OPTION', 'lpts_api_key' );
-
-// attributes synch options
-define( 'LPTS_CUSTOMER_ATTRIBUTES_OPTION', 'lpts_woocommerce_customer_attributes' );
-define( 'LPTS_SENDINBLUE_ATTRIBUTES_OPTION', 'lpts_sendinblue_contact_attributes' );
 
 /**
  * Plugin entry point Process
