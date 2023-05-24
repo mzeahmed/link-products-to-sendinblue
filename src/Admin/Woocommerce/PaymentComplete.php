@@ -15,13 +15,13 @@ use LPTS\Api\ApiManager;
  */
 class PaymentComplete {
 	public array $lists;
-	public array $client_matched_attributes;
+	public ?array $client_matched_attributes;
 
 	public function __construct() {
 		$main_option = get_option( LPTS_MAIN_OPTION );
 		$this->lists = ApiManager::get_lists();
 
-		if ( ! empty( get_option( LPTS_API_KEY_V3_OPTION ) ) ) {
+		if ( ( false !== $main_option ) && ! empty( get_option( LPTS_API_KEY_V3_OPTION ) ) ) {
 			$this->client_matched_attributes = $main_option['client_matched_attributes'];
 		}
 
@@ -31,12 +31,13 @@ class PaymentComplete {
 	/**
 	 * Get WooCommrece payment data and create subscriber to Sendinblue in the list linked to the product
 	 *
-	 * @param int $order_id Id of the order
+	 * @param int $order_id Id of the order.
 	 *
+	 * @throws \JsonException
 	 * @since 1.0.0
 	 */
 	public function payment_complete( int $order_id ): void {
-		// order recovery
+		// order recovery.
 		$order = wc_get_order( $order_id );
 		$email = $order->get_billing_email();
 
@@ -48,14 +49,14 @@ class PaymentComplete {
 			}
 		}
 
-		// recovery of purchased products
+		// recovery of purchased products.
 		$items = $order->get_items();
 
 		foreach ( $items as $item ) {
-			// product datas
+			// product datas.
 			$data = $item->get_data();
 
-			// recovery the Sendinblue list linked to the product
+			// recovery the Sendinblue list linked to the product.
 			$postmeta = get_post_meta( $data['product_id'], '_lpts_list' );
 			$list_id = implode( '', $postmeta );
 

@@ -4,8 +4,6 @@ declare( strict_types=1 );
 
 namespace LPTS\Api;
 
-use Exception;
-
 /**
  * Class to manage API
  *
@@ -42,13 +40,17 @@ class ApiManager {
 	 * @return array|null
 	 */
 	public static function get_attributes(): ?array {
-		$attrs = get_transient( 'lpts_attributes' . md5( get_option( LPTS_API_KEY_V3_OPTION ) ) );
+		$attrs = get_transient( 'lpts_attributes' . get_option( LPTS_API_KEY_V3_OPTION ) );
 
 		if ( ! $attrs ) {
 			$api_client = new Api();
 			$response = $api_client->get_attributes();
 
-			$attributes = $response['attributes'];
+			$attributes = null;
+			if ( $response ) {
+				$attributes = $response['attributes'];
+			}
+
 			$attrs = array(
 				'attributes' => array(
 					'normal_attributes' => array(),
@@ -56,7 +58,7 @@ class ApiManager {
 				),
 			);
 
-			if ( $attributes != null && count( $attributes ) > 0 ) {
+			if ( $attributes !== null && count( $attributes ) > 0 ) {
 				foreach ( $attributes as $key => $value ) {
 					if ( $value["category"] === "normal" ) {
 						$attrs['attributes']['normal_attributes'][] = $value;
@@ -67,11 +69,7 @@ class ApiManager {
 				}
 			}
 
-			set_transient(
-				'lpts_attributes' . md5( get_option( LPTS_API_KEY_V3_OPTION ) ),
-				$attrs,
-				self::DELAYTIME
-			);
+			set_transient( 'lpts_attributes' . get_option( LPTS_API_KEY_V3_OPTION ), $attrs, self::DELAYTIME );
 		}
 
 		return $attrs;
@@ -80,11 +78,12 @@ class ApiManager {
 	/**
 	 * Create subscriber
 	 *
-	 * @param string $email
-	 * @param int    $list_id
-	 * @param array  $info
+	 * @param string $email   Subscriber email.
+	 * @param int    $list_id List id.
+	 * @param array  $info    Subscriber info.
 	 *
 	 * @return string|void
+	 * @throws \JsonException
 	 */
 	public static function create_subscriber( string $email, int $list_id, array $info ) {
 		try {
@@ -94,7 +93,7 @@ class ApiManager {
 				"email" => $email,
 				"attributes" => $info,
 				"emailBlacklisted" => false,
-				"listIds" => [ intval( $list_id ) ],
+				"listIds" => array( $list_id ),
 				"smsBlacklisted" => false,
 			);
 
@@ -116,7 +115,8 @@ class ApiManager {
 			} else {
 				return "failure";
 			}
-		} catch ( Exception $e ) {
+		} catch ( \Exception $e ) {
+			echo $e->getMessage();
 		}
 	}
 

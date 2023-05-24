@@ -70,7 +70,7 @@ class LPTS_Settings {
 						'<p><a href="%s" target="_blank">Get your account API key</a></p>',
 						'link-products-to-sendinblue'
 					),
-					'https://account.sendinblue.com/advanced/api'
+					'https://app.brevo.com/settings/keys/api'
 				);
 			},
 			self::LPTS_API_KEY_GROUP
@@ -79,7 +79,7 @@ class LPTS_Settings {
 		add_settings_field(
 			'api_key_field',
 			__( 'API Key', 'link-products-to-sendinblue' ),
-			[ $this, 'api_key_field_render' ],
+			array( $this, 'api_key_field_render' ),
 			self::LPTS_API_KEY_GROUP,
 			'api_key_section'
 		);
@@ -139,7 +139,7 @@ class LPTS_Settings {
 	/**
 	 * Sanitize datas of user attributes synch form
 	 *
-	 * @param array $datas Datas to sanitize
+	 * @param array $datas Datas to sanitize.
 	 *
 	 * @return array|null
 	 * @since 1.0.0
@@ -192,7 +192,7 @@ class LPTS_Settings {
 				'customer_fields' => $customer_fields,
 				'contact_attributes' => $contact_attributes,
 				'nonce_action' => $this->nonce_action,
-				'matched_attributes' => $this->getMatchedAttributes(),
+				'matched_attributes' => $this->get_matched_attributes(),
 			)
 		);
 	}
@@ -203,7 +203,7 @@ class LPTS_Settings {
 	 * @return array|null Array of matched attributes
 	 * @since 1.0.0
 	 */
-	private function getMatchedAttributes(): ?array {
+	private function get_matched_attributes(): ?array {
 		return array_combine(
 			get_option( LPTS_CUSTOMER_ATTRIBUTES_OPTION ),
 			get_option( LPTS_SENDINBLUE_ATTRIBUTES_OPTION )
@@ -228,7 +228,7 @@ class LPTS_Settings {
 	/**
 	 * Add plugin settings link under plugin name on plugins page
 	 *
-	 * @param array $links Array of links
+	 * @param array $links Array of links.
 	 *
 	 * @wp-hook plugin_action_links_ . __FILE__
 	 * @return array|null
@@ -250,7 +250,7 @@ class LPTS_Settings {
 	 * @since 1.0.0
 	 */
 	public function main_settings(): void {
-		get_option( LPTS_MAIN_OPTION ) == false ? add_option( LPTS_MAIN_OPTION, [] ) : null;
+		false === get_option( LPTS_MAIN_OPTION ) ? add_option( LPTS_MAIN_OPTION, array() ) : null;
 
 		if ( ! empty( get_option( LPTS_API_KEY_V3_OPTION ) ) ) {
 			$accoun_info = ApiManager::get_account_info();

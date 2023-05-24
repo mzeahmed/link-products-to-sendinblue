@@ -42,11 +42,11 @@
                         id="lpts_woocommerce_customer_attributes">
 					<?php foreach ( $customer_fields['billing']['fields'] as $id => $label ) : ?>
                         <option value="<?php echo $id ?: ''; ?>"
-							<?php if ( $k === $id ) {
-								foreach ( $customer_attributes_option as $value ) {
+							<?php if ( $k === $id ) :
+								foreach ( $customer_attributes_option as $value ) :
 									selected( $value, $id );
-								}
-							} ?>
+								endforeach;
+							endif; ?>
                         >
 							<?php echo $label['label'] ?: ''; ?>
                         </option>

@@ -19,6 +19,10 @@ Manage your campaigns more easily according to your products.
 3. Choose user attributes you want to synchronise
 
 == Changelog ==
+= 1.1.5 - 25 may 2023
+* Improved: Improve code quality
+* Update: Update Senndiblue name to Brevo
+
 = 1.1.1 - 1 december 2021
 * Update: PHP 8 compatibility
 

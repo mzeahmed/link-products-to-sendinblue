@@ -26,7 +26,7 @@ class CustomProductColumn {
 	/**
 	 * Create product column
 	 *
-	 * @param array $columns list of columns
+	 * @param array $columns list of columns.
 	 *
 	 * @return array
 	 * @since 1.0.0
@@ -40,23 +40,23 @@ class CustomProductColumn {
 	/**
 	 * Add content to product column
 	 *
-	 * @param string $column     column name
-	 * @param int    $product_id product id
+	 * @param string $column     column name.
+	 * @param int    $product_id product id.
 	 *
 	 * @since 1.0.0
 	 */
 	public function products_list_column_content( string $column, int $product_id ): void {
-		if ( $column === 'list' ) {
+		if ( 'list' === $column ) {
 			$product_list_id = get_post_meta( $product_id, '_lpts_list', true );
 
 			// we check if $product_list_id exist in $this->sendinblue_lists
-			// if true we echo the value(list name)
+			// if true we echo the value(list name).
 			if ( isset( $this->sendinblue_lists[ $product_list_id ] ) ) {
 				$list = $this->sendinblue_lists[ $product_list_id ];
 
-				echo $list;
+				echo esc_html( $list );
 			} else {
-				echo '-';
+				echo '–';
 			}
 		}
 	}
