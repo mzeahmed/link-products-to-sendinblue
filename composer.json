@@ -1,31 +1,31 @@
 {
-    "name": "mzeahmed/link-products-to-sendinblue",
-    "description": "",
-    "keywords": [
-        "wordpress",
-        "plugin"
-    ],
-    "homepage": "https://github.com/mzeahmed/link-products-to-sendinblue",
-    "authors": [
-        {
-            "name": "Ahmed Mze",
-            "homepage": "https://ahmedmze.fr"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "LPTS\\": "src/"
-        }
-    },
-    "type": "wordpress-plugin",
-    "require": {
-        "php": ">=7.1",
-        "ext-json": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5"
-    },
-    "config": {
-        "sort-packages": true
+  "name": "mzeahmed/link-products-to-sendinblue",
+  "description": "",
+  "keywords": [
+    "wordpress",
+    "plugin"
+  ],
+  "homepage": "https://github.com/mzeahmed/link-products-to-sendinblue",
+  "authors": [
+    {
+      "name": "Ahmed Mze",
+      "homepage": "https://ahmedmze.fr"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "LPTS\\": "src/"
+    }
+  },
+  "type": "wordpress-plugin",
+  "require": {
+    "php": ">=8.0",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
+  "config": {
+    "sort-packages": true
+  }
 }

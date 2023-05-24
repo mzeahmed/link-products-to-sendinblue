@@ -2,9 +2,9 @@
 Contributors: mzeahmed
 Tags: woocommerce, sendinblue
 Requires at last: 5.1
-Tested up to: 6.0
-Stable tag: 1.1.4.2
-Requires PHP: 7.4
+Tested up to: 6.2.2
+Stable tag: 1.1.5
+Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,6 +19,10 @@ Manage your campaigns more easily according to your products.
 3. Choose user attributes you want to synchronise
 
 == Changelog ==
+= 1.1.5 - 25 may 2023
+* Improved: Improve code quality
+* Update: Update Senndiblue name to Brevo
+
 = 1.1.1 - 1 december 2021
 * Update: PHP 8 compatibility
 
