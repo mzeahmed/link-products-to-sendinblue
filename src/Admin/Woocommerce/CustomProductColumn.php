@@ -7,7 +7,6 @@ namespace LPTS\Admin\Woocommerce;
 use LPTS\Api\ApiManager;
 
 /**
- * Class CustomProductColumn
  * Add custom column to product list
  *
  * @package LPTS\Admin\Woocommerce
@@ -21,8 +20,8 @@ class CustomProductColumn
     {
         $this->sendinblue_lists = ApiManager::getLists();
 
-        add_filter('manage_edit-product_columns', [$this, 'products_list_column'], 9999);
-        add_action('manage_product_posts_custom_column', [$this, 'products_list_column_content'], 10, 2);
+        add_filter('manage_edit-product_columns', [$this, 'productsListColumn'], 9999);
+        add_action('manage_product_posts_custom_column', [$this, 'productsListColumnContent'], 10, 2);
     }
 
     /**
@@ -33,7 +32,7 @@ class CustomProductColumn
      * @return array
      * @since 1.0.0
      */
-    public function products_list_column(array $columns): array
+    public function productsListColumn(array $columns): array
     {
         $columns['list'] = __('Brevo list', 'link-products-to-sendinblue');
 
@@ -48,7 +47,7 @@ class CustomProductColumn
      *
      * @since 1.0.0
      */
-    public function products_list_column_content(string $column, int $product_id): void
+    public function productsListColumnContent(string $column, int $product_id): void
     {
         if ('list' === $column) {
             $product_list_id = get_post_meta($product_id, '_lpts_list', true);

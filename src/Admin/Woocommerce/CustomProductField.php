@@ -8,7 +8,6 @@ use LPTS\View\View;
 use LPTS\Api\ApiManager;
 
 /**
- * Class CustomProductField
  * Add a custom field to the product page
  *
  * @package LPTS\Admin\Woocommerce
@@ -31,8 +30,8 @@ class CustomProductField
         krsort($this->lists);
 
         if (!empty($this->api_key)) {
-            add_filter('woocommerce_product_data_tabs', [$this, 'custom_product_data_tab']);
-            add_action('woocommerce_product_data_panels', [$this, 'product_data_panel_render']);
+            add_filter('woocommerce_product_data_tabs', [$this, 'customProductDataTab']);
+            add_action('woocommerce_product_data_panels', [$this, 'productDataPanelRender']);
             add_action('woocommerce_process_product_meta', [$this, 'process_product_meta']);
         }
     }
@@ -45,7 +44,7 @@ class CustomProductField
      * @return array
      * @since 1.0.0
      */
-    public function custom_product_data_tab(array $tabs): array
+    public function customProductDataTab(array $tabs): array
     {
         $tabs['sendinblue'] = [
             'label' => __('Brevo (ex Sendinblue)', 'link-products-to-sendinblue'),
@@ -63,7 +62,7 @@ class CustomProductField
      * @return string
      * @since 1.0.0
      */
-    public function product_data_panel_render(): string
+    public function productDataPanelRender(): string
     {
         $value = get_post_meta(get_the_ID(), '_lpts_list') ?: '';
 
