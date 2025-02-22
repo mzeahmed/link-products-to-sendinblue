@@ -169,9 +169,8 @@ class LPTS_Settings
     public function apiKeyFieldRender(): ?string
     {
         return View::render('admin/options/partials/api-key-field', [
-                'api_key_v3' => get_option(LPTS_API_KEY_V3_OPTION),
-            ]
-        );
+            'api_key_v3' => get_option(LPTS_API_KEY_V3_OPTION),
+        ]);
     }
 
     /**
@@ -193,16 +192,15 @@ class LPTS_Settings
         $contact_attributes = $attrs['attributes']['normal_attributes'];
 
         return View::render('admin/options/form', [
-                'api_field_group' => self::LPTS_API_KEY_GROUP,
-                'api_key' => $api_key,
-                'customer_attributes_option' => $customer_attributes_option,
-                'sendinblue_attributes_option' => $sendinblue_attributes_option,
-                'customer_fields' => $customer_fields,
-                'contact_attributes' => $contact_attributes,
-                'nonce_action' => $this->nonce_action,
-                'matched_attributes' => $this->getMatchedAttributes(),
-            ]
-        );
+            'api_field_group' => self::LPTS_API_KEY_GROUP,
+            'api_key' => $api_key,
+            'customer_attributes_option' => $customer_attributes_option,
+            'sendinblue_attributes_option' => $sendinblue_attributes_option,
+            'customer_fields' => $customer_fields,
+            'contact_attributes' => $contact_attributes,
+            'nonce_action' => $this->nonce_action,
+            'matched_attributes' => $this->getMatchedAttributes(),
+        ]);
     }
 
     /**

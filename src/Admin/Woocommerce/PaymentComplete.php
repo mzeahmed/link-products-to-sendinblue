@@ -7,7 +7,6 @@ namespace LPTS\Admin\Woocommerce;
 use LPTS\Api\ApiManager;
 
 /**
- * Class PaymentComplete
  * Class for creating a subscriber when the payment is complete
  *
  * @package LPTS\Admin\Woocommerce
@@ -15,19 +14,19 @@ use LPTS\Api\ApiManager;
  */
 class PaymentComplete
 {
-    public array $lists;
+    // private array $lists;
     public ?array $client_matched_attributes;
 
     public function __construct()
     {
-        $main_option = get_option(LPTS_MAIN_OPTION);
-        $this->lists = ApiManager::getLists();
+        $mainOption = get_option(LPTS_MAIN_OPTION);
+        // $this->lists = ApiManager::getLists();
 
-        if ((false !== $main_option) && !empty(get_option(LPTS_API_KEY_V3_OPTION))) {
-            $this->client_matched_attributes = $main_option['client_matched_attributes'];
+        if ((false !== $mainOption) && !empty(get_option(LPTS_API_KEY_V3_OPTION))) {
+            $this->client_matched_attributes = $mainOption['client_matched_attributes'];
         }
 
-        add_action('woocommerce_payment_complete', [$this, 'payment_complete']);
+        add_action('woocommerce_payment_complete', [$this, 'paymentComplete']);
     }
 
     /**
@@ -35,10 +34,9 @@ class PaymentComplete
      *
      * @param int $order_id Id of the order.
      *
-     * @throws \JsonException
      * @since 1.0.0
      */
-    public function payment_complete(int $order_id): void
+    public function paymentComplete(int $order_id): void
     {
         // order recovery.
         $order = wc_get_order($order_id);
@@ -47,8 +45,8 @@ class PaymentComplete
         $info = [];
 
         if (isset($this->client_matched_attributes)) {
-            foreach ($this->client_matched_attributes as $contact_attr => $customer_attr) {
-                $info[$contact_attr] = $order->$customer_attr;
+            foreach ($this->client_matched_attributes as $contactAttr => $customerAttr) {
+                $info[$contactAttr] = $order->$customerAttr;
             }
         }
 
