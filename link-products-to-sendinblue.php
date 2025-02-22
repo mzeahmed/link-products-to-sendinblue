@@ -9,7 +9,7 @@
  * Plugin Name:       Link Products To Sendinblue Lists From Woocommerce
  * Plugin URI:        https://wordpress.org/plugins/link-products-to-sendinblue/
  * Description:       Link WooCommerce products to a specific Brevo (ex Sendinblue) list to add the customer to that list
- * Version:           1.1.6
+ * Version:           1.1.7
  * Author:            Ahmed Mze
  * Author URI:        https://github.com/mzeahmed
  * License:           GPLv2 or later
@@ -56,7 +56,7 @@ function link_products_to_sendinblue(): ?LPTS\LPTS
         });
     }
 
-    return LPTS\LPTS::get_instance();
+    return LPTS\LPTS::getInstance();
 }
 
 add_action('plugins_loaded', 'link_products_to_sendinblue');

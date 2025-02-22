@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LPTS\Api;
 
 /**
@@ -29,7 +31,7 @@ class Api
         $this->api_key = get_option(LPTS_API_KEY_V3_OPTION);
     }
 
-    public function get_account()
+    public function getAccount()
     {
         return $this->get('/account');
     }
@@ -39,14 +41,15 @@ class Api
      * @param array $parameters
      *
      * @return mixed
+     * @throws \JsonException
      */
-    public function get($endpoint, array $parameters = [])
+    public function get($endpoint, array $parameters = []): mixed
     {
         if ($parameters) {
             $endpoint .= '?' . http_build_query($parameters);
         }
 
-        return $this->make_http_request(self::LPTS_HTTP_METHOD_GET, $endpoint);
+        return $this->makeHttpRequest(self::LPTS_HTTP_METHOD_GET, $endpoint);
     }
 
     /**
@@ -57,7 +60,7 @@ class Api
      * @return mixed
      * @throws \JsonException
      */
-    private function make_http_request(string $method, string $endpoint, array $body = [])
+    private function makeHttpRequest(string $method, string $endpoint, array $body = []): mixed
     {
         $url = self::LPTS_API_BASE_URL . $endpoint;
 
@@ -69,9 +72,9 @@ class Api
             ],
         ];
 
-        if ($method != self::LPTS_HTTP_METHOD_GET && $method != self::LPTS_HTTP_METHOD_DELETE) {
+        if ($method !== self::LPTS_HTTP_METHOD_GET && $method !== self::LPTS_HTTP_METHOD_DELETE) {
             if (isset($body['listIds'])) {
-                $body['listIds'] = array_map('intval', (array) $body['listIds']);
+                $body['listIds'] = array_map('\intval', (array) $body['listIds']);
             }
             $args['body'] = wp_json_encode($body);
         }
@@ -88,9 +91,9 @@ class Api
      *
      * @return mixed
      */
-    public function get_user(string $email)
+    public function getContact(string $email): mixed
     {
-        return $this->get("/contacts/" . urlencode($email));
+        return $this->get('/contacts/' . urlencode($email));
     }
 
     /**
@@ -99,9 +102,9 @@ class Api
      * @return mixed
      * @throws \JsonException
      */
-    public function create_user(array $data)
+    public function createContact(array $data): mixed
     {
-        return $this->post("/contacts", $data);
+        return $this->post('/contacts', $data);
     }
 
     /**
@@ -113,7 +116,7 @@ class Api
      */
     public function post($endpoint, array $data = [])
     {
-        return $this->make_http_request(self::LPTS_HTTP_METHOD_POST, $endpoint, $data);
+        return $this->makeHttpRequest(self::LPTS_HTTP_METHOD_POST, $endpoint, $data);
     }
 
     /**
@@ -123,9 +126,9 @@ class Api
      * @return mixed
      * @throws \JsonException
      */
-    public function update_user(string $email, array $data)
+    public function updateContact(string $email, array $data)
     {
-        return $this->put("/contacts/" . $email, $data);
+        return $this->put('/contacts/' . $email, $data);
     }
 
     /**
@@ -137,34 +140,34 @@ class Api
      */
     public function put(string $endpoint, array $data = [])
     {
-        return $this->make_http_request(self::LPTS_HTTP_METHOD_PUT, $endpoint, $data);
+        return $this->makeHttpRequest(self::LPTS_HTTP_METHOD_PUT, $endpoint, $data);
     }
 
     /**
      * @return mixed
      */
-    public function get_attributes()
+    public function getAttributes()
     {
-        return $this->get("/contacts/attributes");
+        return $this->get('/contacts/attributes');
     }
 
     /**
      * @return array|false
      */
-    public function get_all_lists()
+    public function getAllLists(): false|array
     {
         if (!empty($this->api_key)) {
-            $lists = ["lists" => [], "count" => 0];
+            $lists = ['lists' => [], 'count' => 0];
             $offset = 0;
             $limit = 50;
             do {
-                $list_data = $this->get_lists(['limit' => $limit, 'offset' => $offset]);
-                if (isset($list_data["lists"]) && is_array($list_data["lists"])) {
-                    $lists["lists"] = array_merge($lists["lists"], $list_data["lists"]);
+                $list_data = $this->getLists(['limit' => $limit, 'offset' => $offset]);
+                if (isset($list_data['lists']) && \is_array($list_data['lists'])) {
+                    $lists['lists'] = array_merge($lists['lists'], $list_data['lists']);
                     $offset += 50;
-                    $lists["count"] = $list_data["count"];
+                    $lists['count'] = $list_data['count'];
                 }
-            } while (!empty($lists['lists']) && count($lists["lists"]) < $list_data["count"]);
+            } while (!empty($lists['lists']) && count($lists['lists']) < $list_data['count']);
 
             return $lists;
         }
@@ -177,12 +180,12 @@ class Api
      *
      * @return mixed
      */
-    public function get_lists(array $data)
+    public function getLists(array $data): mixed
     {
-        return $this->get("/contacts/lists", $data);
+        return $this->get('/contacts/lists', $data);
     }
 
-    public function get_last_response_code()
+    public function getLastResponseCode()
     {
         return $this->last_response_code;
     }

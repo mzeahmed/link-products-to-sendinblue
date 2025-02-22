@@ -1,6 +1,6 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace LPTS\View;
 
@@ -10,7 +10,8 @@ namespace LPTS\View;
  * @package LPTS\View
  * @since   1.0.0
  */
-class View {
+class View
+{
 	/**
 	 * Allows to render a view
 	 *
@@ -19,19 +20,20 @@ class View {
 	 *
 	 * @return string|null
 	 */
-	public static function render( string $template, array $data = null ): ?string {
-		( $data ) ? extract( $data ) : null;
+	public static function render(string $template, array $data = null): ?string
+    {
+		( $data ) ? extract($data) : null;
 
 		$path = self::getTemplatePath() . $template . '.php';
 
-		if ( $path ) {
+		if ($path) {
 			ob_start();
-			require( $path );
+			require($path);
 
 			return ob_get_contents();
 		}
 
-		return false;
+		return null;
 	}
 
 	/**
@@ -39,7 +41,8 @@ class View {
 	 *
 	 * @return string|null
 	 */
-	private static function getTemplatePath(): ?string {
+	private static function getTemplatePath(): ?string
+    {
 		return LPTS_PATH . 'templates' . DIRECTORY_SEPARATOR;
 	}
 }

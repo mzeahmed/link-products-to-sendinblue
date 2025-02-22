@@ -1,6 +1,6 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace LPTS\Api;
 
@@ -10,146 +10,152 @@ namespace LPTS\Api;
  * @package LPTS\Api
  * @since   1.0.0
  */
-class ApiManager {
-	/** Transient delay time */
-	public const DELAYTIME = HOUR_IN_SECONDS;
+class ApiManager
+{
+    /** Transient delay time */
+    public const DELAYTIME = HOUR_IN_SECONDS;
 
-	/**
-	 * Get all lists
-	 *
-	 * @return array|null
-	 */
-	public static function get_lists(): ?array {
-		$account = new Api();
-		$lists = $account->get_all_lists();
+    /**
+     * Get all lists
+     *
+     * @return array|null
+     */
+    public static function getLists(): ?array
+    {
+        $account = new Api();
+        $lists = $account->getAllLists();
 
-		$list_data = array();
+        $list_data = [];
 
-		if ( $lists !== false ) {
-			foreach ( $lists['lists'] as $list ) {
-				$list_data[ $list['id'] ] = $list['name'];
-			}
-		}
+        if (false !== $lists) {
+            foreach ($lists['lists'] as $list) {
+                $list_data[$list['id']] = $list['name'];
+            }
+        }
 
-		return $list_data;
-	}
+        return $list_data;
+    }
 
-	/**
-	 * Get all attributes
-	 *
-	 * @return array|null
-	 */
-	public static function get_attributes(): ?array {
-		$attrs = get_transient( 'lpts_attributes' . get_option( LPTS_API_KEY_V3_OPTION ) );
+    /**
+     * Get all attributes
+     *
+     * @return array|null
+     */
+    public static function getAttributes(): ?array
+    {
+        $attrs = get_transient('lpts_attributes' . get_option(LPTS_API_KEY_V3_OPTION));
 
-		if ( ! $attrs ) {
-			$api_client = new Api();
-			$response = $api_client->get_attributes();
+        if (!$attrs) {
+            $api_client = new Api();
+            $response = $api_client->getAttributes();
 
-			$attributes = null;
-			if ( $response ) {
-				$attributes = $response['attributes'];
-			}
+            $attributes = null;
+            if ($response) {
+                $attributes = $response['attributes'];
+            }
 
-			$attrs = array(
-				'attributes' => array(
-					'normal_attributes' => array(),
-					'category_attributes' => array(),
-				),
-			);
+            $attrs = [
+                'attributes' => [
+                    'normal_attributes' => [],
+                    'category_attributes' => [],
+                ],
+            ];
 
-			if ( $attributes !== null && count( $attributes ) > 0 ) {
-				foreach ( $attributes as $key => $value ) {
-					if ( $value["category"] === "normal" ) {
-						$attrs['attributes']['normal_attributes'][] = $value;
-					} elseif ( $value["category"] === "category" ) {
-						$value["type"] = "category";
-						$attrs['attributes']['category_attributes'][] = $value;
-					}
-				}
-			}
+            if (null !== $attributes && count($attributes) > 0) {
+                foreach ($attributes as $key => $value) {
+                    if ('normal' === $value['category']) {
+                        $attrs['attributes']['normal_attributes'][] = $value;
+                    } elseif ('category' === $value['category']) {
+                        $value['type'] = 'category';
+                        $attrs['attributes']['category_attributes'][] = $value;
+                    }
+                }
+            }
 
-			set_transient( 'lpts_attributes' . get_option( LPTS_API_KEY_V3_OPTION ), $attrs, self::DELAYTIME );
-		}
+            set_transient('lpts_attributes' . get_option(LPTS_API_KEY_V3_OPTION), $attrs, self::DELAYTIME);
+        }
 
-		return $attrs;
-	}
+        return $attrs;
+    }
 
-	/**
-	 * Create subscriber
-	 *
-	 * @param string $email   Subscriber email.
-	 * @param int    $list_id List id.
-	 * @param array  $info    Subscriber info.
-	 *
-	 * @return string|void
-	 * @throws \JsonException
-	 */
-	public static function create_subscriber( string $email, int $list_id, array $info ) {
-		try {
-			$api_client = new Api();
+    /**
+     * Create subscriber
+     *
+     * @param string $email Subscriber email.
+     * @param int $list_id List id.
+     * @param array $info Subscriber info.
+     *
+     * @return string|void
+     */
+    public static function createSubscriber(string $email, int $list_id, array $info)
+    {
+        try {
+            $api_client = new Api();
 
-			$data = array(
-				"email" => $email,
-				"attributes" => $info,
-				"emailBlacklisted" => false,
-				"listIds" => array( $list_id ),
-				"smsBlacklisted" => false,
-			);
+            $data = [
+                'email' => $email,
+                'attributes' => $info,
+                'emailBlacklisted' => false,
+                'listIds' => [$list_id],
+                'smsBlacklisted' => false,
+            ];
 
-			$api_client->get_user( $email );
+            $api_client->getContact($email);
 
-			if ( Api::LPTS_RESPONSE_CODE_OK === $api_client->get_last_response_code() ) {
-				unset( $data["email"] );
-				$api_client->update_user( $email, $data );
-			} else {
-				$api_client->create_user( $data );
-			}
+            if (Api::LPTS_RESPONSE_CODE_OK === $api_client->getLastResponseCode()) {
+                unset($data['email']);
+                $api_client->updateContact($email, $data);
+            } else {
+                $api_client->createContact($data);
+            }
 
-			if (
-				in_array( $api_client->get_last_response_code(),
-					array( Api::LPTS_RESPONSE_CODE_UPDATED, Api::LPTS_RESPONSE_CODE_CREATED ),
-					true )
-			) {
-				return "success";
-			} else {
-				return "failure";
-			}
-		} catch ( \Exception $e ) {
-			echo $e->getMessage();
-		}
-	}
+            if (
+                \in_array(
+                    $api_client->getLastResponseCode(),
+                    [Api::LPTS_RESPONSE_CODE_UPDATED, Api::LPTS_RESPONSE_CODE_CREATED],
+                    true
+                )
+            ) {
+                return 'success';
+            }
 
-	/**
-	 * @return array|null
-	 */
-	public static function get_account_info(): ?array {
-		$account_info = get_transient( 'lpts_client_credit_' . md5( get_option( LPTS_API_KEY_V3_OPTION ) ) );
+            return 'failure';
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 
-		if ( ! $account_info ) {
-			$api = new Api();
-			$account = $api->get_account();
+    /**
+     * @return array|null
+     */
+    public static function getAccountInfo(): ?array
+    {
+        $account_info = get_transient('lpts_client_credit_' . md5(get_option(LPTS_API_KEY_V3_OPTION)));
 
-			if ( $api->get_last_response_code() === Api::LPTS_RESPONSE_CODE_OK && ! empty( $account['email'] ) ) {
-				$account_email = $account['email'];
+        if (!$account_info) {
+            $api = new Api();
+            $account = $api->getAccount();
 
-				$account_info = array(
-					'account_email' => $account_email,
-					'account_first_name' => $account['firstName'],
-					'account_last_name' => $account['lastName'],
-					'account_data' => $account['plan'],
-				);
-			} else {
-				delete_option( LPTS_API_KEY_V3_OPTION );
-			}
+            if ($api->getLastResponseCode() === Api::LPTS_RESPONSE_CODE_OK && !empty($account['email'])) {
+                $account_email = $account['email'];
 
-			set_transient(
-				'lpts_client_credit_' . md5( get_option( LPTS_API_KEY_V3_OPTION ) ),
-				$account_info,
-				self::DELAYTIME
-			);
-		}
+                $account_info = [
+                    'account_email' => $account_email,
+                    'account_first_name' => $account['firstName'],
+                    'account_last_name' => $account['lastName'],
+                    'account_data' => $account['plan'],
+                ];
+            } else {
+                delete_option(LPTS_API_KEY_V3_OPTION);
+            }
 
-		return $account_info;
-	}
+            set_transient(
+                'lpts_client_credit_' . md5(get_option(LPTS_API_KEY_V3_OPTION)),
+                $account_info,
+                self::DELAYTIME
+            );
+        }
+
+        return $account_info;
+    }
 }
