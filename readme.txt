@@ -1,9 +1,9 @@
 === Link Products To Sendinblue Lists From Woocommerce ===
-Contributors: mzeahmed
-Tags: woocommerce, sendinblue
+Contributors: Mze Ahmed
+Tags: woocommerce, sendinblue, brevo
 Requires at last: 5.1
 Tested up to: 6.7.2
-Stable tag: 1.1.7.1
+Stable tag: 1.1.7.2
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,6 +19,9 @@ Manage your campaigns more easily according to your products.
 3. Choose user attributes you want to synchronise
 
 == Changelog ==
+= 1.1.7.2 - 26 february 2025
+* fixed: somes minor bugs
+
 = 1.1.7.1 - 22 february 2025
 * Improved: Improve code quality
 
