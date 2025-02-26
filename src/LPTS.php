@@ -57,13 +57,7 @@ final class LPTS
         new PaymentComplete();
         new CustomProductColumn();
 
-        add_action('init', static function () {
-            load_plugin_textdomain(
-                'link-products-to-sendinblue',
-                false,
-                LPTS_PATH . 'languages'
-            );
-        });
+        $this->loadTextDomain();
     }
 
     /**
@@ -101,5 +95,20 @@ final class LPTS
                 );
             }
         }
+    }
+
+    /**
+     * Load the plugin text domain for translation
+     *
+     * @return void
+     * @since 1.1.7.4
+     */
+    private function loadTextDomain(): void
+    {
+        load_plugin_textdomain(
+            'link-products-to-sendinblue',
+            false,
+            LPTS_PATH . 'languages'
+        );
     }
 }
