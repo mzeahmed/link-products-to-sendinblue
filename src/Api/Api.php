@@ -28,7 +28,7 @@ class Api
 
     public function __construct()
     {
-        $this->api_key = get_option(LPTS_API_KEY_V3_OPTION);
+        $this->api_key = (string) get_option(LPTS_API_KEY_V3_OPTION) ?: '';
     }
 
     public function getAccount()
