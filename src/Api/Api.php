@@ -162,6 +162,11 @@ class Api
             $limit = 50;
             do {
                 $list_data = $this->getLists(['limit' => $limit, 'offset' => $offset]);
+
+                if (!\is_array($list_data)) {
+                    return false;
+                }
+
                 if (isset($list_data['lists']) && \is_array($list_data['lists'])) {
                     $lists['lists'] = array_merge($lists['lists'], $list_data['lists']);
                     $offset += 50;
