@@ -18,7 +18,11 @@
  * Domain Path:       /languages
  */
 
-defined('ABSPATH') || die;
+if (!defined('ABSPATH')) {
+    header('Status: 403 Forbidden');
+    header('HTTP/1.1 403 Forbidden');
+    exit;
+}
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/src/version-compare.php';
@@ -35,7 +39,7 @@ if (!function_exists('get_plugin_data')) {
  */
 $plugin_data = get_plugin_data(__FILE__);
 
-define('LPTS_PLUGIN_BASENAME', 'link-products-to-sendinblue/link-products-to-sendinblue.php');
+define('LPTS_PLUGIN_BASENAME', plugin_basename(__FILE__));
 define('LPTS_VERSION', $plugin_data['Version']);
 define('LPTS_PATH', plugin_dir_path(__FILE__));
 define('LPTS_URL', plugin_dir_url(__FILE__));

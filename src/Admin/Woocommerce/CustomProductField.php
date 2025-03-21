@@ -32,7 +32,7 @@ class CustomProductField
         if (!empty($this->api_key)) {
             add_filter('woocommerce_product_data_tabs', [$this, 'customProductDataTab']);
             add_action('woocommerce_product_data_panels', [$this, 'productDataPanelRender']);
-            add_action('woocommerce_process_product_meta', [$this, 'process_product_meta']);
+            add_action('woocommerce_process_product_meta', [$this, 'processProductMeta']);
         }
     }
 
@@ -64,28 +64,50 @@ class CustomProductField
      */
     public function productDataPanelRender(): string
     {
-        $value = get_post_meta(get_the_ID(), '_lpts_list') ?: '';
+        $value = get_post_meta(get_the_ID(), '_lpts_list') ?: [];
 
-        return View::render(
-            'admin/woocommerce/product-sendinblue-panel',
-            [
-                'lists' => $this->lists,
-                'value' => $value,
-            ]
-        );
+        return View::render('admin/woocommerce/product-sendinblue-panel', [
+            'lists' => $this->lists,
+            'value' => $value,
+        ]);
     }
 
     /**
      * Saving field in the database
      *
-     * @param int $post_id Id of product.
+     * @param int $postId Id of product.
      *
      * @since 1.0.0
      */
-    public function process_product_meta(int $post_id): void
+    public function processProductMeta(int $postId): void
     {
-        $product = wc_get_product($post_id);
-        $product->update_meta_data('_lpts_list', sanitize_text_field($_POST['_selec_list']));
+        // $product = wc_get_product($postId);
+        // $product->update_meta_data('_lpts_list', sanitize_text_field($_POST['_selec_list']));
+        // $product->save();
+
+        // $product = wc_get_product($postId);
+        //
+        // if (!empty($_POST['_selec_list']) && is_array($_POST['_selec_list'])) {
+        //     $lists = array_map('sanitize_text_field', $_POST['_selec_list']);
+        // } else {
+        //     $lists = [];
+        // }
+        //
+        // $product->update_meta_data('_lpts_list', $lists);
+        // $product->save();
+
+        $product = wc_get_product($postId);
+        $rawEntries = $_POST['_selec_list'] ?? [];
+
+        $formatted = array_map(static function ($entry) {
+            return [
+                'list_id' => sanitize_text_field($entry['list_id'] ?? ''),
+                'condition' => sanitize_text_field($entry['condition'] ?? 'always'),
+                'param' => sanitize_text_field($entry['param'] ?? ''),
+            ];
+        }, $rawEntries);
+
+        $product->update_meta_data('_lpts_list', $formatted);
         $product->save();
     }
 }
