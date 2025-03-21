@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Admin\Woocommerce;
 
-use LPTS\Constants;
+use LPTS\Shared\Constants;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
 
 /**

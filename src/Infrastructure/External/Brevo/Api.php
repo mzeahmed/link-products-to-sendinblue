@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Infrastructure\External\Brevo;
 
-use LPTS\Constants;
+use LPTS\Shared\Constants;
 
 /**
  * Connecte to the Sendinblue API

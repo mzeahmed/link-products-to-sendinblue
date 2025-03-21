@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace LPTS\Admin;
 
-use LPTS\Constants;
 use WC_Admin_Profile;
+use LPTS\Shared\Constants;
+use LPTS\Shared\Enums\OptionKey;
 use LPTS\Infrastructure\View\View;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
 
@@ -262,23 +263,23 @@ class LPTS_Settings
      */
     public function mainSettings(): void
     {
-        false === get_option(Constants::LPTS_MAIN_OPTION) ? add_option(Constants::LPTS_MAIN_OPTION, []) : null;
+        false === get_option(OptionKey::MAIN_OPTION->value) ? add_option(Constants::LPTS_MAIN_OPTION, []) : null;
 
-        if (!empty(get_option(Constants::LPTS_API_KEY_V3_OPTION))) {
+        if (!empty(get_option(OptionKey::API_KEY_V3->value))) {
             $accoun_info = ApiManager::getAccountInfo();
 
             $args = [
                 'account_email' => $accoun_info['account_email'],
-                'access_key' => get_option(Constants::LPTS_API_KEY_V3_OPTION),
+                'access_key' => get_option(OptionKey::API_KEY_V3->value),
                 'client_matched_attributes' => array_combine(
-                    get_option(Constants::LPTS_SENDINBLUE_ATTRIBUTES_OPTION),
-                    get_option(Constants::LPTS_CUSTOMER_ATTRIBUTES_OPTION)
+                    get_option(OptionKey::CUSTOMER_ATTRIBUTES->value),
+                    get_option(OptionKey::SENDINBLUE_ATTRIBUTES->value)
                 ),
             ];
 
-            update_option(Constants::LPTS_MAIN_OPTION, $args);
+            update_option(OptionKey::MAIN_OPTION->value, $args);
         } else {
-            update_option(Constants::LPTS_MAIN_OPTION, []);
+            update_option(OptionKey::MAIN_OPTION->value, []);
         }
     }
 

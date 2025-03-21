@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Infrastructure\WordPress\Hook\Admin;
 
-use LPTS\Constants;
+use LPTS\Shared\Constants;
 use LPTS\Infrastructure\View\View;
 use LPTS\Infrastructure\View\Renderer;
 use LPTS\Infrastructure\External\Brevo\ApiManager;

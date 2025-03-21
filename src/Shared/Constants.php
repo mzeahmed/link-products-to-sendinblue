@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LPTS;
+namespace LPTS\Shared;
 
 /**
  * @since 1.1.8
