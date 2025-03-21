@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LPTS\DI;
+namespace LPTS\Domain\DI;
 
+use LPTS\DI\Debugger;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;

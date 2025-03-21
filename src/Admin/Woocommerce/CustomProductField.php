@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace LPTS\Admin\Woocommerce;
 
-use LPTS\View\View;
-use LPTS\Api\ApiManager;
 use Automattic\Jetpack\Constants;
+use LPTS\Infrastructure\View\View;
+use LPTS\Infrastructure\External\Brevo\ApiManager;
 
 /**
  * Add a custom field to the product page

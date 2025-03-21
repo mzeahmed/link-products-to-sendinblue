@@ -2,27 +2,22 @@
 
 declare(strict_types=1);
 
-namespace LPTS\Admin;
+namespace LPTS\Infrastructure\WordPress\Hook\Admin;
 
 use LPTS\Constants;
-use WC_Admin_Profile;
 use LPTS\Infrastructure\View\View;
+use LPTS\Infrastructure\View\Renderer;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
 
-/**
- * Class Options
- *
- * @package LPTS\Admin
- * @since   1.0.0
- */
-class LPTS_Settings
+class SettingsHook
 {
     public const LPTS_API_KEY_GROUP = 'link_products_to_sendinblue';
 
     public ?string $nonce_action;
 
-    public function __construct()
-    {
+    public function __construct(
+        private Renderer $renderer
+    ) {
         $this->nonce_action = admin_url(
             'options-general.php?page=link_products_to_sendinblue&tab=user_attributes'
         );

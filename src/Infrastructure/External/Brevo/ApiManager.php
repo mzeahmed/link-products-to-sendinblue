@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LPTS\Api;
+namespace LPTS\Infrastructure\External\Brevo;
 
 use LPTS\Constants;
 

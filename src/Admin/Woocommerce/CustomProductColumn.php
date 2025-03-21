@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Admin\Woocommerce;
 
-use LPTS\Api\ApiManager;
+use LPTS\Infrastructure\External\Brevo\ApiManager;
 
 /**
  * Add custom column to product list

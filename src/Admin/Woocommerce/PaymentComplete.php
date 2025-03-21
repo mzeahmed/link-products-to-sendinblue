@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace LPTS\Admin\Woocommerce;
 
 use LPTS\Constants;
-use LPTS\Api\ApiManager;
+use LPTS\Infrastructure\External\Brevo\ApiManager;
 
 /**
  * Handles the logic for subscribing customers to Brevo lists

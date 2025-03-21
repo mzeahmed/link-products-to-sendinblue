@@ -13,14 +13,14 @@ use LPTS\Admin\Woocommerce\CustomProductColumn;
  * @package LPTS
  * @since   1.0.0
  */
-final class LPTS
+final class Bootstrap
 {
     /**
      * Instance of LPTS
      *
-     * @var LPTS|null $instance create only one instance from plugin primary class
+     * @var Bootstrap|null $instance create only one instance from plugin primary class
      */
-    private static ?LPTS $instance = null;
+    private static ?Bootstrap $instance = null;
     public string $request_uri;
     public array $array;
 
@@ -33,10 +33,10 @@ final class LPTS
     /**
      * Getting instance This Class is a singleton class
      *
-     * @return LPTS|null
+     * @return Bootstrap|null
      * @since 1.0.0
      */
-    public static function getInstance(): ?LPTS
+    public static function getInstance(): ?Bootstrap
     {
         if (null === self::$instance) {
             self::$instance = new self();

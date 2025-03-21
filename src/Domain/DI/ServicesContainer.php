@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LPTS\DI;
+namespace LPTS\Domain\DI;
 
 /**
  * @since 1.1.8

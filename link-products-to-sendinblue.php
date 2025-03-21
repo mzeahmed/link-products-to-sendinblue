@@ -32,35 +32,37 @@ if (!function_exists('get_plugin_data')) {
     require_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
+define('LPTS_PLUGIN_FILE', __FILE__);
+
 /**
  * Let's retrieve plugin's datas
  *
  * @var $plugin_data
  */
-$plugin_data = get_plugin_data(__FILE__);
+$plugin_data = get_plugin_data(LPTS_PLUGIN_FILE);
 
-define('LPTS_PLUGIN_BASENAME', plugin_basename(__FILE__));
+define('LPTS_PLUGIN_BASENAME', plugin_basename(LPTS_PLUGIN_FILE));
 define('LPTS_VERSION', $plugin_data['Version']);
-define('LPTS_PATH', plugin_dir_path(__FILE__));
-define('LPTS_URL', plugin_dir_url(__FILE__));
+define('LPTS_PATH', plugin_dir_path(LPTS_PLUGIN_FILE));
+define('LPTS_URL', plugin_dir_url(LPTS_PLUGIN_FILE));
 define('LPTS_PLUGIN_NAME', $plugin_data['Name']);
 define('LPTS_TEXT_DOMAIN', $plugin_data['TextDomain']);
 
 /**
  * Plugin entry point Process
  *
- * @return LPTS\LPTS|null
+ * @return LPTS\Bootstrap|null
  * @since 1.0.0
  */
-function link_products_to_sendinblue(): ?LPTS\LPTS
+function link_products_to_sendinblue(): ?LPTS\Bootstrap
 {
     if (!function_exists('WC')) {
         add_action('admin_notices', static function () {
-            return LPTS\View\View::render('admin/woocommerce/dependency-notice', []);
+            return \LPTS\Infrastructure\View\View::render('admin/woocommerce/dependency-notice', []);
         });
     }
 
-    return LPTS\LPTS::getInstance();
+    return LPTS\Bootstrap::getInstance();
 }
 
 add_action('plugins_loaded', 'link_products_to_sendinblue');
