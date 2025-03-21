@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Domain\DI;
 
-use LPTS\DI\Debugger;
+use LPTS\Shared\Utils\Utils;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
@@ -74,7 +74,7 @@ abstract class AbstractServicesContainer
     {
         $cacheContainerFile = static::getCacheFile();
 
-        if (Debugger::isDevEnvironment()) {
+        if (Utils::isDevEnvironment()) {
             self::getDevelopmentContainer($cacheContainerFile, $container);
         } else {
             self::getProductionContainer($cacheContainerFile, $container);
@@ -99,7 +99,7 @@ abstract class AbstractServicesContainer
             require_once $cacheContainerFile;
             $container = static::getCacheContainer();
         } else {
-            throw new \RuntimeException("The container cache file was not found in production");
+            throw new \RuntimeException('The container cache file was not found in production');
         }
     }
 

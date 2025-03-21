@@ -1,0 +1,18 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  _instanceof:
+    LPTS\Application\Contract\PublicControllerInterface:
+      public: true
+      tags: [ 'app.public.controller' ]
+
+    LPTS\Application\Contract\AdminControllerInterface:
+      public: true
+      tags: [ 'app.admin.controller' ]
+
+  LPTS\:
+    resource: '../src/*'
+    exclude: '../src/{index.php}'
