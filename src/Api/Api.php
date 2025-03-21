@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace LPTS\Api;
 
+use LPTS\Constants;
+
 /**
  * Connecte to the Sendinblue API
  *
@@ -28,7 +30,7 @@ class Api
 
     public function __construct()
     {
-        $this->api_key = (string) get_option(LPTS_API_KEY_V3_OPTION) ?: '';
+        $this->api_key = (string) get_option(Constants::LPTS_API_KEY_V3_OPTION) ?: '';
     }
 
     public function getAccount()

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace LPTS\Api;
 
+use LPTS\Constants;
+
 /**
  * Class to manage API
  *
@@ -43,7 +45,7 @@ class ApiManager
      */
     public static function getAttributes(): ?array
     {
-        $attrs = get_transient('lpts_attributes' . get_option(LPTS_API_KEY_V3_OPTION));
+        $attrs = get_transient('lpts_attributes' . get_option(Constants::LPTS_API_KEY_V3_OPTION));
 
         if (!$attrs) {
             $api_client = new Api();
@@ -72,7 +74,7 @@ class ApiManager
                 }
             }
 
-            set_transient('lpts_attributes' . get_option(LPTS_API_KEY_V3_OPTION), $attrs, self::DELAYTIME);
+            set_transient('lpts_attributes' . get_option(Constants::LPTS_API_KEY_V3_OPTION), $attrs, self::DELAYTIME);
         }
 
         return $attrs;
@@ -130,7 +132,7 @@ class ApiManager
      */
     public static function getAccountInfo(): ?array
     {
-        $account_info = get_transient('lpts_client_credit_' . md5(get_option(LPTS_API_KEY_V3_OPTION)));
+        $account_info = get_transient('lpts_client_credit_' . md5(get_option(Constants::LPTS_API_KEY_V3_OPTION)));
 
         if (!$account_info) {
             $api = new Api();
@@ -146,11 +148,11 @@ class ApiManager
                     'account_data' => $account['plan'],
                 ];
             } else {
-                delete_option(LPTS_API_KEY_V3_OPTION);
+                delete_option(Constants::LPTS_API_KEY_V3_OPTION);
             }
 
             set_transient(
-                'lpts_client_credit_' . md5(get_option(LPTS_API_KEY_V3_OPTION)),
+                'lpts_client_credit_' . md5(get_option(Constants::LPTS_API_KEY_V3_OPTION)),
                 $account_info,
                 self::DELAYTIME
             );

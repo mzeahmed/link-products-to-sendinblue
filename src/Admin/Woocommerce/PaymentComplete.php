@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Admin\Woocommerce;
 
+use LPTS\Constants;
 use LPTS\Api\ApiManager;
 
 /**
@@ -27,10 +28,10 @@ class PaymentComplete
 
     public function __construct()
     {
-        $mainOption = get_option(LPTS_MAIN_OPTION);
+        $mainOption = get_option(Constants::LPTS_MAIN_OPTION);
         // $this->lists = ApiManager::getLists();
 
-        if ((false !== $mainOption) && !empty(get_option(LPTS_API_KEY_V3_OPTION))) {
+        if ((false !== $mainOption) && !empty(get_option(Constants::LPTS_API_KEY_V3_OPTION))) {
             $this->client_matched_attributes = $mainOption['client_matched_attributes'];
         }
 

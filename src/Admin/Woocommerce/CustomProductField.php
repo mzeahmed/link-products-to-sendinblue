@@ -6,6 +6,7 @@ namespace LPTS\Admin\Woocommerce;
 
 use LPTS\View\View;
 use LPTS\Api\ApiManager;
+use Automattic\Jetpack\Constants;
 
 /**
  * Add a custom field to the product page
@@ -21,7 +22,7 @@ class CustomProductField
     public function __construct()
     {
         $this->lists = ApiManager::getLists();
-        $this->api_key = get_option(LPTS_API_KEY_V3_OPTION);
+        $this->api_key = get_option(Constants::LPTS_API_KEY_V3_OPTION);
 
         // push 'Select a list' to $this->list.
         $this->lists[] = __('Select a list', 'link-products-to-sendinblue');

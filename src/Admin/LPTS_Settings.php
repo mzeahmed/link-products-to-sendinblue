@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LPTS\Admin;
 
 use LPTS\View\View;
+use LPTS\Constants;
 use WC_Admin_Profile;
 use LPTS\Api\ApiManager;
 
@@ -63,7 +64,7 @@ class LPTS_Settings
      */
     public function registerApiKeySettings(): void
     {
-        register_setting(self::LPTS_API_KEY_GROUP, LPTS_API_KEY_V3_OPTION);
+        register_setting(self::LPTS_API_KEY_GROUP, Constants::LPTS_API_KEY_V3_OPTION);
 
         add_settings_section(
             'api_key_section',
@@ -100,14 +101,14 @@ class LPTS_Settings
         /**
          * Options
          */
-        $customer_attributes = get_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION);
-        $contact_attributes = get_option(LPTS_SENDINBLUE_ATTRIBUTES_OPTION);
+        $customer_attributes = get_option(Constants::LPTS_CUSTOMER_ATTRIBUTES_OPTION);
+        $contact_attributes = get_option(Constants::LPTS_SENDINBLUE_ATTRIBUTES_OPTION);
 
         /**
          * Add options if they don't exists
          */
-        false === $customer_attributes ? add_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION, []) : null;
-        false === $contact_attributes ? add_option(LPTS_SENDINBLUE_ATTRIBUTES_OPTION, []) : null;
+        false === $customer_attributes ? add_option(Constants::LPTS_CUSTOMER_ATTRIBUTES_OPTION, []) : null;
+        false === $contact_attributes ? add_option(Constants::LPTS_SENDINBLUE_ATTRIBUTES_OPTION, []) : null;
 
         if (isset($_POST['_user_attributes_nonce'])) {
             if (!wp_verify_nonce($_POST['_user_attributes_nonce'], $this->nonce_action)) {
@@ -124,14 +125,14 @@ class LPTS_Settings
 
             if (isset($_POST['lpts_woocommerce_customer_attributes'])) {
                 update_option(
-                    LPTS_CUSTOMER_ATTRIBUTES_OPTION,
+                    Constants::LPTS_CUSTOMER_ATTRIBUTES_OPTION,
                     $this->sanitizeUserAttributesFormFields($_POST['lpts_woocommerce_customer_attributes'])
                 );
             }
 
             if (isset($_POST['lpts_sendinblue_contact_attributes'])) {
                 update_option(
-                    LPTS_SENDINBLUE_ATTRIBUTES_OPTION,
+                    Constants::LPTS_SENDINBLUE_ATTRIBUTES_OPTION,
                     $this->sanitizeUserAttributesFormFields($_POST['lpts_sendinblue_contact_attributes'])
                 );
             }
@@ -169,7 +170,7 @@ class LPTS_Settings
     public function apiKeyFieldRender(): ?string
     {
         return View::render('admin/options/partials/api-key-field', [
-            'api_key_v3' => get_option(LPTS_API_KEY_V3_OPTION),
+            'api_key_v3' => get_option(Constants::LPTS_API_KEY_V3_OPTION),
         ]);
     }
 
@@ -181,9 +182,9 @@ class LPTS_Settings
      */
     public function formRender(): ?string
     {
-        $api_key = get_option(LPTS_API_KEY_V3_OPTION);
-        $customer_attributes_option = get_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION);
-        $sendinblue_attributes_option = get_option(LPTS_SENDINBLUE_ATTRIBUTES_OPTION);
+        $api_key = get_option(Constants::LPTS_API_KEY_V3_OPTION);
+        $customer_attributes_option = get_option(Constants::LPTS_CUSTOMER_ATTRIBUTES_OPTION);
+        $sendinblue_attributes_option = get_option(Constants::LPTS_SENDINBLUE_ATTRIBUTES_OPTION);
 
         $admin_profile = new WC_Admin_Profile();
         $customer_fields = $admin_profile->get_customer_meta_fields();
@@ -204,7 +205,7 @@ class LPTS_Settings
     }
 
     /**
-     * Combine options LPTS_CUSTOMER_ATTRIBUTES_OPTION and LPTS_SENDINBLUE_ATTRIBUTES_OPTION and return result in array
+     * Combine options Constants::LPTS_CUSTOMER_ATTRIBUTES_OPTION and Constants::LPTS_SENDINBLUE_ATTRIBUTES_OPTION and return result in array
      *
      * @return array|null Array of matched attributes
      * @since 1.0.0
@@ -212,8 +213,8 @@ class LPTS_Settings
     private function getMatchedAttributes(): ?array
     {
         return array_combine(
-            get_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION),
-            get_option(LPTS_SENDINBLUE_ATTRIBUTES_OPTION)
+            get_option(Constants::LPTS_CUSTOMER_ATTRIBUTES_OPTION),
+            get_option(Constants::LPTS_SENDINBLUE_ATTRIBUTES_OPTION)
         );
     }
 
@@ -226,7 +227,7 @@ class LPTS_Settings
      */
     public function apiKeyNotice(): ?string
     {
-        if (empty(get_option(LPTS_API_KEY_V3_OPTION)) || !get_option(LPTS_API_KEY_V3_OPTION)) {
+        if (empty(get_option(Constants::LPTS_API_KEY_V3_OPTION)) || !get_option(Constants::LPTS_API_KEY_V3_OPTION)) {
             return View::render('admin/options/partials/notice', []);
         }
 
@@ -260,23 +261,23 @@ class LPTS_Settings
      */
     public function mainSettings(): void
     {
-        false === get_option(LPTS_MAIN_OPTION) ? add_option(LPTS_MAIN_OPTION, []) : null;
+        false === get_option(Constants::LPTS_MAIN_OPTION) ? add_option(Constants::LPTS_MAIN_OPTION, []) : null;
 
-        if (!empty(get_option(LPTS_API_KEY_V3_OPTION))) {
+        if (!empty(get_option(Constants::LPTS_API_KEY_V3_OPTION))) {
             $accoun_info = ApiManager::getAccountInfo();
 
             $args = [
                 'account_email' => $accoun_info['account_email'],
-                'access_key' => get_option(LPTS_API_KEY_V3_OPTION),
+                'access_key' => get_option(Constants::LPTS_API_KEY_V3_OPTION),
                 'client_matched_attributes' => array_combine(
-                    get_option(LPTS_SENDINBLUE_ATTRIBUTES_OPTION),
-                    get_option(LPTS_CUSTOMER_ATTRIBUTES_OPTION)
+                    get_option(Constants::LPTS_SENDINBLUE_ATTRIBUTES_OPTION),
+                    get_option(Constants::LPTS_CUSTOMER_ATTRIBUTES_OPTION)
                 ),
             ];
 
-            update_option(LPTS_MAIN_OPTION, $args);
+            update_option(Constants::LPTS_MAIN_OPTION, $args);
         } else {
-            update_option(LPTS_MAIN_OPTION, []);
+            update_option(Constants::LPTS_MAIN_OPTION, []);
         }
     }
 
@@ -289,7 +290,7 @@ class LPTS_Settings
     public function deleteApiKey(): void
     {
         if (isset($_POST['lpts_delete_api_key'])) {
-            delete_option(LPTS_API_KEY_V3_OPTION);
+            delete_option(Constants::LPTS_API_KEY_V3_OPTION);
 
             wp_safe_redirect(wp_get_referer());
             exit();
