@@ -11,7 +11,8 @@ class SettingsHook implements HookInterface
 {
     public function __construct(
         private SettingsService $settingsService
-    ) {}
+    ) {
+    }
 
     /**
      * @inheritDoc

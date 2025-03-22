@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Domain\Services;
 
+use LPTS\Shared\Utils\Utils;
 use LPTS\Shared\Enums\OptionKey;
 use LPTS\Infrastructure\View\Renderer;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
@@ -56,29 +57,29 @@ class SettingsService
 
     public function apiKeyNotice(): void
     {
-        if (empty(get_option(OptionKey::API_KEY_V3->value)) || !get_option(OptionKey::API_KEY_V3->value)) {
+        if (empty(Utils::getApiKey())) {
             echo $this->renderer->render('admin/options/partials/notice', []);
         }
     }
 
     public function formRender(): void
     {
-        $api_key = get_option(OptionKey::API_KEY_V3->value);
-        $customer_attributes_option = get_option(OptionKey::CUSTOMER_ATTRIBUTES->value);
-        $sendinblue_attributes_option = get_option(OptionKey::SENDINBLUE_ATTRIBUTES->value);
+        $apiKey = Utils::getApiKey();
+        $customerAttributes = get_option(OptionKey::CUSTOMER_ATTRIBUTES->value);
+        $brevoAttributes = get_option(OptionKey::BREVO_ATTRIBUTES->value);
 
-        $admin_profile = new \WC_Admin_Profile();
-        $customer_fields = $admin_profile->get_customer_meta_fields();
+        $adminProfile = new \WC_Admin_Profile();
+        $customerMetaFields = $adminProfile->get_customer_meta_fields();
         $attrs = ApiManager::getAttributes();
 
         $contact_attributes = $attrs['attributes']['normal_attributes'];
 
         echo $this->renderer->render('admin/options/form', [
             'api_field_group' => self::LPTS_API_KEY_GROUP,
-            'api_key' => $api_key,
-            'customer_attributes_option' => $customer_attributes_option,
-            'sendinblue_attributes_option' => $sendinblue_attributes_option,
-            'customer_fields' => $customer_fields,
+            'api_key' => $apiKey,
+            'customer_attributes_option' => $customerAttributes,
+            'sendinblue_attributes_option' => $brevoAttributes,
+            'customer_fields' => $customerMetaFields,
             'contact_attributes' => $contact_attributes,
             'nonce_action' => $this->nonce_action,
             'matched_attributes' => $this->getMatchedAttributes(),
@@ -94,7 +95,7 @@ class SettingsService
     public function apiKeyFieldRender(): void
     {
         echo $this->renderer->render('admin/options/partials/api-key-field', [
-            'api_key_v3' => get_option(OptionKey::API_KEY_V3->value),
+            'api_key_v3' => Utils::getApiKey(),
         ]);
     }
 
@@ -104,13 +105,13 @@ class SettingsService
          * Options
          */
         $customer_attributes = get_option(OptionKey::CUSTOMER_ATTRIBUTES->value);
-        $contact_attributes = get_option(OptionKey::SENDINBLUE_ATTRIBUTES->value);
+        $contact_attributes = get_option(OptionKey::BREVO_ATTRIBUTES->value);
 
         /**
          * Add options if they don't exists
          */
         false === $customer_attributes ? add_option(OptionKey::CUSTOMER_ATTRIBUTES->value, []) : null;
-        false === $contact_attributes ? add_option(OptionKey::SENDINBLUE_ATTRIBUTES->value, []) : null;
+        false === $contact_attributes ? add_option(OptionKey::BREVO_ATTRIBUTES->value, []) : null;
 
         if (isset($_POST['_user_attributes_nonce'])) {
             if (!wp_verify_nonce($_POST['_user_attributes_nonce'], $this->nonce_action)) {
@@ -134,7 +135,7 @@ class SettingsService
 
             if (isset($_POST['lpts_sendinblue_contact_attributes'])) {
                 update_option(
-                    OptionKey::SENDINBLUE_ATTRIBUTES->value,
+                    OptionKey::BREVO_ATTRIBUTES->value,
                     $this->sanitizeUserAttributesFormFields($_POST['lpts_sendinblue_contact_attributes'])
                 );
             }
@@ -214,7 +215,7 @@ class SettingsService
                 'account_email' => $accoun_info['account_email'],
                 'access_key' => get_option(OptionKey::API_KEY_V3->value),
                 'client_matched_attributes' => array_combine(
-                    get_option(OptionKey::SENDINBLUE_ATTRIBUTES->value),
+                    get_option(OptionKey::BREVO_ATTRIBUTES->value),
                     get_option(OptionKey::CUSTOMER_ATTRIBUTES->value)
                 ),
             ];
@@ -236,7 +237,7 @@ class SettingsService
     {
         return array_combine(
             get_option(OptionKey::CUSTOMER_ATTRIBUTES->value),
-            get_option(OptionKey::SENDINBLUE_ATTRIBUTES->value)
+            get_option(OptionKey::BREVO_ATTRIBUTES->value)
         );
     }
 }

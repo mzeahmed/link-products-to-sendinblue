@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Application\Controllers\Admin\Woocommerce;
 
-use LPTS\Shared\Enums\OptionKey;
+use LPTS\Shared\Utils\Utils;
 use LPTS\Infrastructure\View\Renderer;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
 use LPTS\Application\Contract\AdminControllerInterface;
@@ -28,7 +28,7 @@ class CustomProductFieldController implements AdminControllerInterface
     public function register(): void
     {
         $this->lists = ApiManager::getLists();
-        $this->api_key = get_option(OptionKey::API_KEY_V3->value);
+        $this->api_key = Utils::getApiKey();
 
         // push 'Select a list' to $this->list.
         $this->lists[] = __('Select a list', 'link-products-to-sendinblue');

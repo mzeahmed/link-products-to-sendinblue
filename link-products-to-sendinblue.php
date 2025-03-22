@@ -30,12 +30,6 @@ if (!defined('ABSPATH')) {
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/src/version-compare.php';
-require_once __DIR__ . '/constants.php';
-
-if (!function_exists('get_plugin_data')) {
-    require_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
 
 define('LPTS_PLUGIN_FILE', __FILE__);
 
@@ -47,11 +41,11 @@ define('LPTS_PLUGIN_FILE', __FILE__);
 $plugin_data = get_plugin_data(LPTS_PLUGIN_FILE);
 
 define('LPTS_PLUGIN_BASENAME', plugin_basename(LPTS_PLUGIN_FILE));
-define('LPTS_VERSION', $plugin_data['Version']);
 define('LPTS_PLUGIN_PATH', plugin_dir_path(LPTS_PLUGIN_FILE));
 define('LPTS_PLUGIN_URL', plugin_dir_url(LPTS_PLUGIN_FILE));
-define('LPTS_PLUGIN_NAME', $plugin_data['Name']);
-define('LPTS_TEXT_DOMAIN', $plugin_data['TextDomain']);
+
+define('LPTS_DB_VERSION_OPTION', 'lpts_db_version');
+define('LPTS_CURRENT_DB_VERSION', '1.0.0');
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/functions.php';
