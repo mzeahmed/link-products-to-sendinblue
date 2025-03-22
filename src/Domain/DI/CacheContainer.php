@@ -23,6 +23,14 @@ class CacheContainer extends Container
         $this->parameters = $this->getDefaultParameters();
 
         $this->services = $this->privates = [];
+        $this->methodMap = [
+            'LPTS\\Application\\Controllers\\Admin\\AdminDatabaseController' => 'getAdminDatabaseControllerService',
+            'LPTS\\Application\\Controllers\\Admin\\AdminEnqueueController' => 'getAdminEnqueueControllerService',
+            'LPTS\\Application\\Controllers\\Admin\\SettingsController' => 'getSettingsControllerService',
+            'LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductColumnController' => 'getCustomProductColumnControllerService',
+            'LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductFieldController' => 'getCustomProductFieldControllerService',
+            'LPTS\\Application\\Controllers\\Public\\Woocommerce\\PaymentComplete' => 'getPaymentCompleteService',
+        ];
 
         $this->aliases = [];
     }
@@ -35,6 +43,125 @@ class CacheContainer extends Container
     public function isCompiled(): bool
     {
         return true;
+    }
+
+    public function getRemovedIds(): array
+    {
+        return [
+            '.abstract.instanceof.LPTS\\Application\\Controllers\\Admin\\AdminDatabaseController' => true,
+            '.abstract.instanceof.LPTS\\Application\\Controllers\\Admin\\AdminEnqueueController' => true,
+            '.abstract.instanceof.LPTS\\Application\\Controllers\\Admin\\SettingsController' => true,
+            '.abstract.instanceof.LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductColumnController' => true,
+            '.abstract.instanceof.LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductFieldController' => true,
+            '.abstract.instanceof.LPTS\\Application\\Controllers\\Public\\Woocommerce\\PaymentComplete' => true,
+            '.instanceof.LPTS\\Application\\Contract\\AdminControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\AdminDatabaseController' => true,
+            '.instanceof.LPTS\\Application\\Contract\\AdminControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\AdminEnqueueController' => true,
+            '.instanceof.LPTS\\Application\\Contract\\AdminControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductColumnController' => true,
+            '.instanceof.LPTS\\Application\\Contract\\AdminControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductFieldController' => true,
+            '.instanceof.LPTS\\Application\\Contract\\PublicControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\SettingsController' => true,
+            '.instanceof.LPTS\\Application\\Contract\\PublicControllerInterface.0.LPTS\\Application\\Controllers\\Public\\Woocommerce\\PaymentComplete' => true,
+            'LPTS\\Bootstrap' => true,
+            'LPTS\\Domain\\DI\\CacheContainer' => true,
+            'LPTS\\Domain\\DI\\Compilers\\AdminControllerPass' => true,
+            'LPTS\\Domain\\DI\\Compilers\\PublicControllerPass' => true,
+            'LPTS\\Domain\\DI\\ServicesContainer' => true,
+            'LPTS\\Domain\\Dto\\PluginData' => true,
+            'LPTS\\Domain\\Services\\Admin\\SettingsService' => true,
+            'LPTS\\Infrastructure\\Database\\Upgrade' => true,
+            'LPTS\\Infrastructure\\External\\Brevo\\Api' => true,
+            'LPTS\\Infrastructure\\External\\Brevo\\ApiManager' => true,
+            'LPTS\\Infrastructure\\View\\Renderer' => true,
+            'LPTS\\Infrastructure\\WordPress\\Hook\\Admin\\AdminEnqueueHook' => true,
+            'LPTS\\Infrastructure\\WordPress\\Hook\\Admin\\SettingsHook' => true,
+            'LPTS\\Infrastructure\\WordPress\\I18n\\I18n' => true,
+            'LPTS\\Shared\\Constants' => true,
+            'LPTS\\Shared\\Utils\\Utils' => true,
+            'LPTS\\index' => true,
+        ];
+    }
+
+    /**
+     * Gets the public 'LPTS\Application\Controllers\Admin\AdminDatabaseController' shared autowired service.
+     *
+     * @return \LPTS\Application\Controllers\Admin\AdminDatabaseController
+     */
+    protected static function getAdminDatabaseControllerService($container)
+    {
+        $container->services['LPTS\\Application\\Controllers\\Admin\\AdminDatabaseController'] = $instance = new \LPTS\Application\Controllers\Admin\AdminDatabaseController();
+
+        $instance->register($instance);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the public 'LPTS\Application\Controllers\Admin\AdminEnqueueController' shared autowired service.
+     *
+     * @return \LPTS\Application\Controllers\Admin\AdminEnqueueController
+     */
+    protected static function getAdminEnqueueControllerService($container)
+    {
+        $container->services['LPTS\\Application\\Controllers\\Admin\\AdminEnqueueController'] = $instance = new \LPTS\Application\Controllers\Admin\AdminEnqueueController(new \LPTS\Infrastructure\WordPress\Hook\Admin\AdminEnqueueHook());
+
+        $instance->register($instance);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the public 'LPTS\Application\Controllers\Admin\SettingsController' shared autowired service.
+     *
+     * @return \LPTS\Application\Controllers\Admin\SettingsController
+     */
+    protected static function getSettingsControllerService($container)
+    {
+        $container->services['LPTS\\Application\\Controllers\\Admin\\SettingsController'] = $instance = new \LPTS\Application\Controllers\Admin\SettingsController(new \LPTS\Infrastructure\WordPress\Hook\Admin\SettingsHook(new \LPTS\Domain\Services\Admin\SettingsService(($container->privates['LPTS\\Infrastructure\\View\\Renderer'] ??= new \LPTS\Infrastructure\View\Renderer()))));
+
+        $instance->register($instance);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the public 'LPTS\Application\Controllers\Admin\Woocommerce\CustomProductColumnController' shared autowired service.
+     *
+     * @return \LPTS\Application\Controllers\Admin\Woocommerce\CustomProductColumnController
+     */
+    protected static function getCustomProductColumnControllerService($container)
+    {
+        $container->services['LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductColumnController'] = $instance = new \LPTS\Application\Controllers\Admin\Woocommerce\CustomProductColumnController();
+
+        $instance->register($instance);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the public 'LPTS\Application\Controllers\Admin\Woocommerce\CustomProductFieldController' shared autowired service.
+     *
+     * @return \LPTS\Application\Controllers\Admin\Woocommerce\CustomProductFieldController
+     */
+    protected static function getCustomProductFieldControllerService($container)
+    {
+        $container->services['LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductFieldController'] = $instance = new \LPTS\Application\Controllers\Admin\Woocommerce\CustomProductFieldController(($container->privates['LPTS\\Infrastructure\\View\\Renderer'] ??= new \LPTS\Infrastructure\View\Renderer()));
+
+        $instance->register($instance);
+
+        return $instance;
+    }
+
+    /**
+     * Gets the public 'LPTS\Application\Controllers\Public\Woocommerce\PaymentComplete' shared autowired service.
+     *
+     * @return \LPTS\Application\Controllers\Public\Woocommerce\PaymentComplete
+     */
+    protected static function getPaymentCompleteService($container)
+    {
+        $container->services['LPTS\\Application\\Controllers\\Public\\Woocommerce\\PaymentComplete'] = $instance = new \LPTS\Application\Controllers\Public\Woocommerce\PaymentComplete();
+
+        $instance->register($instance);
+
+        return $instance;
     }
 
     public function getParameter(string $name): array|bool|string|int|float|\UnitEnum|null
@@ -84,10 +211,14 @@ class CacheContainer extends Container
     {
         return [
             'app.public_controller_ids' => [
-
+                0 => 'LPTS\\Application\\Controllers\\Admin\\SettingsController',
+                1 => 'LPTS\\Application\\Controllers\\Public\\Woocommerce\\PaymentComplete',
             ],
             'app.admin_controller_ids' => [
-
+                0 => 'LPTS\\Application\\Controllers\\Admin\\AdminDatabaseController',
+                1 => 'LPTS\\Application\\Controllers\\Admin\\AdminEnqueueController',
+                2 => 'LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductColumnController',
+                3 => 'LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductFieldController',
             ],
         ];
     }

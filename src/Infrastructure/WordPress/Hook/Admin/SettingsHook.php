@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace LPTS\Infrastructure\WordPress\Hook\Admin;
 
-use LPTS\Domain\Services\SettingsService;
 use LPTS\Application\Contract\HookInterface;
+use LPTS\Domain\Services\Admin\SettingsService;
 
 class SettingsHook implements HookInterface
 {
     public function __construct(
         private SettingsService $settingsService
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc

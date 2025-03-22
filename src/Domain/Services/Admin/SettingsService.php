@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LPTS\Domain\Services;
+namespace LPTS\Domain\Services\Admin;
 
 use LPTS\Shared\Utils\Utils;
 use LPTS\Shared\Enums\OptionKey;
