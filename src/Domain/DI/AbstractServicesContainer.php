@@ -6,6 +6,7 @@ namespace LPTS\Domain\DI;
 
 use LPTS\Shared\Utils\Utils;
 use Symfony\Component\Config\FileLocator;
+use MzeAhmed\WpToolKit\Utils\Utils as Z_Utils;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -127,7 +128,7 @@ abstract class AbstractServicesContainer
 
         // Checks if any of the watched files were modified after the cache file.
         foreach (static::getWatchedDirectories() as $directory) {
-            foreach (ysFile()->listFilesWithRecursiveIteratorIterator($directory) as $file) {
+            foreach (Z_Utils::listFilesWithRecursiveIteratorIterator($directory) as $file) {
                 $watchedFiles[] = $file;
             }
         }
