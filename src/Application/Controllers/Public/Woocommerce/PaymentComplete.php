@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Application\Controllers\Public\Woocommerce;
 
+use LPTS\Shared\Enums\MetaKey;
 use LPTS\Shared\Enums\OptionKey;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
 use LPTS\Application\Contract\PublicControllerInterface;
@@ -79,7 +80,7 @@ class PaymentComplete implements PublicControllerInterface
             // }
 
             $product_id = $item->get_product_id();
-            $list_entries = get_post_meta($product_id, '_lpts_list', true);
+            $list_entries = get_post_meta($product_id, Metakey::PRODUCT_LIST->value, true);
 
             if (is_array($list_entries)) {
                 foreach ($list_entries as $entry) {

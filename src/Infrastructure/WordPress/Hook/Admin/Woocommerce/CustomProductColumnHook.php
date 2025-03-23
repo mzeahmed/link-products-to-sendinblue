@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Infrastructure\WordPress\Hook\Admin\Woocommerce;
 
+use LPTS\Shared\Enums\MetaKey;
 use LPTS\Application\Contract\HookInterface;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
 
@@ -51,7 +52,7 @@ class CustomProductColumnHook implements HookInterface
     public function productsListColumnContent(string $column, int $product_id): void
     {
         if ('list' === $column) {
-            $product_list_id = get_post_meta($product_id, '_lpts_list', true);
+            $product_list_id = get_post_meta($product_id, Metakey::PRODUCT_LIST->value, true);
 
             // we check if $product_list_id exist in $this->sendinblue_lists
             // if true we echo the value(list name).

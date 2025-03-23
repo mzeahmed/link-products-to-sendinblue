@@ -4,7 +4,7 @@
  * Product panel vieww
  *
  * @var array $lists
- * @var mixed $value
+ * @var mixed $listIds
  *
  * @package LPTS
  * @since   1.0.0
@@ -29,12 +29,17 @@ declare(strict_types=1);
             </thead>
 
             <tbody id="lpts_list_rows">
-                <?php if (empty($value)) :
-                    $value = [[]];
+                <?php if (empty($listIds)) :
+                    $listIds = [[]];
                 endif;
 
-                foreach ($value as $entry) :
-                    $selected_list = $entry['list_id'] ?? '';
+                if (!empty($listIds) && is_array($listIds) && is_array($listIds[0]) && isset($listIds[0]['list_id']) === false) :
+                    // Old format or array of arrays
+                    $listIds = array_merge(...$listIds);
+                endif;
+
+                foreach ($listIds as $entry) :
+                    $selectedList = $entry['list_id'] ?? '';
                     $condition = $entry['condition'] ?? 'always';
                     $param = $entry['param'] ?? '';
                     ?>
@@ -43,7 +48,7 @@ declare(strict_types=1);
                         <td>
                             <select name="_selec_list[][list_id]" class="wc-enhanced-select">
                                 <?php foreach ($lists as $key => $label) : ?>
-                                    <option value="<?= esc_attr($key) ?>" <?php selected($key, $selected_list); ?>>
+                                    <option value="<?= esc_attr($key) ?>" <?php selected($key, $selectedList); ?>>
                                         <?= esc_html($label) ?>
                                     </option>
                                 <?php endforeach; ?>

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LPTS\Infrastructure\WordPress\Hook\Admin\Woocommerce;
 
 use LPTS\Shared\Utils\Utils;
+use LPTS\Shared\Enums\MetaKey;
 use LPTS\Infrastructure\View\Renderer;
 use LPTS\Application\Contract\HookInterface;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
@@ -70,11 +71,11 @@ class CustomProductPanelHook implements HookInterface
      */
     public function productDataPanelRender(): void
     {
-        $value = get_post_meta(get_the_ID(), '_lpts_list') ?: [];
+        $listIds = get_post_meta(get_the_ID(), Metakey::PRODUCT_LIST->value) ?: [];
 
         echo $this->renderer->render('admin/woocommerce/product-sendinblue-panel', [
             'lists' => $this->lists,
-            'value' => $value,
+            'listIds' => $listIds,
         ]);
     }
 
@@ -113,7 +114,7 @@ class CustomProductPanelHook implements HookInterface
             ];
         }, $rawEntries);
 
-        $product->update_meta_data('_lpts_list', $formatted);
+        $product->update_meta_data(Metakey::PRODUCT_LIST->value, $formatted);
         $product->save();
     }
 }
