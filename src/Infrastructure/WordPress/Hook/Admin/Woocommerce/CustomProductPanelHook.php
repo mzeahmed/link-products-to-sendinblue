@@ -12,7 +12,7 @@ use LPTS\Infrastructure\External\Brevo\ApiManager;
 /**
  * @since 1.2.0
  */
-class CustomProductFielHook implements HookInterface
+class CustomProductPanelHook implements HookInterface
 {
     public ?array $lists;
     public string|bool $api_key;

@@ -1,34 +1,39 @@
 import {__} from '@wordpress/i18n';
 
-declare global {
-  interface Window {
-    lptsLists: { key: string; label: string }[];
-  }
-}
+type ListItem = { key: string; label: string };
 
 export const productPanel = {
   init: function () {
-
-    const postBody = document.getElementById('post-body') as HTMLElement;
-
-    console.log(postBody);
+    const panelContainer = document.getElementById('sendinblue_data_panel') as HTMLElement;
 
     const addButton = document.getElementById('add_lpts_list_row') as HTMLButtonElement;
     const rowsContainer = document.getElementById('lpts_list_rows') as HTMLElement;
 
-    if (!addButton || !rowsContainer || !window.lptsLists) return;
+    if (!addButton || !rowsContainer || !panelContainer) return;
 
-    this._addList(addButton, rowsContainer);
+    let lists: ListItem[] = [];
+
+    try {
+      const data = panelContainer.dataset.lists as string;
+      lists = JSON.parse(data);
+    } catch (e) {
+      console.error('Invalid JSON in data-lists:', e);
+      return;
+    }
+
+    this._addList(addButton, rowsContainer, lists);
 
     this._removeList(rowsContainer);
   },
 
-  _addList: function (addButton: HTMLButtonElement, rowsContainer: HTMLElement) {
+  _addList: function (addButton: HTMLButtonElement, rowsContainer: HTMLElement, lists: ListItem[]) {
     addButton.addEventListener('click', () => {
       const row = document.createElement('tr');
 
-      const listOptions = window.lptsLists
-        .map(({key, label}) => `<option value="${key}">${label}</option>`)
+      console.log('addList', lists);
+
+      const listOptions = Object.entries(lists)
+        .map(([key, label]) => `<option value="${key}">${label}</option>`)
         .join('');
 
       row.innerHTML = `

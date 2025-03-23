@@ -5,15 +5,15 @@ export const attributeFields = {
     const button_add = document.getElementById('userAttributesAdd') as HTMLButtonElement;
     const button_del = document.getElementById('userAttributesDel') as HTMLButtonElement;
 
-    if (parent.childElementCount < 2) {
+    if (parent && parent.childElementCount < 2) {
       button_del.disabled = true;
     }
 
-    button_add.addEventListener('click', () => {
+    if (button_add) button_add.addEventListener('click', () => {
       this._addFields(parent, button_del);
     });
 
-    button_del.addEventListener('click', () => {
+    if (button_del) button_del.addEventListener('click', () => {
       this._removeFields(parent, button_del);
     });
   },
@@ -32,6 +32,7 @@ export const attributeFields = {
     if (parent.childElementCount < 2) return;
 
     const lastChild = parent.lastElementChild;
+
     if (lastChild) {
       parent.removeChild(lastChild);
     }
