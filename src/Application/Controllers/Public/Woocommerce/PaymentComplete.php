@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Application\Controllers\Public\Woocommerce;
 
-use LPTS\Shared\Constants;
+use LPTS\Shared\Enums\OptionKey;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
 use LPTS\Application\Contract\PublicControllerInterface;
 
@@ -29,10 +29,10 @@ class PaymentComplete implements PublicControllerInterface
 
     public function register(): void
     {
-        $mainOption = get_option(Constants::LPTS_MAIN_OPTION);
+        $mainOption = get_option(OptionKey::MAIN_OPTION->value);
         // $this->lists = ApiManager::getLists();
 
-        if ((false !== $mainOption) && !empty(get_option(Constants::LPTS_API_KEY_V3_OPTION))) {
+        if ((false !== $mainOption) && !empty(get_option(OptionKey::API_KEY_V3->value))) {
             $this->client_matched_attributes = $mainOption['client_matched_attributes'];
         }
 

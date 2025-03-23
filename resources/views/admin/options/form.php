@@ -3,9 +3,14 @@
 /**
  * Api key form view
  *
+ * @var string $api_field_group
+ * @var string $nonce_action
+ *
  * @package LPTS
  * @since   1.0.0
  */
+
+use LPTS\Shared\Enums\OptionKey;
 
 ?>
 
@@ -17,7 +22,7 @@
            class="nav-tab <?php echo $tab === $api_field_group ? 'nav-tab-active' : ''; ?>">
             <?php _e('API Key', 'link-products-to-sendinblue'); ?>
         </a>
-        <?php if (!empty(get_option(\LPTS\Shared\Constants::LPTS_API_KEY_V3_OPTION))) : ?>
+        <?php if (!empty(get_option(OptionKey::API_KEY_V3->value))) : ?>
             <a href="?page=link_products_to_sendinblue&tab=user_attributes"
                class="nav-tab <?php echo $tab === 'user_attributes' ? 'nav-tab-active' : ''; ?>">
                 <?php _e('User attributes sync', 'link-products-to-sendinblue'); ?>

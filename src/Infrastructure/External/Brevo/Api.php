@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Infrastructure\External\Brevo;
 
-use LPTS\Shared\Constants;
+use LPTS\Shared\Enums\OptionKey;
 
 /**
  * Connecte to the Sendinblue API
@@ -30,7 +30,7 @@ class Api
 
     public function __construct()
     {
-        $this->api_key = (string) get_option(Constants::LPTS_API_KEY_V3_OPTION) ?: '';
+        $this->api_key = (string) get_option(OptionKey::API_KEY_V3->value) ?: '';
     }
 
     public function getAccount()

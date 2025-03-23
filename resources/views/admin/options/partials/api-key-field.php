@@ -2,6 +2,8 @@
 /**
  * Api key field partial
  *
+ * @var string $api_key_v3
+ *
  * @package LPTS
  * @since   1.0.0
  */

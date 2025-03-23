@@ -1,6 +1,7 @@
 import '../../styles/admin/admin-app.scss';
-import {attributeFieldsHandler} from './modules/attrubuteFieldsHandler';
+import {attributeFields, productPanel} from './modules';
 
 document.addEventListener('DOMContentLoaded', () => {
-  attributeFieldsHandler.init();
+  attributeFields.init();
+  productPanel.init();
 });

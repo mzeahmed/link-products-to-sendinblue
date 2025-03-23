@@ -3,6 +3,11 @@
 /**
  * Form fields patial
  *
+ * @var array $customer_fields
+ * @var array $contact_attributes
+ * @var array $customer_attributes_option
+ * @var array $sendinblue_attributes_option
+ *
  * @package LPTS
  * @since   1.0.0
  */
@@ -16,7 +21,7 @@
                     class="form-select">
                 <?php foreach ($customer_fields['billing']['fields'] as $id => $label) : ?>
                     <option value="<?php echo $id ?: ''; ?>">
-                        <?php echo $label['label'] ? esc_attr($label['label']) : ''; ?>
+                        <?= $label['label'] ? esc_attr($label['label']) : '' ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -27,7 +32,7 @@
                     class="form-select">
                 <?php foreach ($contact_attributes as $attribute) : ?>
                     <option value="<?php echo $attribute['name'] ?: ''; ?>">
-                        <?php echo $attribute['name'] ? esc_attr($attribute['name']) : ''; ?>
+                        <?= $attribute['name'] ? esc_attr($attribute['name']) : '' ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -48,7 +53,7 @@
                                 endforeach;
                             endif; ?>
                         >
-                            <?php echo $label['label'] ?: ''; ?>
+                            <?= $label['label'] ?: '' ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -64,7 +69,7 @@
                                 endforeach;
                             endif; ?>
                         >
-                            <?php echo $attribute['name'] ?: ''; ?>
+                            <?= $attribute['name'] ?: '' ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

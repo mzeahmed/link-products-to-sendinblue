@@ -1,4 +1,4 @@
-export const attributeFieldsHandler = {
+export const attributeFields = {
   init: function () {
     const parent = document.querySelector('#lpts_user_attributes_fields') as HTMLElement;
 

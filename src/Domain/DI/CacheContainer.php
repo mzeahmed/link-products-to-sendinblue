@@ -73,8 +73,9 @@ class CacheContainer extends Container
             'LPTS\\Infrastructure\\View\\Renderer' => true,
             'LPTS\\Infrastructure\\WordPress\\Hook\\Admin\\AdminEnqueueHook' => true,
             'LPTS\\Infrastructure\\WordPress\\Hook\\Admin\\SettingsHook' => true,
+            'LPTS\\Infrastructure\\WordPress\\Hook\\Admin\\Woocommerce\\CustomProductColumnHook' => true,
+            'LPTS\\Infrastructure\\WordPress\\Hook\\Admin\\Woocommerce\\CustomProductFielHook' => true,
             'LPTS\\Infrastructure\\WordPress\\I18n\\I18n' => true,
-            'LPTS\\Shared\\Constants' => true,
             'LPTS\\Shared\\Utils\\Utils' => true,
             'LPTS\\index' => true,
         ];
@@ -129,7 +130,7 @@ class CacheContainer extends Container
      */
     protected static function getCustomProductColumnControllerService($container)
     {
-        $container->services['LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductColumnController'] = $instance = new \LPTS\Application\Controllers\Admin\Woocommerce\CustomProductColumnController();
+        $container->services['LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductColumnController'] = $instance = new \LPTS\Application\Controllers\Admin\Woocommerce\CustomProductColumnController(new \LPTS\Infrastructure\WordPress\Hook\Admin\Woocommerce\CustomProductColumnHook());
 
         $instance->register($instance);
 
@@ -143,7 +144,7 @@ class CacheContainer extends Container
      */
     protected static function getCustomProductFieldControllerService($container)
     {
-        $container->services['LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductFieldController'] = $instance = new \LPTS\Application\Controllers\Admin\Woocommerce\CustomProductFieldController(($container->privates['LPTS\\Infrastructure\\View\\Renderer'] ??= new \LPTS\Infrastructure\View\Renderer()));
+        $container->services['LPTS\\Application\\Controllers\\Admin\\Woocommerce\\CustomProductFieldController'] = $instance = new \LPTS\Application\Controllers\Admin\Woocommerce\CustomProductFieldController(new \LPTS\Infrastructure\WordPress\Hook\Admin\Woocommerce\CustomProductFielHook(($container->privates['LPTS\\Infrastructure\\View\\Renderer'] ??= new \LPTS\Infrastructure\View\Renderer())));
 
         $instance->register($instance);
 

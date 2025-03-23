@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-function versionCompare()
+function versionCompare(): true
 {
     $errors = static function ($message, string $subtitle = '', string $title = '') {
         $title = $title ? esc_html__('Error', 'link-products-to-sendinblue') : '';
@@ -22,6 +22,7 @@ function versionCompare()
     }
 
     /** Ensure WordPress version compatibility*/
+    // @phpstan-ignore-next-line
     if (version_compare('5.1', get_bloginfo('version'), '>=')) {
         $errors(
             esc_html__(
