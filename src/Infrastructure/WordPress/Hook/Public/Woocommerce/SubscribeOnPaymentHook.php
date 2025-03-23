@@ -2,25 +2,15 @@
 
 declare(strict_types=1);
 
-namespace LPTS\Application\Controllers\Public\Woocommerce;
+namespace LPTS\Infrastructure\WordPress\Hook\Public\Woocommerce;
 
 use LPTS\Shared\Enums\MetaKey;
 use LPTS\Shared\Enums\OptionKey;
+use LPTS\Application\Contract\HookInterface;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
-use LPTS\Application\Contract\PublicControllerInterface;
 
-/**
- * Handles the logic for subscribing customers to Brevo lists
- *  after a WooCommerce payment is completed, based on product-specific
- *  conditions and list associations.
- *
- * @package LPTS\Admin\Woocommerce
- * @since   1.0.0
- */
-class PaymentComplete implements PublicControllerInterface
+class SubscribeOnPaymentHook implements HookInterface
 {
-    // private array $lists;
-
     /**
      * Matched customer attributes for Brevo custom fields.
      *
@@ -28,6 +18,9 @@ class PaymentComplete implements PublicControllerInterface
      */
     public ?array $clientMatchedAttributes;
 
+    /**
+     * @inheritDoc
+     */
     public function register(): void
     {
         $mainOption = get_option(OptionKey::MAIN_OPTION->value);
