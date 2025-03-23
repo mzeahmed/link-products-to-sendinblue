@@ -64,11 +64,14 @@ declare(strict_types=1);
                                 <option value="always" <?php selected('always', $condition); ?>>
                                     <?= __('Always', 'link-products-to-sendinblue') ?>
                                 </option>
-                                <option value="order_total_gt" <?php selected('order_total_gt', $condition); ?>>
-                                    <?= __('Order Total >=', 'link-products-to-sendinblue') ?>
+                                <option value="product_price_gte" <?php selected('order_total_gt', $condition); ?>>
+                                    <?= __('Product Price >=', 'link-products-to-sendinblue') ?>
                                 </option>
-                                <option value="order_total_eq" <?php selected('order_total_eq', $condition); ?>>
-                                    <?= __('Order Total =', 'link-products-to-sendinblue') ?>
+                                <option value="product_price_eq" <?php selected('product_price_eq', $condition); ?>>
+                                    <?= __('Product Price =', 'link-products-to-sendinblue') ?>
+                                </option>
+                                <option value="product_price_lt" <?php selected('product_price_lt', $condition); ?>>
+                                    <?php _e('Product Price <', 'link-products-to-sendinblue'); ?>
                                 </option>
                                 <!--<option value="user_role" --><?php //selected('user_role', $condition);
                                 ?><!-->-->

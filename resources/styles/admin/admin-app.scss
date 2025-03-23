@@ -21,13 +21,15 @@ body {
   #lpts_list_rows {
     .list-cell {
       .select2-container {
-        width: 300px !important;
+        span:first-child {
+          width: 300px !important;
+        }
       }
     }
 
     .condition-cell {
       .select2-container {
-        width: 200px !important;
+        //width: 200px !important;
       }
     }
   }

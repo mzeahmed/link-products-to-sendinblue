@@ -50,8 +50,9 @@ export const productPanel = {
         <td class="condition-cell">
           <select name="_selec_list[${index}][condition]" class="lpts-condition">
             <option value="always">${__('Always', 'link-products-to-sendinblue')}</option>
-            <option value="order_total_gt">${__('Order Total >=', 'link-products-to-sendinblue')}</option>
-            <option value="order_total_eq">${__('Order Total =', 'link-products-to-sendinblue')}</option>
+            <option value="product_price_gte">${__('Product Price >=', 'link-products-to-sendinblue')}</option>
+            <option value="product_price_eq">${__('Product Price =', 'link-products-to-sendinblue')}</option>
+            <option value="product_price_lt">${__('Product Price <', 'link-products-to-sendinblue')}</option>
             <!-- <option value="user_role">${__('User Role', 'link-products-to-sendinblue')}</option> -->
           </select>
         </td>
