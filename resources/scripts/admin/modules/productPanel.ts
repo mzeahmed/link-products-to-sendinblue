@@ -7,8 +7,6 @@ export const productPanel = {
   init: function () {
     const panelContainer = document.getElementById('sendinblue_data_panel') as HTMLElement;
 
-    console.log('%c[productPanel] Init called', 'color: limegreen');
-
     const addButton = document.getElementById('add_lpts_list_row') as HTMLButtonElement;
     const rowsContainer = document.getElementById('lpts_list_rows') as HTMLElement;
 
@@ -16,6 +14,10 @@ export const productPanel = {
 
     let lists: ListItem[] = [];
     let roles: RoleItem = {};
+
+    const isVariable = panelContainer.dataset.isVariable === '1';
+
+    if (isVariable) panelContainer.style.display = 'none';
 
     try {
       lists = JSON.parse(panelContainer.dataset.lists || '{}');

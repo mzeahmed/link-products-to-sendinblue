@@ -10,4 +10,5 @@ namespace LPTS\Shared\Enums;
 enum MetaKey: string
 {
     case PRODUCT_LIST = '_lpts_list';
+    case VARIATION_PRODUCT_LISTS = '_lpts_list_variation';
 }

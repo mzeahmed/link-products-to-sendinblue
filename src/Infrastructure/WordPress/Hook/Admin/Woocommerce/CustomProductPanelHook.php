@@ -39,7 +39,10 @@ class CustomProductPanelHook implements HookInterface
         if (!empty($this->api_key)) {
             add_filter('woocommerce_product_data_tabs', [$this, 'customProductDataTab']);
             add_action('woocommerce_product_data_panels', [$this, 'productDataPanelRender']);
+            add_action('woocommerce_product_after_variable_attributes', [$this, 'variationListField'], 10, 3);
+
             add_action('woocommerce_process_product_meta', [$this, 'saveProductMeta']);
+            add_action('woocommerce_save_product_variation ', [$this, 'saveVariationLists'], 10, 2);
         }
     }
 
@@ -71,6 +74,9 @@ class CustomProductPanelHook implements HookInterface
      */
     public function productDataPanelRender(): void
     {
+        $product = wc_get_product(get_the_ID());
+        $isVariable = $product && $product->is_type('variable');
+
         $listIds = get_post_meta(get_the_ID(), Metakey::PRODUCT_LIST->value) ?: [];
         $roles = wp_roles()->get_names();
 
@@ -78,6 +84,18 @@ class CustomProductPanelHook implements HookInterface
             'lists' => $this->lists,
             'listIds' => array_shift($listIds),
             'roles' => $roles,
+            'isVariable' => $isVariable,
+        ]);
+    }
+
+    public function variationListField($loop, $variationData, $variation): void
+    {
+        $saved = get_post_meta($variation->ID, Metakey::PRODUCT_LIST->value, true);
+
+        echo $this->renderer->render('admin/woocommerce/variation-product-panel', [
+            'lists' => $this->lists,
+            'saved' => $saved,
+            'loop' => $loop,
         ]);
     }
 
@@ -96,5 +114,12 @@ class CustomProductPanelHook implements HookInterface
         $product->update_meta_data(Metakey::PRODUCT_LIST->value, $rawEntries);
 
         $product->save();
+    }
+
+    public function saveVariationLists(int $variationId, int $i): void
+    {
+        $rawEntries = $_POST['variation_lpts_list'][$i] ?? [];
+        // update_post_meta($variationId, '_lpts_list', $rawEntries);
+        update_post_meta($variationId, Metakey::PRODUCT_LIST->value, array_map('sanitize_text_field', $lists));
     }
 }

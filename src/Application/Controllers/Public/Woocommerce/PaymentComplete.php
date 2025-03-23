@@ -68,19 +68,35 @@ class PaymentComplete implements PublicControllerInterface
 
         foreach ($items as $item) {
             $productId = $item->get_product_id();
-            $product = $item->get_product();
-            $price = $product ? (float) $product->get_price() : 0.0;
+            $variationId = $item->get_variation_id();
 
-            $listEntries = get_post_meta($productId, Metakey::PRODUCT_LIST->value, true);
+            // $product = $item->get_product();
+            // $price = $product ? (float) $product->get_price() : 0.0;
 
-            if (is_array($listEntries)) {
-                foreach ($listEntries as $entry) {
-                    $listId = $entry['list_id'] ?? null;
-                    $condition = $entry['condition'] ?? 'always';
-                    $param = $entry['param'] ?? '';
+            if ($variationId) {
+                // ✅ Variation : No need conditions, send to the assigned list directly.
+                $variationLists = get_post_meta($variationId, Metakey::VARIATION_PRODUCT_LISTS->value, true);
 
-                    if ($this->evaluateCondition($condition, $param, $price, $order)) {
+                if (is_array($variationLists)) {
+                    foreach ($variationLists as $listId) {
                         ApiManager::createSubscriber($email, (int) $listId, $info);
+                    }
+                }
+            } else {
+                // ✅ Simple product : Check conditions and send to the assigned list.
+                $listEntries = get_post_meta($productId, Metakey::PRODUCT_LIST->value, true);
+
+                if (is_array($listEntries)) {
+                    foreach ($listEntries as $entry) {
+                        $listId = $entry['list_id'] ?? null;
+                        $condition = $entry['condition'] ?? 'always';
+                        $param = $entry['param'] ?? '';
+
+                        $price = $item->get_total();
+
+                        if ($this->evaluateCondition($condition, $param, $price, $order)) {
+                            ApiManager::createSubscriber($email, (int) $listId, $info);
+                        }
                     }
                 }
             }
@@ -107,25 +123,45 @@ class PaymentComplete implements PublicControllerInterface
     private function evaluateCondition(string $type, string $param, float $price, \WC_Order $order): bool
     {
         switch ($type) {
+            // case 'always':
+            //     return true;
+            //
+            // case 'product_price_gte':
+            //     return $price >= (float) $param;
+            //
+            // case 'product_price_eq':
+            //     return abs($price - (float) $param) < 0.01;
+            //
+            // case 'product_price_lt':
+            //     return $price < (float) $param;
+            //
+            // case 'user_role':
+            //     $user = $order->get_user();
+            //     if (!$user) {
+            //         return false;
+            //     }
+            //
+            //     return in_array($param, (array) $user->roles, true);
+            //
+            // default:
+            //     return false;
+
             case 'always':
                 return true;
 
-            case 'product_price_gte':
+            case 'order_total_gte':
                 return $price >= (float) $param;
 
-            case 'product_price_eq':
+            case 'order_total_eq':
                 return abs($price - (float) $param) < 0.01;
 
-            case 'product_price_lt':
+            case 'order_total_lt':
                 return $price < (float) $param;
 
-            case 'user_role':
-                $user = $order->get_user();
-                if (!$user) {
-                    return false;
-                }
-
-                return in_array($param, (array) $user->roles, true);
+            // case 'user_role':
+            //     $user = $order->get_user();
+            //
+            //     return $user && in_array($param, (array) $user->roles, true);
 
             default:
                 return false;
