@@ -19,9 +19,9 @@ class AdminDatabaseController implements AdminControllerInterface
     {
         $this->dbVersion = get_option(LPTS_DB_VERSION_OPTION, '1.0.0');
 
-        // if (version_compare($this->dbVersion, LPTS_CURRENT_DB_VERSION, '<')) {
-        add_action('admin_notices', [$this, 'displayUpgradeDbNotice']);
-        // }
+        if (version_compare($this->dbVersion, LPTS_CURRENT_DB_VERSION, '<')) {
+            add_action('admin_notices', [$this, 'displayUpgradeDbNotice']);
+        }
     }
 
     public function register(): void

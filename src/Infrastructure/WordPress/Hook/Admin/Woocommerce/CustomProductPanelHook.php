@@ -39,7 +39,7 @@ class CustomProductPanelHook implements HookInterface
         if (!empty($this->api_key)) {
             add_filter('woocommerce_product_data_tabs', [$this, 'customProductDataTab']);
             add_action('woocommerce_product_data_panels', [$this, 'productDataPanelRender']);
-            add_action('woocommerce_process_product_meta', [$this, 'processProductMeta']);
+            add_action('woocommerce_process_product_meta', [$this, 'saveProductMeta']);
         }
     }
 
@@ -72,10 +72,12 @@ class CustomProductPanelHook implements HookInterface
     public function productDataPanelRender(): void
     {
         $listIds = get_post_meta(get_the_ID(), Metakey::PRODUCT_LIST->value) ?: [];
+        $roles = wp_roles()->get_names();
 
         echo $this->renderer->render('admin/woocommerce/product-sendinblue-panel', [
             'lists' => $this->lists,
-            'listIds' => $listIds,
+            'listIds' => array_shift($listIds),
+            'roles' => $roles,
         ]);
     }
 
@@ -86,35 +88,13 @@ class CustomProductPanelHook implements HookInterface
      *
      * @since 1.0.0
      */
-    public function processProductMeta(int $postId): void
+    public function saveProductMeta(int $postId): void
     {
-        // $product = wc_get_product($postId);
-        // $product->update_meta_data('_lpts_list', sanitize_text_field($_POST['_selec_list']));
-        // $product->save();
-
-        // $product = wc_get_product($postId);
-        //
-        // if (!empty($_POST['_selec_list']) && is_array($_POST['_selec_list'])) {
-        //     $lists = array_map('sanitize_text_field', $_POST['_selec_list']);
-        // } else {
-        //     $lists = [];
-        // }
-        //
-        // $product->update_meta_data('_lpts_list', $lists);
-        // $product->save();
-
         $product = wc_get_product($postId);
         $rawEntries = $_POST['_selec_list'] ?? [];
 
-        $formatted = array_map(static function ($entry) {
-            return [
-                'list_id' => sanitize_text_field($entry['list_id'] ?? ''),
-                'condition' => sanitize_text_field($entry['condition'] ?? 'always'),
-                'param' => sanitize_text_field($entry['param'] ?? ''),
-            ];
-        }, $rawEntries);
+        $product->update_meta_data(Metakey::PRODUCT_LIST->value, $rawEntries);
 
-        $product->update_meta_data(Metakey::PRODUCT_LIST->value, $formatted);
         $product->save();
     }
 }

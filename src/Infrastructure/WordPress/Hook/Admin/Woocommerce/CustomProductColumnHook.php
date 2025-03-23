@@ -13,14 +13,14 @@ use LPTS\Infrastructure\External\Brevo\ApiManager;
  */
 class CustomProductColumnHook implements HookInterface
 {
-    public ?array $sendinblue_lists;
+    public ?array $brevoLists;
 
     /**
      * @inheritDoc
      */
     public function register(): void
     {
-        $this->sendinblue_lists = ApiManager::getLists();
+        $this->brevoLists = ApiManager::getLists();
 
         add_filter('manage_edit-product_columns', [$this, 'productsListColumn'], 9999);
         add_action('manage_product_posts_custom_column', [$this, 'productsListColumnContent'], 10, 2);
@@ -52,16 +52,24 @@ class CustomProductColumnHook implements HookInterface
     public function productsListColumnContent(string $column, int $product_id): void
     {
         if ('list' === $column) {
-            $product_list_id = get_post_meta($product_id, Metakey::PRODUCT_LIST->value, true);
+            $productListIds = get_post_meta($product_id, Metakey::PRODUCT_LIST->value, true);
+
+            if (empty($productListIds)) {
+                echo '–';
+
+                return;
+            }
 
             // we check if $product_list_id exist in $this->sendinblue_lists
             // if true we echo the value(list name).
-            if (isset($this->sendinblue_lists[$product_list_id])) {
-                $list = $this->sendinblue_lists[$product_list_id];
+            foreach ($productListIds as $row) {
+                if (isset($this->brevoLists[$row['list_id']])) {
+                    $list = $this->brevoLists[$row['list_id']];
 
-                echo esc_html($list);
-            } else {
-                echo '–';
+                    echo esc_html($list);
+                } else {
+                    echo '–';
+                }
             }
         }
     }

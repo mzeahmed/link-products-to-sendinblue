@@ -5,6 +5,7 @@
  *
  * @var array $lists
  * @var mixed $listIds
+ * @var array $roles
  *
  * @package LPTS
  * @since   1.0.0
@@ -16,7 +17,7 @@ declare(strict_types=1);
 
 ?>
 
-<div id="sendinblue_data_panel" class="panel woocommerce_options_panel hidden" data-lists='<?= esc_attr(json_encode($lists)) ?>'>
+<div id="sendinblue_data_panel" class="panel woocommerce_options_panel hidden" data-lists="<?= esc_attr(json_encode($lists)) ?>" data-roles="<?= esc_attr(json_encode($roles)) ?>">
     <div id="lpts_list_wrapper">
         <table class="widefat">
             <thead>
@@ -33,20 +34,19 @@ declare(strict_types=1);
                     $listIds = [[]];
                 endif;
 
-                if (!empty($listIds) && is_array($listIds) && is_array($listIds[0]) && isset($listIds[0]['list_id']) === false) :
-                    // Old format or array of arrays
-                    $listIds = array_merge(...$listIds);
-                endif;
-
-                foreach ($listIds as $entry) :
+                foreach ($listIds as $index => $entry) :
                     $selectedList = $entry['list_id'] ?? '';
                     $condition = $entry['condition'] ?? 'always';
                     $param = $entry['param'] ?? '';
                     ?>
 
                     <tr>
-                        <td>
-                            <select name="_selec_list[][list_id]" class="wc-enhanced-select">
+                        <td class="list-cell">
+                            <select
+                                    name="_selec_list[<?= $index ?>][list_id]"
+                                    class="wc-enhanced-select lpts-list"
+                                    aria-label="<?= esc_attr__('Select a list', 'link-products-to-sendinblue') ?>"
+                            >
                                 <?php foreach ($lists as $key => $label) : ?>
                                     <option value="<?= esc_attr($key) ?>" <?php selected($key, $selectedList); ?>>
                                         <?= esc_html($label) ?>
@@ -55,29 +55,42 @@ declare(strict_types=1);
                             </select>
                         </td>
 
-                        <td>
-                            <select name="_selec_list[][condition]">
+                        <td class="condition-cell">
+                            <select
+                                    name="_selec_list[<?= $index ?>][condition]"
+                                    class="wc-enhanced-select lpts-condition"
+                                    aria-label="<?= esc_attr__('Select a condition', 'link-products-to-sendinblue') ?>"
+                            >
                                 <option value="always" <?php selected('always', $condition); ?>>
                                     <?= __('Always', 'link-products-to-sendinblue') ?>
                                 </option>
                                 <option value="order_total_gt" <?php selected('order_total_gt', $condition); ?>>
-                                    <?= __('Order Total >', 'link-products-to-sendinblue') ?>
+                                    <?= __('Order Total >=', 'link-products-to-sendinblue') ?>
                                 </option>
                                 <option value="order_total_eq" <?php selected('order_total_eq', $condition); ?>>
                                     <?= __('Order Total =', 'link-products-to-sendinblue') ?>
                                 </option>
-                                <option value="user_role" <?php selected('user_role', $condition); ?>>
-                                    <?= __('User Role', 'link-products-to-sendinblue') ?>
-                                </option>
+                                <!--<option value="user_role" --><?php //selected('user_role', $condition);
+                                ?><!-->-->
+                                <!--    --><?php //= __('User Role', 'link-products-to-sendinblue')
+                                ?>
+                                <!--</option>-->
                             </select>
                         </td>
 
-                        <td>
-                            <input type="text" name="_selec_list[][param]" value="<?= esc_attr($param) ?>" />
+                        <td class="param-cell">
+                            <input
+                                    type="text"
+                                    name="_selec_list[<?= $index ?>][param]"
+                                    value="<?= esc_attr($param) ?>"
+                                    aria-label="<?= esc_attr__('Parameter', 'link-products-to-sendinblue') ?>"
+                            >
                         </td>
 
                         <td>
-                            <button type="button" class="button remove-row"><?= __('Remove', 'link-products-to-sendinblue') ?></button>
+                            <button type="button" class="button remove-row">
+                                <?= __('Remove', 'link-products-to-sendinblue') ?>
+                            </button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
