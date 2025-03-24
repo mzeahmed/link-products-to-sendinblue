@@ -6,5 +6,4 @@ namespace LPTS\Domain\Services\Public\Woocommerce;
 
 class SubscribeOnPaymentService
 {
-
 }

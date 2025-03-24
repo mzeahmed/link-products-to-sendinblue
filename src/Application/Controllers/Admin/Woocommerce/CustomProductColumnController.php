@@ -17,7 +17,8 @@ class CustomProductColumnController implements AdminControllerInterface
 {
     public function __construct(
         private CustomProductColumnHook $customProductColumnHook
-    ) {}
+    ) {
+    }
 
     public function register(): void
     {

@@ -47,9 +47,9 @@ class AdminDatabaseController implements AdminControllerInterface
     {
         echo '<div class="notice notice-warning is-dismissible">
                 <p>' . esc_html__(
-                'A database upgrade is available for Link products to Sendinblue plugin.',
-                'link-products-to-sendinblue'
-            ) . ' 
+            'A database upgrade is available for Link products to Sendinblue plugin.',
+            'link-products-to-sendinblue'
+        ) . ' 
                     <button id="lpts-update-db" class="button button-primary">'
              . esc_html__('Upgrade now', 'link-products-to-sendinblue') .
              '</button>

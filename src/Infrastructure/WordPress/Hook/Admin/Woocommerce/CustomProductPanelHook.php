@@ -30,10 +30,9 @@ class CustomProductPanelHook implements HookInterface
      */
     public function register(): void
     {
-        // push 'Select a list' to $this->list.
         $this->lists[] = __('Select a list', 'link-products-to-sendinblue');
 
-        // we sort sendinblue list by key(id) in reverse order, to add 'Select a list' as first element of the array.
+        // we sort Brevo list by key(id) in reverse order, to add 'Select a list' as first element of the array.
         krsort($this->lists);
 
         if (!empty($this->apiKey)) {
@@ -90,7 +89,7 @@ class CustomProductPanelHook implements HookInterface
 
     public function variationListField($loop, $variationData, $variation): void
     {
-        $saved = get_post_meta($variation->ID, Metakey::PRODUCT_LIST->value, true);
+        $saved = get_post_meta($variation->ID, Metakey::VARIATION_PRODUCT_LISTS->value, true);
 
         echo $this->renderer->render('admin/woocommerce/variation-product-panel', [
             'lists' => $this->lists,
@@ -118,7 +117,7 @@ class CustomProductPanelHook implements HookInterface
 
     public function saveVariationLists(int $variationId, int $i): void
     {
-        $selected = $_POST[Metakey::VARIATION_PRODUCT_LISTS->value][$i] ?? '';
+        $selected = sanitize_text_field($_POST[Metakey::VARIATION_PRODUCT_LISTS->value][$i] ?? '');
 
         $variationProduct = wc_get_product($variationId);
         $variationProduct->update_meta_data(Metakey::VARIATION_PRODUCT_LISTS->value, $selected);

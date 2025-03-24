@@ -61,6 +61,7 @@ class CacheContainer extends Container
             '.instanceof.LPTS\\Application\\Contract\\PublicControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\SettingsController' => true,
             '.instanceof.LPTS\\Application\\Contract\\PublicControllerInterface.0.LPTS\\Application\\Controllers\\Public\\Woocommerce\\SubscribeOnPaymentController' => true,
             'LPTS\\Bootstrap' => true,
+            'LPTS\\Domain\\DI\\CacheContainer' => true,
             'LPTS\\Domain\\DI\\Compilers\\AdminControllerPass' => true,
             'LPTS\\Domain\\DI\\Compilers\\PublicControllerPass' => true,
             'LPTS\\Domain\\DI\\ServicesContainer' => true,

@@ -17,7 +17,8 @@ class CustomProductPanelController implements AdminControllerInterface
 {
     public function __construct(
         private CustomProductPanelHook $customProductFielHook
-    ) {}
+    ) {
+    }
 
     public function register(): void
     {

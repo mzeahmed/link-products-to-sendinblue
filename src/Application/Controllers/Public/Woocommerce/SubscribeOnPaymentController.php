@@ -19,7 +19,8 @@ class SubscribeOnPaymentController implements PublicControllerInterface
 {
     public function __construct(
         private SubscribeOnPaymentHook $subscribeOnPaymentHook
-    ) {}
+    ) {
+    }
 
     public function register(): void
     {
