@@ -58,3 +58,8 @@ pu: ## Updates wp-scripts packages
 	@echo "$(GREEN)Updating wp-scripts packages...$(NO_COLOR)"
 	npm run packages-update
 	@echo "$(GREEN)wp-scripts packages updated$(NO_COLOR)"
+
+cahe-d: ## Deletes cache directory
+	@echo "$(YELLOW)Deleting cache directory...$(NO_COLOR)"
+	rm -rf ./src/Domain/DI/CacheContainer.php
+	@echo "$(GREEN)Cache directory deleted$(NO_COLOR)"

@@ -114,7 +114,7 @@ if (!$isVariable) : ?>
         </div>
     </div>
 <?php else : ?>
-    <div class="notice notice-warning inline">
+    <div id="sendinblue_data_panel" class="panel woocommerce_options_panel notice notice-warning inline">
         <p>
             <?php _e(
                 'Conditional logic is disabled for variable products. Please assign lists directly to each variation.',
