@@ -12,20 +12,22 @@
 
 declare(strict_types=1);
 
+use LPTS\Shared\Enums\MetaKey;
+
 ?>
 
 <div class="form-row form-row-full">
-    <label for="variation_lpts_list_<?= $loop ?>">
-        <?php _e('Brevo list', 'link-products-to-sendinblue'); ?>
+    <label for="<?= Metakey::VARIATION_PRODUCT_LISTS->value ?><?= $loop ?>">
+        <?= __('Brevo list', 'link-products-to-sendinblue') ?>
     </label>
 
     <select
-            name="variation_lpts_list[<?= $loop ?>][]"
+            name="<?= Metakey::VARIATION_PRODUCT_LISTS->value ?>[<?= $loop ?>]"
             style="width: 100%;"
             aria-label="<?= esc_attr__('Select a list', 'link-products-to-sendinblue') ?>"
     >
         <?php foreach ($lists as $key => $label) : ?>
-            <option value="<?= esc_attr($key) ?>" <?php selected(is_array($saved) && in_array($key, $saved, true)); ?>>
+            <option value="<?= esc_attr($key) ?>" <?php selected($saved === $key); ?>>
                 <?= esc_html($label) ?>
             </option>
         <?php endforeach; ?>

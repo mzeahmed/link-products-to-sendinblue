@@ -6,6 +6,7 @@ namespace LPTS\Infrastructure\WordPress\Hook\Public\Woocommerce;
 
 use LPTS\Shared\Enums\MetaKey;
 use LPTS\Shared\Enums\OptionKey;
+use WPYoostart\Helpers\Debugger;
 use LPTS\Application\Contract\HookInterface;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
 
@@ -67,8 +68,10 @@ class SubscribeOnPaymentHook implements HookInterface
             // $price = $product ? (float) $product->get_price() : 0.0;
 
             if ($variationId) {
-                // ✅ Variation : No need conditions, send to the assigned list directly.
+                // Variation : No need conditions, send to the assigned list directly.
                 $variationLists = get_post_meta($variationId, Metakey::VARIATION_PRODUCT_LISTS->value, true);
+
+                Debugger::writeLog('variationLists : ', $variationLists);
 
                 if (is_array($variationLists)) {
                     foreach ($variationLists as $listId) {
@@ -76,7 +79,7 @@ class SubscribeOnPaymentHook implements HookInterface
                     }
                 }
             } else {
-                // ✅ Simple product : Check conditions and send to the assigned list.
+                // Simple product : Check conditions and send to the assigned list.
                 $listEntries = get_post_meta($productId, Metakey::PRODUCT_LIST->value, true);
 
                 if (is_array($listEntries)) {

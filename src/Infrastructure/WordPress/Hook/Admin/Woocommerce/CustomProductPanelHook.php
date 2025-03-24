@@ -16,13 +16,13 @@ use LPTS\Infrastructure\External\Brevo\ApiManager;
 class CustomProductPanelHook implements HookInterface
 {
     public ?array $lists;
-    public string|bool $api_key;
+    public string|bool $apiKey;
 
     public function __construct(
         private Renderer $renderer
     ) {
         $this->lists = ApiManager::getLists();
-        $this->api_key = Utils::getApiKey();
+        $this->apiKey = Utils::getApiKey();
     }
 
     /**
@@ -36,13 +36,13 @@ class CustomProductPanelHook implements HookInterface
         // we sort sendinblue list by key(id) in reverse order, to add 'Select a list' as first element of the array.
         krsort($this->lists);
 
-        if (!empty($this->api_key)) {
+        if (!empty($this->apiKey)) {
             add_filter('woocommerce_product_data_tabs', [$this, 'customProductDataTab']);
             add_action('woocommerce_product_data_panels', [$this, 'productDataPanelRender']);
-            add_action('woocommerce_product_after_variable_attributes', [$this, 'variationListField'], 10, 3);
-
             add_action('woocommerce_process_product_meta', [$this, 'saveProductMeta']);
-            add_action('woocommerce_save_product_variation ', [$this, 'saveVariationLists'], 10, 2);
+
+            add_action('woocommerce_product_after_variable_attributes', [$this, 'variationListField'], 10, 3);
+            add_action('woocommerce_save_product_variation', [$this, 'saveVariationLists'], 10, 2);
         }
     }
 
@@ -108,9 +108,9 @@ class CustomProductPanelHook implements HookInterface
      */
     public function saveProductMeta(int $postId): void
     {
-        $product = wc_get_product($postId);
         $rawEntries = $_POST['_selec_list'] ?? [];
 
+        $product = wc_get_product($postId);
         $product->update_meta_data(Metakey::PRODUCT_LIST->value, $rawEntries);
 
         $product->save();
@@ -118,8 +118,11 @@ class CustomProductPanelHook implements HookInterface
 
     public function saveVariationLists(int $variationId, int $i): void
     {
-        $rawEntries = $_POST['variation_lpts_list'][$i] ?? [];
-        // update_post_meta($variationId, '_lpts_list', $rawEntries);
-        update_post_meta($variationId, Metakey::PRODUCT_LIST->value, array_map('sanitize_text_field', $lists));
+        $selected = $_POST[Metakey::VARIATION_PRODUCT_LISTS->value][$i] ?? '';
+
+        $variationProduct = wc_get_product($variationId);
+        $variationProduct->update_meta_data(Metakey::VARIATION_PRODUCT_LISTS->value, $selected);
+
+        $variationProduct->save();
     }
 }
