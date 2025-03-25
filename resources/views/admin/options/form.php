@@ -24,11 +24,16 @@ use LPTS\Shared\Enums\OptionKey;
         </a>
         <?php if (!empty(get_option(OptionKey::API_KEY_V3->value))) : ?>
             <a href="?page=link_products_to_sendinblue&tab=user_attributes"
-               class="nav-tab <?php echo $tab === 'user_attributes' ? 'nav-tab-active' : ''; ?>">
+               class="nav-tab <?= 'user_attributes' === $tab ? 'nav-tab-active' : '' ?>">
                 <?php _e('User attributes sync', 'link-products-to-sendinblue'); ?>
             </a>
         <?php endif; ?>
+
+        <?php do_action('lpts_after_nav_tabs'); ?>
     </h2>
+
+    <?php do_action('lpts_before_form'); ?>
+
     <form action="options.php" method="post">
         <?php if ($tab === 'user_attributes') : ?>
             <?php if (!current_user_can('manage_options')) :
@@ -83,4 +88,6 @@ use LPTS\Shared\Enums\OptionKey;
         >
 
     </form>
+
+    <?php do_action('lpts_after_form'); ?>
 </div>

@@ -24,7 +24,7 @@ final class Bootstrap
     private function boot(): void
     {
         add_action('plugins_loaded', static function () {
-            if (function_exists('WC')) {
+            if (\function_exists('WC')) {
                 I18n::load();
                 ServicesContainer::load();
 
