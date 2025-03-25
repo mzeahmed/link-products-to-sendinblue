@@ -21,6 +21,7 @@
   "require": {
     "php": ">=8.0",
     "ext-json": "*",
+    "getbrevo/brevo-php": "^2.0",
     "mzeahmed/wp-toolkit": "^1.0",
     "symfony/config": "^6.4",
     "symfony/dependency-injection": "^6.4",

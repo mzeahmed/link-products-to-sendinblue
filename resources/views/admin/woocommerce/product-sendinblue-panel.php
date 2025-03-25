@@ -11,7 +11,7 @@
  * @package LPTS
  * @since   1.0.0
  *
- * @see \LPTS\Infrastructure\WordPress\Hook\Admin\Woocommerce\CustomProductPanelHook::productDataPanelRender()
+ * @see \LPTS\Infrastructure\WordPress\Hook\Admin\Woocommerce\ProductPanelHook::productDataPanelRender()
  */
 
 declare(strict_types=1);
@@ -29,82 +29,82 @@ if (!$isVariable) : ?>
         <div id="lpts_list_wrapper">
             <table class="widefat">
                 <thead>
-                    <tr>
-                        <th><?php _e('Brevo list', 'link-products-to-sendinblue'); ?></th>
-                        <th><?php _e('Condition', 'link-products-to-sendinblue'); ?></th>
-                        <th><?php _e('Parameter', 'link-products-to-sendinblue'); ?></th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th><?php _e('Brevo list', 'link-products-to-sendinblue'); ?></th>
+                    <th><?php _e('Condition', 'link-products-to-sendinblue'); ?></th>
+                    <th><?php _e('Parameter', 'link-products-to-sendinblue'); ?></th>
+                    <th></th>
+                </tr>
                 </thead>
 
                 <tbody id="lpts_list_rows">
-                    <?php if (empty($listIds)) :
-                        $listIds = [[]];
-                    endif;
+                <?php if (empty($listIds)) :
+                    $listIds = [[]];
+                endif;
 
-                    foreach ($listIds as $index => $entry) :
-                        $selectedList = $entry['list_id'] ?? '';
-                        $condition = $entry['condition'] ?? 'always';
-                        $param = $entry['param'] ?? '';
-                        ?>
+                foreach ($listIds as $index => $entry) :
+                    $selectedList = $entry['list_id'] ?? '';
+                    $condition = $entry['condition'] ?? 'always';
+                    $param = $entry['param'] ?? '';
+                    ?>
 
-                        <tr>
-                            <td class="list-cell">
-                                <select
-                                        name="<?= Metakey::PRODUCT_LIST->value ?>[<?= $index ?>][list_id]"
-                                        class="wc-enhanced-select lpts-list"
-                                        aria-label="<?= esc_attr__('Select a list', 'link-products-to-sendinblue') ?>"
-                                >
-                                    <?php foreach ($lists as $key => $label) : ?>
-                                        <option value="<?= esc_attr($key) ?>" <?php selected($key, $selectedList); ?>>
-                                            <?= esc_html($label) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </td>
-
-                            <td class="condition-cell">
-                                <select
-                                        name="<?= Metakey::PRODUCT_LIST->value ?>[<?= $index ?>][condition]"
-                                        class="wc-enhanced-select lpts-condition"
-                                        aria-label="<?= esc_attr__('Select a condition', 'link-products-to-sendinblue') ?>"
-                                >
-                                    <option value="always" <?php selected('always', $condition); ?>>
-                                        <?= __('Always', 'link-products-to-sendinblue') ?>
+                    <tr>
+                        <td class="list-cell">
+                            <select
+                                    name="<?= Metakey::PRODUCT_LIST->value ?>[<?= $index ?>][list_id]"
+                                    class="wc-enhanced-select lpts-list"
+                                    aria-label="<?= esc_attr__('Select a list', 'link-products-to-sendinblue') ?>"
+                            >
+                                <?php foreach ($lists as $key => $label) : ?>
+                                    <option value="<?= esc_attr($key) ?>" <?php selected($key, $selectedList); ?>>
+                                        <?= esc_html($label) ?>
                                     </option>
-                                    <option value="order_total_gte" <?php selected('order_total_gte', $condition); ?>>
-                                        <?= __('Order total >=', 'link-products-to-sendinblue') ?>
-                                    </option>
-                                    <option value="order_total_eq" <?php selected('order_total_eq', $condition); ?>>
-                                        <?= __('Order total =', 'link-products-to-sendinblue') ?>
-                                    </option>
-                                    <option value="order_total_lt" <?php selected('order_total_lt', $condition); ?>>
-                                        <?php _e('Order total <', 'link-products-to-sendinblue'); ?>
-                                    </option>
-                                    <!--<option value="user_role" --><?php //selected('user_role', $condition);
-                                    ?><!-->-->
-                                    <!--    --><?php //= __('User Role', 'link-products-to-sendinblue')
-                                    ?>
-                                    <!--</option>-->
-                                </select>
-                            </td>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
 
-                            <td class="param-cell">
-                                <input
-                                        type="text"
-                                        name="<?= Metakey::PRODUCT_LIST->value ?>[<?= $index ?>][param]"
-                                        value="<?= esc_attr($param) ?>"
-                                        aria-label="<?= esc_attr__('Parameter', 'link-products-to-sendinblue') ?>"
-                                >
-                            </td>
+                        <td class="condition-cell">
+                            <select
+                                    name="<?= Metakey::PRODUCT_LIST->value ?>[<?= $index ?>][condition]"
+                                    class="wc-enhanced-select lpts-condition"
+                                    aria-label="<?= esc_attr__('Select a condition', 'link-products-to-sendinblue') ?>"
+                            >
+                                <option value="always" <?php selected('always', $condition); ?>>
+                                    <?= __('Always', 'link-products-to-sendinblue') ?>
+                                </option>
+                                <option value="order_total_gte" <?php selected('order_total_gte', $condition); ?>>
+                                    <?= __('Order total >=', 'link-products-to-sendinblue') ?>
+                                </option>
+                                <option value="order_total_eq" <?php selected('order_total_eq', $condition); ?>>
+                                    <?= __('Order total =', 'link-products-to-sendinblue') ?>
+                                </option>
+                                <option value="order_total_lt" <?php selected('order_total_lt', $condition); ?>>
+                                    <?php _e('Order total <', 'link-products-to-sendinblue'); ?>
+                                </option>
+                                <!--<option value="user_role" --><?php //selected('user_role', $condition);
+                                ?><!-->-->
+                                <!--    --><?php //= __('User Role', 'link-products-to-sendinblue')
+                                ?>
+                                <!--</option>-->
+                            </select>
+                        </td>
 
-                            <td>
-                                <button type="button" class="button remove-row">
-                                    <?= __('Remove', 'link-products-to-sendinblue') ?>
-                                </button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+                        <td class="param-cell">
+                            <input
+                                    type="text"
+                                    name="<?= Metakey::PRODUCT_LIST->value ?>[<?= $index ?>][param]"
+                                    value="<?= esc_attr($param) ?>"
+                                    aria-label="<?= esc_attr__('Parameter', 'link-products-to-sendinblue') ?>"
+                            >
+                        </td>
+
+                        <td>
+                            <button type="button" class="button remove-row">
+                                <?= __('Remove', 'link-products-to-sendinblue') ?>
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
 

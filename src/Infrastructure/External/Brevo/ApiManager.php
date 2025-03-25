@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LPTS\Infrastructure\External\Brevo;
 
 use LPTS\Shared\Enums\OptionKey;
+use LPTS\Shared\Enums\TransientKey;
 
 /**
  * Class to manage API
@@ -45,7 +46,7 @@ class ApiManager
      */
     public static function getAttributes(): ?array
     {
-        $attrs = get_transient('lpts_attributes' . get_option(OptionKey::API_KEY_V3->value));
+        $attrs = get_transient(TransientKey::BREVO_ATTRIBUTES->value . get_option(OptionKey::API_KEY_V3->value));
 
         if (!$attrs) {
             $api_client = new Api();
@@ -74,7 +75,7 @@ class ApiManager
                 }
             }
 
-            set_transient('lpts_attributes' . get_option(OptionKey::API_KEY_V3->value), $attrs, self::DELAYTIME);
+            set_transient(TransientKey::BREVO_ATTRIBUTES->value . get_option(OptionKey::API_KEY_V3->value), $attrs, self::DELAYTIME);
         }
 
         return $attrs;
