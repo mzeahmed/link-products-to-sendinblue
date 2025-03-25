@@ -22,6 +22,7 @@
 declare(strict_types=1);
 
 use LPTS\Bootstrap;
+use LPTS\Shared\Utils\Utils;
 
 if (!defined('ABSPATH')) {
     header('Status: 403 Forbidden');
@@ -44,11 +45,9 @@ define('LPTS_PLUGIN_BASENAME', plugin_basename(LPTS_PLUGIN_FILE));
 define('LPTS_PLUGIN_PATH', plugin_dir_path(LPTS_PLUGIN_FILE));
 define('LPTS_PLUGIN_URL', plugin_dir_url(LPTS_PLUGIN_FILE));
 
-define('LPTS_DB_VERSION_OPTION', 'lpts_db_version');
 define('LPTS_CURRENT_DB_VERSION', '1.0.0');
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/functions.php';
 
 /**
  * Plugin entry point Process
@@ -58,7 +57,7 @@ require_once __DIR__ . '/functions.php';
  */
 function link_products_to_sendinblue(): ?Bootstrap
 {
-    versionCompare();
+    Utils::versionCompare();
 
     return Bootstrap::getInstance();
 }

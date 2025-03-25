@@ -15,4 +15,7 @@ enum OptionKey: string
     // Sync settings
     case CUSTOMER_ATTRIBUTES = 'lpts_woocommerce_customer_attributes';
     case BREVO_ATTRIBUTES = 'lpts_sendinblue_contact_attributes';
+
+    // Database version
+    case DB_VERSION = 'lpts_db_version';
 }
