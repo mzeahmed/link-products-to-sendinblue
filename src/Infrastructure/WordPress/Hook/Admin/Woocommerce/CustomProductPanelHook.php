@@ -6,6 +6,7 @@ namespace LPTS\Infrastructure\WordPress\Hook\Admin\Woocommerce;
 
 use LPTS\Shared\Utils\Utils;
 use LPTS\Shared\Enums\MetaKey;
+use LPTS\Shared\Enums\OptionKey;
 use LPTS\Infrastructure\View\Renderer;
 use LPTS\Application\Contract\HookInterface;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
@@ -42,6 +43,43 @@ class CustomProductPanelHook implements HookInterface
 
             add_action('woocommerce_product_after_variable_attributes', [$this, 'variationListField'], 10, 3);
             add_action('woocommerce_save_product_variation', [$this, 'saveVariationLists'], 10, 2);
+
+            /** @todo supprimmer une fois les testes validés */
+            add_action('admin_init', function () {
+                $mainOption = get_option(OptionKey::MAIN_OPTION->value);
+                $clientMatchedAttributes = $mainOption['client_matched_attributes'];
+
+                $orderId = 2549757;
+
+                $order = wc_get_order($orderId);
+                $email = $order->get_billing_email();
+
+                $info = [];
+                if (isset($clientMatchedAttributes)) {
+                    foreach ($clientMatchedAttributes as $contactAttr => $customerAttr) {
+                        $info[$contactAttr] = $order->$customerAttr;
+                    }
+                }
+
+                $items = $order->get_items();
+
+                foreach ($items as $item) {
+                    $productId = $item->get_product_id();
+                    $variationId = $item->get_variation_id();
+                    // 2549750
+
+                    // dump([
+                    //     'product_id' => $item->get_product_id(),
+                    //     'variation_id' => $item->get_variation_id(),
+                    //     'product_type' => $item->get_product()?->get_type(),
+                    // ]);
+
+                    $product = wc_get_product($productId);
+
+                    $listId = get_post_meta($variationId, Metakey::VARIATION_PRODUCT_LISTS->value, true);
+                    // dd($product->is_type('variable'));
+                }
+            });
         }
     }
 
@@ -87,6 +125,23 @@ class CustomProductPanelHook implements HookInterface
         ]);
     }
 
+    /**
+     * Saving field in the database
+     *
+     * @param int $postId Id of product.
+     *
+     * @since 1.0.0
+     */
+    public function saveProductMeta(int $postId): void
+    {
+        $rawEntries = $_POST[Metakey::PRODUCT_LIST->value] ?? [];
+
+        $product = wc_get_product($postId);
+        $product->update_meta_data(Metakey::PRODUCT_LIST->value, $rawEntries);
+
+        $product->save();
+    }
+
     public function variationListField($loop, $variationData, $variation): void
     {
         $saved = get_post_meta($variation->ID, Metakey::VARIATION_PRODUCT_LISTS->value, true);
@@ -98,26 +153,11 @@ class CustomProductPanelHook implements HookInterface
         ]);
     }
 
-    /**
-     * Saving field in the database
-     *
-     * @param int $postId Id of product.
-     *
-     * @since 1.0.0
-     */
-    public function saveProductMeta(int $postId): void
-    {
-        $rawEntries = $_POST['_selec_list'] ?? [];
-
-        $product = wc_get_product($postId);
-        $product->update_meta_data(Metakey::PRODUCT_LIST->value, $rawEntries);
-
-        $product->save();
-    }
-
     public function saveVariationLists(int $variationId, int $i): void
     {
         $selected = sanitize_text_field($_POST[Metakey::VARIATION_PRODUCT_LISTS->value][$i] ?? '');
+
+        // dump($variationId);
 
         $variationProduct = wc_get_product($variationId);
         $variationProduct->update_meta_data(Metakey::VARIATION_PRODUCT_LISTS->value, $selected);

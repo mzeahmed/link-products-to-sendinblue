@@ -44,13 +44,13 @@ export const productPanel = {
 
       row.innerHTML = `
         <td class="list-cell">
-          <select name="_selec_list[${index}][list_id]" class="wc-enhanced-select lpts-list">
+          <select name="_lpts_list[${index}][list_id]" class="wc-enhanced-select lpts-list">
             ${listOptions}
           </select>
         </td>
 
         <td class="condition-cell">
-          <select name="_selec_list[${index}][condition]" class="lpts-condition">
+          <select name="_lpts_list[${index}][condition]" class="lpts-condition">
             <option value="always">${__('Always', 'link-products-to-sendinblue')}</option>
             <option value="product_price_gte">${__('Product Price >=', 'link-products-to-sendinblue')}</option>
             <option value="product_price_eq">${__('Product Price =', 'link-products-to-sendinblue')}</option>
@@ -60,7 +60,7 @@ export const productPanel = {
         </td>
 
         <td class="param-cell">
-          <input type="text" name="_selec_list[${index}][param]" />
+          <input type="text" name="_lpts_list[${index}][param]" />
         </td>
 
         <td><button type="button" class="button remove-row">${__('Remove', 'link-products-to-sendinblue')}</button></td>
@@ -107,7 +107,7 @@ export const productPanel = {
         if (value === 'user_role') {
           const roleSelect = document.createElement('select');
 
-          roleSelect.name = `_selec_list[${index}][param]`;
+          roleSelect.name = `_lpts_list[${index}][param]`;
 
           Object.entries(roles).forEach(([key, label]) => {
             const option = document.createElement('option');
@@ -119,7 +119,7 @@ export const productPanel = {
           paramCell.innerHTML = '';
           paramCell.appendChild(roleSelect);
         } else {
-          paramCell.innerHTML = `<input type="text" name="_selec_list[${index}][param]" />`;
+          paramCell.innerHTML = `<input type="text" name="_lpts_list[${index}][param]" />`;
         }
       });
     });

@@ -6,7 +6,6 @@ namespace LPTS\Infrastructure\WordPress\Hook\Public\Woocommerce;
 
 use LPTS\Shared\Enums\MetaKey;
 use LPTS\Shared\Enums\OptionKey;
-use WPYoostart\Helpers\Debugger;
 use LPTS\Application\Contract\HookInterface;
 use LPTS\Infrastructure\External\Brevo\ApiManager;
 
@@ -25,7 +24,6 @@ class SubscribeOnPaymentHook implements HookInterface
     public function register(): void
     {
         $mainOption = get_option(OptionKey::MAIN_OPTION->value);
-        // $this->lists = ApiManager::getLists();
 
         if ((false !== $mainOption) && !empty(get_option(OptionKey::API_KEY_V3->value))) {
             $this->clientMatchedAttributes = $mainOption['client_matched_attributes'];
@@ -64,20 +62,13 @@ class SubscribeOnPaymentHook implements HookInterface
             $productId = $item->get_product_id();
             $variationId = $item->get_variation_id();
 
-            // $product = $item->get_product();
-            // $price = $product ? (float) $product->get_price() : 0.0;
+            $product = wc_get_product($productId);
 
-            if ($variationId) {
+            if ($product->is_type('variable')) {
                 // Variation : No need conditions, send to the assigned list directly.
-                $variationLists = get_post_meta($variationId, Metakey::VARIATION_PRODUCT_LISTS->value, true);
+                $listId = get_post_meta($variationId, Metakey::VARIATION_PRODUCT_LISTS->value, true);
 
-                Debugger::writeLog('variationLists : ', $variationLists);
-
-                if (is_array($variationLists)) {
-                    foreach ($variationLists as $listId) {
-                        ApiManager::createSubscriber($email, (int) $listId, $info);
-                    }
-                }
+                ApiManager::createSubscriber($email, (int) $listId, $info);
             } else {
                 // Simple product : Check conditions and send to the assigned list.
                 $listEntries = get_post_meta($productId, Metakey::PRODUCT_LIST->value, true);

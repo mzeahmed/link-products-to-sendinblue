@@ -16,6 +16,8 @@
 
 declare(strict_types=1);
 
+use LPTS\Shared\Enums\MetaKey;
+
 if (!$isVariable) : ?>
     <div
             id="sendinblue_data_panel"
@@ -49,7 +51,7 @@ if (!$isVariable) : ?>
                         <tr>
                             <td class="list-cell">
                                 <select
-                                        name="_selec_list[<?= $index ?>][list_id]"
+                                        name="<?= Metakey::PRODUCT_LIST->value ?>[<?= $index ?>][list_id]"
                                         class="wc-enhanced-select lpts-list"
                                         aria-label="<?= esc_attr__('Select a list', 'link-products-to-sendinblue') ?>"
                                 >
@@ -63,7 +65,7 @@ if (!$isVariable) : ?>
 
                             <td class="condition-cell">
                                 <select
-                                        name="_selec_list[<?= $index ?>][condition]"
+                                        name="<?= Metakey::PRODUCT_LIST->value ?>[<?= $index ?>][condition]"
                                         class="wc-enhanced-select lpts-condition"
                                         aria-label="<?= esc_attr__('Select a condition', 'link-products-to-sendinblue') ?>"
                                 >
@@ -90,7 +92,7 @@ if (!$isVariable) : ?>
                             <td class="param-cell">
                                 <input
                                         type="text"
-                                        name="_selec_list[<?= $index ?>][param]"
+                                        name="<?= Metakey::PRODUCT_LIST->value ?>[<?= $index ?>][param]"
                                         value="<?= esc_attr($param) ?>"
                                         aria-label="<?= esc_attr__('Parameter', 'link-products-to-sendinblue') ?>"
                                 >
