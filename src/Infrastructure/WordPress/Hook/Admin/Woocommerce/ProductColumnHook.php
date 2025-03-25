@@ -8,14 +8,13 @@ use LPTS\Application\Contract\HookInterface;
 use LPTS\Domain\Services\Admin\Woocommerce\ProductColumnService;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class ProductColumnHook implements HookInterface
 {
     public function __construct(
         private ProductColumnService $productColumnService
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc

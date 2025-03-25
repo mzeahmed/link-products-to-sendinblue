@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace LPTS\Infrastructure\WordPress\Hook\Admin\Woocommerce;
 
-use LPTS\Shared\Enums\MetaKey;
-use LPTS\Shared\Enums\OptionKey;
+use LPTS\Shared\Utils\Utils;
 use LPTS\Application\Contract\HookInterface;
 use LPTS\Domain\Services\Admin\Woocommerce\ProductPanelService;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class ProductPanelHook implements HookInterface
 {
+    public string|bool $apiKey;
+
     public function __construct(
         private ProductPanelService $productPanelService,
     ) {
+        $this->apiKey = Utils::getApiKey();
     }
 
     /**
@@ -36,43 +38,6 @@ class ProductPanelHook implements HookInterface
 
             add_action('woocommerce_product_after_variable_attributes', [$this, 'variationListField'], 10, 3);
             add_action('woocommerce_save_product_variation', [$this, 'saveVariationLists'], 10, 2);
-
-            /** @todo supprimmer une fois les testes validés */
-            add_action('admin_init', function () {
-                $mainOption = get_option(OptionKey::MAIN_OPTION->value);
-                $clientMatchedAttributes = $mainOption['client_matched_attributes'];
-
-                $orderId = 2549757;
-
-                $order = wc_get_order($orderId);
-                $email = $order->get_billing_email();
-
-                $info = [];
-                if (isset($clientMatchedAttributes)) {
-                    foreach ($clientMatchedAttributes as $contactAttr => $customerAttr) {
-                        $info[$contactAttr] = $order->$customerAttr;
-                    }
-                }
-
-                $items = $order->get_items();
-
-                foreach ($items as $item) {
-                    $productId = $item->get_product_id();
-                    $variationId = $item->get_variation_id();
-                    // 2549750
-
-                    // dump([
-                    //     'product_id' => $item->get_product_id(),
-                    //     'variation_id' => $item->get_variation_id(),
-                    //     'product_type' => $item->get_product()?->get_type(),
-                    // ]);
-
-                    $product = wc_get_product($productId);
-
-                    $listId = get_post_meta($variationId, Metakey::VARIATION_PRODUCT_LISTS->value, true);
-                    // dd($product->is_type('variable'));
-                }
-            });
         }
     }
 

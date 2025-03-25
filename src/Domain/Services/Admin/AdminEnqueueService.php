@@ -7,7 +7,7 @@ namespace LPTS\Domain\Services\Admin;
 use LPTS\Infrastructure\Plugin;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class AdminEnqueueService
 {
@@ -34,14 +34,14 @@ class AdminEnqueueService
                 str_replace(' ', '-', strtolower($this->plugin->getName())) . '-admin-app',
                 plugin_dir_url(LPTS_PLUGIN_FILE) . 'resources/build/admin-app.css',
                 [],
-                (string)filemtime(LPTS_PLUGIN_PATH . 'resources/build/admin-app.css')
+                (string) filemtime(LPTS_PLUGIN_PATH . 'resources/build/admin-app.css')
             );
 
             wp_enqueue_script(
                 str_replace(' ', '-', strtolower($this->plugin->getName())) . '-admin-app',
                 plugin_dir_url(LPTS_PLUGIN_FILE) . 'resources/build/admin-app.js',
                 $dependencies,
-                (string)filemtime(LPTS_PLUGIN_PATH . 'resources/build/admin-app.js'),
+                (string) filemtime(LPTS_PLUGIN_PATH . 'resources/build/admin-app.js'),
                 true
             );
 

@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class PublicControllerPass implements CompilerPassInterface
 {

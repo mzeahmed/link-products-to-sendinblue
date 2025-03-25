@@ -8,14 +8,13 @@ use LPTS\Application\Contract\HookInterface;
 use LPTS\Domain\Services\Admin\AdminEnqueueService;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class AdminEnqueueHook implements HookInterface
 {
     public function __construct(
         private AdminEnqueueService $adminEnqueueService
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc

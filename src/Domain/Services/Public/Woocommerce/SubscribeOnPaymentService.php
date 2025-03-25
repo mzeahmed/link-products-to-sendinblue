@@ -6,7 +6,7 @@ namespace LPTS\Domain\Services\Public\Woocommerce;
 
 use LPTS\Shared\Enums\MetaKey;
 use LPTS\Shared\Enums\OptionKey;
-use LPTS\Infrastructure\External\Brevo\ApiManager;
+use LPTS\Infrastructure\External\Brevo\BrevoManager;
 
 class SubscribeOnPaymentService
 {
@@ -32,10 +32,10 @@ class SubscribeOnPaymentService
         $order = wc_get_order($orderId);
         $email = $order->get_billing_email();
 
-        $info = [];
+        $attributes = [];
         if (isset($this->clientMatchedAttributes)) {
             foreach ($this->clientMatchedAttributes as $contactAttr => $customerAttr) {
-                $info[$contactAttr] = $order->$customerAttr;
+                $attributes[$contactAttr] = $order->$customerAttr;
             }
         }
 
@@ -52,7 +52,7 @@ class SubscribeOnPaymentService
                 // Variation : No need conditions, send to the assigned list directly.
                 $listId = get_post_meta($variationId, Metakey::VARIATION_PRODUCT_LISTS->value, true);
 
-                ApiManager::createSubscriber($email, (int)$listId, $info);
+                BrevoManager::createSubscriber($email, (int) $listId, $attributes);
             } else {
                 // Simple product : Check conditions and send to the assigned list.
                 $listEntries = get_post_meta($productId, Metakey::PRODUCT_LIST->value, true);
@@ -66,7 +66,7 @@ class SubscribeOnPaymentService
                         $price = $item->get_total();
 
                         if ($this->evaluateCondition($condition, $param, $price, $order)) {
-                            ApiManager::createSubscriber($email, (int)$listId, $info);
+                            BrevoManager::createSubscriber($email, (int) $listId, $attributes);
                         }
                     }
                 }
@@ -121,13 +121,13 @@ class SubscribeOnPaymentService
                 return true;
 
             case 'order_total_gte':
-                return $price >= (float)$param;
+                return $price >= (float) $param;
 
             case 'order_total_eq':
-                return abs($price - (float)$param) < 0.01;
+                return abs($price - (float) $param) < 0.01;
 
             case 'order_total_lt':
-                return $price < (float)$param;
+                return $price < (float) $param;
 
             // case 'user_role':
             //     $user = $order->get_user();

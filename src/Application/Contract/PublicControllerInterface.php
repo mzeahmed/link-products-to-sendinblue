@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace LPTS\Application\Contract;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 interface PublicControllerInterface extends ControllerInterface
 {

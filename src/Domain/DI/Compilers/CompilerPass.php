@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  *  This trait processes tagged services and automatically adds method calls for registration.
  *  It is designed to be used during container bootstrapping (inspired by Symfony's compiler passes).
  *
- * @since 1.2.0
+ * @since 2.0.0
  */
 trait CompilerPass
 {

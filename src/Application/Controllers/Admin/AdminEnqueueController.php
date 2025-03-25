@@ -8,14 +8,13 @@ use LPTS\Application\Contract\AdminControllerInterface;
 use LPTS\Infrastructure\WordPress\Hook\Admin\AdminEnqueueHook;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class AdminEnqueueController implements AdminControllerInterface
 {
     public function __construct(
         private AdminEnqueueHook $adminEnqueueHook
-    ) {
-    }
+    ) {}
 
     public function register(): void
     {

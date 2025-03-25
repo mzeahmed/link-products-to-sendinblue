@@ -13,7 +13,7 @@ use Brevo\Client\Model\ModelInterface;
  * Manages interactions with the Brevo (ex-Sendinblue) API, including contact lists,
  * folders, templates, and subscribers.
  *
- * @since 1.2.0
+ * @since 2.0.0
  */
 class BrevoManager
 {
@@ -23,7 +23,7 @@ class BrevoManager
      * Retrieves contact attributes from Brevo API, using transient cache for performance.
      *
      * @return mixed The attributes grouped by category (normal and category).
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function getAttributes(): mixed
     {
@@ -65,7 +65,7 @@ class BrevoManager
      * Retrieves all contact lists.
      *
      * @return array|null An associative array with list ID as key and name as value.
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function getLists(): ?array
     {
@@ -90,7 +90,7 @@ class BrevoManager
      * @param int $listId The ID of the list.
      *
      * @return array|null Associative array with list details.
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function getList(int $listId): ?array
     {
@@ -111,7 +111,7 @@ class BrevoManager
      * @param int $listId The ID of the list.
      *
      * @return array The contacts contained in the list.
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function getContactsFromList(int $listId): array
     {
@@ -133,7 +133,7 @@ class BrevoManager
      * @param array $attributes Optional contact attributes.
      *
      * @return string 'success' if the operation succeeded, 'failure' otherwise.
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function createSubscriber(string $email, int $listId, array $attributes = []): string
     {
@@ -165,7 +165,7 @@ class BrevoManager
      * @param array $args Options including attributes, list IDs, template ID, and redirection URL.
      *
      * @return bool|string 'success', 'failure', or false on error.
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function createDoiSubscriber(string $email, array $args): bool|string
     {
@@ -188,7 +188,7 @@ class BrevoManager
      * Retrieves all folders.
      *
      * @return array
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function getFolders(): ?array
     {
@@ -212,7 +212,7 @@ class BrevoManager
      * @param string $sort
      *
      * @return array|ModelInterface
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function getListsFromFolder(int $folderId, int $limit = 10, int $offset = 0): ?array
     {
@@ -234,7 +234,7 @@ class BrevoManager
      * @param string $name The name of the new list.
      *
      * @return CreateModel|false The created list object or false on failure.
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function createList(int $folderId, string $name): CreateModel|false
     {
@@ -248,7 +248,7 @@ class BrevoManager
      * @param string $name The name of the list.
      *
      * @return CreateModel|false|int|string The list ID, created model, or false on failure.
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function getListIdByName(int $folderId, string $name): \Brevo\Client\Model\CreateModel|false|int|string
     {
@@ -267,7 +267,7 @@ class BrevoManager
      * Retrieves account information such as email and subscription plan.
      *
      * @return array|null Associative array with account data.
-     * @since 1.2.0
+     * @since 2.0.0
      */
     public static function getAccountInfo(): ?array
     {

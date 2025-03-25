@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace LPTS\Domain\Services\Admin\Woocommerce;
 
-use LPTS\Infrastructure\External\Brevo\ApiManager;
+use LPTS\Shared\Enums\MetaKey;
+use LPTS\Infrastructure\External\Brevo\BrevoManager;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class ProductColumnService
 {
@@ -15,7 +16,7 @@ class ProductColumnService
 
     public function __construct()
     {
-        $this->brevoLists = ApiManager::getLists();
+        $this->brevoLists = BrevoManager::getLists();
     }
 
     public function productsListColumn(array $columns): array

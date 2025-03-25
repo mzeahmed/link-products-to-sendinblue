@@ -7,10 +7,11 @@ namespace LPTS\Domain\Services\Admin;
 use LPTS\Shared\Utils\Utils;
 use LPTS\Shared\Enums\OptionKey;
 use LPTS\Infrastructure\View\Renderer;
-use LPTS\Infrastructure\External\Brevo\ApiManager;
+use MzeAhmed\WpToolKit\Utils\Sanitizer;
+use LPTS\Infrastructure\External\Brevo\BrevoManager;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class SettingsService
 {
@@ -70,7 +71,7 @@ class SettingsService
 
         $adminProfile = new \WC_Admin_Profile();
         $customerMetaFields = $adminProfile->get_customer_meta_fields();
-        $attrs = ApiManager::getAttributes();
+        $attrs = BrevoManager::getAttributes();
 
         $contact_attributes = $attrs['attributes']['normal_attributes'];
 
@@ -129,14 +130,14 @@ class SettingsService
             if (isset($_POST['lpts_woocommerce_customer_attributes'])) {
                 update_option(
                     OptionKey::CUSTOMER_ATTRIBUTES->value,
-                    $this->sanitizeUserAttributesFormFields($_POST['lpts_woocommerce_customer_attributes'])
+                    Sanitizer::text($_POST['lpts_woocommerce_customer_attributes'])
                 );
             }
 
             if (isset($_POST['lpts_sendinblue_contact_attributes'])) {
                 update_option(
                     OptionKey::BREVO_ATTRIBUTES->value,
-                    $this->sanitizeUserAttributesFormFields($_POST['lpts_sendinblue_contact_attributes'])
+                    Sanitizer::text($_POST['lpts_sendinblue_contact_attributes'])
                 );
             }
 
@@ -152,6 +153,7 @@ class SettingsService
      *
      * @return array|null
      * @since 1.0.0
+     * @depecated Use Utils::sanitizeDatas instead
      */
     private function sanitizeUserAttributesFormFields(array $datas): ?array
     {
@@ -166,7 +168,7 @@ class SettingsService
 
     /**
      * @return void
-     * @since 1.2.0
+     * @since 2.0.0
      */
     private function registerApiKeySettingsSection(): void
     {
@@ -209,10 +211,10 @@ class SettingsService
     private function mainSettings(): void
     {
         if (!empty(get_option(OptionKey::API_KEY_V3->value))) {
-            $accoun_info = ApiManager::getAccountInfo();
+            $accountInfo = BrevoManager::getAccountInfo();
 
             $args = [
-                'account_email' => $accoun_info['account_email'],
+                'account_email' => $accountInfo['account_email'],
                 'access_key' => get_option(OptionKey::API_KEY_V3->value),
                 'client_matched_attributes' => array_combine(
                     get_option(OptionKey::BREVO_ATTRIBUTES->value),

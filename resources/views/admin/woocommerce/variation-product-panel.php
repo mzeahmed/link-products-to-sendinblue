@@ -8,7 +8,7 @@
  * @var int $loop
  * @var array $variationData
  *
- * @since 1.2.0
+ * @since 2.0.0
  */
 
 declare(strict_types=1);
@@ -28,7 +28,7 @@ use LPTS\Shared\Enums\MetaKey;
             aria-label="<?= esc_attr__('Select a list', 'link-products-to-sendinblue') ?>"
     >
         <?php foreach ($lists as $key => $label) : ?>
-            <option value="<?= esc_attr((string)$key) ?>" <?php selected((string)$saved === (string)$key); ?>>
+            <option value="<?= esc_attr((string) $key) ?>" <?php selected((string) $saved === (string) $key); ?>>
                 <?= esc_html($label) ?>
             </option>
         <?php endforeach; ?>

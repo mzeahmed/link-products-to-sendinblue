@@ -7,7 +7,7 @@ namespace LPTS\Application\Contract;
 /**
  * Interface for WordPress hooks registration.
  *
- * @since 1.2.0
+ * @since 2.0.0
  */
 interface HookInterface
 {

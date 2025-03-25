@@ -7,7 +7,7 @@ namespace LPTS\Shared\Utils;
 use LPTS\Shared\Enums\OptionKey;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class Utils
 {
@@ -64,5 +64,4 @@ class Utils
 
         return true;
     }
-
 }

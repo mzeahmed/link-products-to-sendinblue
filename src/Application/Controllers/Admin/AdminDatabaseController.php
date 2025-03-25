@@ -10,7 +10,7 @@ use LPTS\Infrastructure\Database\Upgrade;
 use LPTS\Application\Contract\AdminControllerInterface;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class AdminDatabaseController implements AdminControllerInterface
 {

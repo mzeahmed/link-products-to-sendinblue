@@ -8,7 +8,7 @@ declare(strict_types=1);
  * This file is used to ensure the correct order of file inclusion for PHPStan analysis.
  * It prevents false-positive errors such as "Undefined constant 'LPTS_PLUGIN_PATH'" or similar.
  *
- * @since 1.2.0
+ * @since 2.0.0
  */
 
 if (!defined('APP_ABS_PATH')) {

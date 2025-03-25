@@ -7,7 +7,7 @@ namespace LPTS\Infrastructure\Database;
 use LPTS\Shared\Enums\MetaKey;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class Upgrade
 {

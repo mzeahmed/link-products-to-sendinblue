@@ -4,24 +4,21 @@ declare(strict_types=1);
 
 namespace LPTS\Domain\Services\Admin\Woocommerce;
 
-use LPTS\Shared\Utils\Utils;
 use LPTS\Shared\Enums\MetaKey;
 use LPTS\Infrastructure\View\Renderer;
-use LPTS\Infrastructure\External\Brevo\ApiManager;
+use LPTS\Infrastructure\External\Brevo\BrevoManager;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class ProductPanelService
 {
     public ?array $lists;
-    public string|bool $apiKey;
 
     public function __construct(
         private Renderer $renderer
     ) {
-        $this->lists = ApiManager::getLists();
-        $this->apiKey = Utils::getApiKey();
+        $this->lists = BrevoManager::getLists();
     }
 
     public function customProductDataTab(array $tabs): array

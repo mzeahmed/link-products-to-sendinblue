@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace LPTS\Infrastructure\WordPress\I18n;
 
 /**
- * @since 1.2.0
+ * @since 2.0.0
  */
 class I18n
 {
