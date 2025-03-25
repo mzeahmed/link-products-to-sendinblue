@@ -12,6 +12,7 @@ use LPTS\Shared\Enums\TransientKey;
  *
  * @package LPTS\Api
  * @since   1.0.0
+ * @deprecated Use BrevoManager instead
  */
 class ApiManager
 {

@@ -11,6 +11,7 @@ use LPTS\Shared\Enums\OptionKey;
  *
  * @package LPTS\Api
  * @since   1.0.0
+ * @deprecated Use BrevoClient instead
  */
 class Api
 {
@@ -30,7 +31,7 @@ class Api
 
     public function __construct()
     {
-        $this->api_key = (string) get_option(OptionKey::API_KEY_V3->value) ?: '';
+        $this->api_key = (string)get_option(OptionKey::API_KEY_V3->value) ?: '';
     }
 
     public function getAccount()
@@ -76,7 +77,7 @@ class Api
 
         if ($method !== self::LPTS_HTTP_METHOD_GET && $method !== self::LPTS_HTTP_METHOD_DELETE) {
             if (isset($body['listIds'])) {
-                $body['listIds'] = array_map('\intval', (array) $body['listIds']);
+                $body['listIds'] = array_map('\intval', (array)$body['listIds']);
             }
             $args['body'] = wp_json_encode($body);
         }

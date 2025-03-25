@@ -3,7 +3,7 @@
         'name' => 'mzeahmed/link-products-to-sendinblue',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '199eaf21cdc8bcaff6cba269cbeed91fc985f827',
+        'reference' => '112a6146097555cf09b420f8115dd43c10e8295a',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -67,7 +67,7 @@
         'mzeahmed/link-products-to-sendinblue' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '199eaf21cdc8bcaff6cba269cbeed91fc985f827',
+            'reference' => '112a6146097555cf09b420f8115dd43c10e8295a',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -128,9 +128,9 @@
             'dev_requirement' => true,
         ),
         'phpstan/phpstan' => array(
-            'pretty_version' => '2.1.8',
-            'version' => '2.1.8.0',
-            'reference' => 'f9adff3b87c03b12cc7e46a30a524648e497758f',
+            'pretty_version' => '2.1.11',
+            'version' => '2.1.11.0',
+            'reference' => '8ca5f79a8f63c49b2359065832a654e1ec70ac30',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpstan/phpstan',
             'aliases' => array(),
@@ -262,7 +262,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '786548323f3a9452244ddf83672e34c260d6b717',
+            'reference' => '497afc97765c92fa7265e3d33bce240b33e4e6f2',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(
