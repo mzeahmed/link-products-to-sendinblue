@@ -30,23 +30,23 @@ You can also define smart rules (e.g., product price, user role) to fine-tune wh
 
 ### 1. Easily assign Brevo (Sendinblue) lists to each WooCommerce product
 
-![screenshot-1](https://user-images.githubusercontent.com/45328592/104249889-9e104680-546c-11eb-8321-dd6b65833559.png)
+![screenshot-1](https://raw.githubusercontent.com/mzeahmed/link-products-to-sendinblue/refs/heads/develop/assets/screenshot-1.png)
 
 ### 2. Define advanced conditions for when to sync a customer to a list
 
-![screenshot-2](https://user-images.githubusercontent.com/45328592/104249924-b08a8000-546c-11eb-958b-870c7359d313.png)
+![screenshot-2](https://github.com/mzeahmed/link-products-to-sendinblue/blob/develop/assets/screenshot-2.png?raw=true)
 
 ### 3. Manage product variations and link each variation to a specific Brevo list.
 
-![screenshot-3](https://user-images.githubusercontent.com/45328592/104249944-bf713280-546c-11eb-80a5-b8b9dfb30145.png)
+![screenshot-3](https://github.com/mzeahmed/link-products-to-sendinblue/blob/develop/assets/screenshot-3.png?raw=true)
 
 ### 4. Customize the customer fields to sync with Brevo contact attributes.
 
-![screenshot-3](https://user-images.githubusercontent.com/45328592/104249944-bf713280-546c-11eb-80a5-b8b9dfb30145.png)
+![screenshot-3](https://github.com/mzeahmed/link-products-to-sendinblue/blob/develop/assets/screenshot-4.png?raw=true)
 
 ### 5. View the Brevo list(s) linked to a product in the WooCommerce product edit screen.
 
-![screenshot-3](https://user-images.githubusercontent.com/45328592/104249944-bf713280-546c-11eb-80a5-b8b9dfb30145.png)
+![screenshot-3](https://github.com/mzeahmed/link-products-to-sendinblue/blob/develop/assets/screenshot-5.png?raw=true)
 
 ---
 
