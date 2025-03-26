@@ -3,22 +3,62 @@ Contributors: Mze Ahmed
 Tags: woocommerce, sendinblue, brevo
 Requires at last: 5.1
 Tested up to: 6.7.2
-Stable tag: 1.1.7.4
+WC tested up to: 9.7.1
+Stable tag: 2.0.0
 Requires PHP: 8.0
+Php tested up to: 8.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-Link your products to your Sendinblue contact lists and synchronize your customers after payment validation.
-Manage your campaigns more easily according to your products.
+Synchronize your WooCommerce customers with your Brevo (formerly Sendinblue) contact lists — automatically and conditionally.
+
+This plugin lets you assign one or more Brevo contact lists to each WooCommerce product or variation. Once an order is completed, the buyer is automatically added to the corresponding list(s) — allowing you to run targeted marketing campaigns based on their purchases.
+
+You can also define smart conditions (e.g., price threshold, user role) for simple products to fine-tune who gets added to which list.
+
+= Features =
+
+✔ Link any WooCommerce product to one or more Brevo contact lists
+✔ Full support for product variations (each variation can be linked to a different list)
+✔ Conditional rules for simple products:
+  - Always add after purchase
+  - Add if product price equals or exceeds a specific value
+  - Add if customer has a specific user role
+✔ Sync custom customer attributes (like phone, first name, etc.)
+✔ Works with virtual and downloadable products
+✔ Optimized for performance, with seamless integration into WooCommerce
+✔ Clean and intuitive admin interface
+
+No more manual imports. Save time and automate your email marketing based on what your customers actually buy.
+
+== Requirements ==
+
+- A Brevo (Sendinblue) account
+- Your Brevo V3 API key
+- WooCommerce plugin installed and activated
 
 == Screenshots ==
-1. Link your product to your desired Sendinblue contact list
-2. See which lists are linked to your products
-3. Choose user attributes you want to synchronise
+
+1. Easily assign Brevo (Sendinblue) lists to each WooCommerce product.
+2. Define advanced conditions for when to sync a customer to a list.
+3. Manage product variations and link each variation to a specific Brevo list.
+4. Customize the customer fields to sync with Brevo contact attributes.
+5. View the Brevo list(s) linked to a product in the WooCommerce product edit screen.
 
 == Changelog ==
+
+= 2.0.0 - 26 March 2025 =
+* Feature: Support for WooCommerce product variations
+* Feature: Assign specific Brevo lists to each product variation
+* Feature: Conditional logic based on product price (equals, greater than or equal, less than)
+* Improved: UI enhancements for assigning lists to products
+* Improved: Separated conditions panel for simple and variable products
+* Improved: Redirection to checkout with custom button labels for both simple and variable products
+* Fixed: Variation list persistence on save
+* Fixed: Accurate detection of product type and variation ID in backend and frontend
+
 = 1.1.7.4 - 26 february 2025
 * Improved: Improve code quality
 

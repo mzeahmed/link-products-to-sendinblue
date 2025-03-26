@@ -1,0 +1,25 @@
+{
+  "name": "link-products-to-sendinblue",
+  "version": "1.2.0",
+  "description": "Link products to Sendinblue",
+  "main": "resources/scripts/app.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@wordpress/element": "^6.20.0",
+    "@wordpress/i18n": "^5.20.0",
+    "@wordpress/scripts": "^30.13.0",
+    "bootstrap": "^5.3.3",
+    "sass": "^1.86.0",
+    "sass-loader": "^16.0.5",
+    "sweetalert2": "^11.17.2",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.2"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "watch": "npm run type-check && wp-scripts start",
+    "build": "npm run type-check && wp-scripts build",
+    "format": "wp-scripts format",
+    "packages-update": "wp-scripts packages-update"
+  }
+}

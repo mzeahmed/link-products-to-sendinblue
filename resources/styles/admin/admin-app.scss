@@ -1,0 +1,36 @@
+@import "~bootstrap/scss/bootstrap";
+
+#adminmenuwrap {
+  clear: left;
+}
+
+#adminmenuback {
+  z-index: 0 !important;
+}
+
+body {
+  height: auto !important;
+  background: #F1F1F1 !important;
+}
+
+.btn:focus, .btn.active:focus, .btn:active, .btn.active {
+  outline: none !important;
+}
+
+#lpts_list_wrapper {
+  #lpts_list_rows {
+    .list-cell {
+      .select2-container {
+        span:first-child {
+          width: 300px !important;
+        }
+      }
+    }
+
+    .condition-cell {
+      .select2-container {
+        //width: 200px !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+    fileExtensions:
+        - php
+    level: 1
+    bootstrapFiles:
+        - phpstan.bootstrap.php
+    paths:
+        - src
+        - resources/views
+        - config
+    excludePaths:
+        - src/Domain/DI/CacheContainer.php
+    ignoreErrors:
+        - '#Access to an undefined property DOMNode::\$value#'

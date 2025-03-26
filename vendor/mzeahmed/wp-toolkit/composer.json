@@ -1,0 +1,20 @@
+{
+    "name": "mzeahmed/wp-toolkit",
+    "description": "A PHP library with useful and reusable functions for WordPress.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mze Ahmed",
+            "email": "houdjiva@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MzeAhmed\\WpToolKit\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.1"
+    }
+}
