@@ -14,7 +14,8 @@ class ProductColumnHook implements HookInterface
 {
     public function __construct(
         private ProductColumnService $productColumnService
-    ) {}
+    ) {
+    }
 
     /**
      * @inheritDoc

@@ -14,7 +14,8 @@ class AdminEnqueueHook implements HookInterface
 {
     public function __construct(
         private AdminEnqueueService $adminEnqueueService
-    ) {}
+    ) {
+    }
 
     /**
      * @inheritDoc

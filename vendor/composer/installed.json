@@ -538,23 +538,23 @@
         },
         {
             "name": "mzeahmed/wp-toolkit",
-            "version": "1.0.6",
-            "version_normalized": "1.0.6.0",
+            "version": "1.0.8",
+            "version_normalized": "1.0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mzeahmed/wp-toolkit.git",
-                "reference": "8b6cac2f038bd00666b7b4f9531469e18220fad9"
+                "reference": "9494febcef901090275d27b82c0ec253bc1a2256"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mzeahmed/wp-toolkit/zipball/8b6cac2f038bd00666b7b4f9531469e18220fad9",
-                "reference": "8b6cac2f038bd00666b7b4f9531469e18220fad9",
+                "url": "https://api.github.com/repos/mzeahmed/wp-toolkit/zipball/9494febcef901090275d27b82c0ec253bc1a2256",
+                "reference": "9494febcef901090275d27b82c0ec253bc1a2256",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1"
             },
-            "time": "2025-03-25T23:19:35+00:00",
+            "time": "2025-03-26T06:37:43+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -575,7 +575,7 @@
             "description": "A PHP library with useful and reusable functions for WordPress.",
             "support": {
                 "issues": "https://github.com/mzeahmed/wp-toolkit/issues",
-                "source": "https://github.com/mzeahmed/wp-toolkit/tree/1.0.6"
+                "source": "https://github.com/mzeahmed/wp-toolkit/tree/1.0.8"
             },
             "install-path": "../mzeahmed/wp-toolkit"
         },

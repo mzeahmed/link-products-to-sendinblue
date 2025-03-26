@@ -14,7 +14,8 @@ class AdminEnqueueController implements AdminControllerInterface
 {
     public function __construct(
         private AdminEnqueueHook $adminEnqueueHook
-    ) {}
+    ) {
+    }
 
     public function register(): void
     {
