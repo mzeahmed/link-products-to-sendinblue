@@ -19,6 +19,11 @@ class ProductPanelService
         private Renderer $renderer
     ) {
         $this->lists = BrevoManager::getLists();
+
+        $this->lists[] = __('Select a list', 'link-products-to-sendinblue');
+
+        // we sort Brevo list by key(id) in reverse order, to add 'Select a list' as first element of the array.
+        krsort($this->lists);
     }
 
     public function customProductDataTab(array $tabs): array

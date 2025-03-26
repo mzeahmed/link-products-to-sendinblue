@@ -13,7 +13,7 @@ use LPTS\Domain\Services\Admin\Woocommerce\ProductPanelService;
  */
 class ProductPanelHook implements HookInterface
 {
-    public string|bool $apiKey;
+    private string|bool $apiKey;
 
     public function __construct(
         private ProductPanelService $productPanelService,
@@ -26,11 +26,6 @@ class ProductPanelHook implements HookInterface
      */
     public function register(): void
     {
-        $this->lists[] = __('Select a list', 'link-products-to-sendinblue');
-
-        // we sort Brevo list by key(id) in reverse order, to add 'Select a list' as first element of the array.
-        krsort($this->lists);
-
         if (!empty($this->apiKey)) {
             add_filter('woocommerce_product_data_tabs', [$this, 'customProductDataTab']);
             add_action('woocommerce_product_data_panels', [$this, 'productDataPanelRender']);

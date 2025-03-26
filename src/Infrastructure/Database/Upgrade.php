@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LPTS\Infrastructure\Database;
 
 use LPTS\Shared\Enums\MetaKey;
+use MzeAhmed\WpToolKit\Utils\Sanitizer;
 
 /**
  * @since 2.0.0
@@ -68,7 +69,7 @@ class Upgrade
             // If it's a single string (one list ID)
             if (is_string($meta)) {
                 $converted[] = [
-                    'list_id' => sanitize_text_field($meta),
+                    'list_id' => Sanitizer::text($meta),
                     'condition' => 'always',
                     'param' => '',
                 ];
@@ -78,7 +79,7 @@ class Upgrade
             if (is_array($meta) && !empty($meta) && is_string($meta[0])) {
                 $converted = array_map(static function ($listId) {
                     return [
-                        'list_id' => sanitize_text_field($listId),
+                        'list_id' => Sanitizer::text($listId),
                         'condition' => 'always',
                         'param' => '',
                     ];

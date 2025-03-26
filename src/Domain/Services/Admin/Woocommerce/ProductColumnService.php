@@ -37,16 +37,20 @@ class ProductColumnService
                 return;
             }
 
+            $names = [];
+
             // we check if $product_list_id exist in $this->sendinblue_lists
             // if true we echo the value(list name).
             foreach ($productListIds as $row) {
                 if (isset($this->brevoLists[$row['list_id']])) {
-                    $list = $this->brevoLists[$row['list_id']];
-
-                    echo esc_html($list);
-                } else {
-                    echo '–';
+                    $names[] = esc_html($this->brevoLists[$row['list_id']]);
                 }
+            }
+
+            if (!empty($names)) {
+                echo implode(' | ', $names);
+            } else {
+                echo '–';
             }
         }
     }

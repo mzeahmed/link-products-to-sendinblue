@@ -45,7 +45,7 @@ define('LPTS_PLUGIN_BASENAME', plugin_basename(LPTS_PLUGIN_FILE));
 define('LPTS_PLUGIN_PATH', plugin_dir_path(LPTS_PLUGIN_FILE));
 define('LPTS_PLUGIN_URL', plugin_dir_url(LPTS_PLUGIN_FILE));
 
-define('LPTS_CURRENT_DB_VERSION', '1.0.0');
+define('LPTS_CURRENT_DB_VERSION', '1.0.1');
 
 require_once __DIR__ . '/vendor/autoload.php';
 
