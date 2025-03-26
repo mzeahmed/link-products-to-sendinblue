@@ -9,14 +9,20 @@
  * Plugin Name:       Link Products To Sendinblue Lists From Woocommerce
  * Plugin URI:        https://wordpress.org/plugins/link-products-to-sendinblue/
  * Description:       Link WooCommerce products to a specific Brevo (ex Sendinblue) list to add the customer to that list
- * Version:           1.1.7.4
+ * Version:           2.0.0
+ * Requires Plugins:  woocommerce
  * Author:            Ahmed Mze
  * Author URI:        https://github.com/mzeahmed
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       link-products-to-sendinblue
- * Domain Path:       /languages
+ * Domain Path:       /resources/i18n
  */
+
+declare(strict_types=1);
+
+use LPTS\Bootstrap;
+use LPTS\Shared\Utils\Utils;
 
 if (!defined('ABSPATH')) {
     header('Status: 403 Forbidden');
@@ -25,42 +31,35 @@ if (!defined('ABSPATH')) {
 }
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/src/version-compare.php';
-require_once __DIR__ . '/constants.php';
 
-if (!function_exists('get_plugin_data')) {
-    require_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
+define('LPTS_PLUGIN_FILE', __FILE__);
 
 /**
  * Let's retrieve plugin's datas
  *
  * @var $plugin_data
  */
-$plugin_data = get_plugin_data(__FILE__);
+$plugin_data = get_plugin_data(LPTS_PLUGIN_FILE);
 
-define('LPTS_PLUGIN_BASENAME', plugin_basename(__FILE__));
-define('LPTS_VERSION', $plugin_data['Version']);
-define('LPTS_PATH', plugin_dir_path(__FILE__));
-define('LPTS_URL', plugin_dir_url(__FILE__));
-define('LPTS_PLUGIN_NAME', $plugin_data['Name']);
-define('LPTS_TEXT_DOMAIN', $plugin_data['TextDomain']);
+define('LPTS_PLUGIN_BASENAME', plugin_basename(LPTS_PLUGIN_FILE));
+define('LPTS_PLUGIN_PATH', plugin_dir_path(LPTS_PLUGIN_FILE));
+define('LPTS_PLUGIN_URL', plugin_dir_url(LPTS_PLUGIN_FILE));
+
+define('LPTS_CURRENT_DB_VERSION', '1.0.0');
+
+require_once __DIR__ . '/vendor/autoload.php';
 
 /**
  * Plugin entry point Process
  *
- * @return LPTS\LPTS|null
+ * @return LPTS\Bootstrap|null
  * @since 1.0.0
  */
-function link_products_to_sendinblue(): ?LPTS\LPTS
+function link_products_to_sendinblue(): ?Bootstrap
 {
-    if (!function_exists('WC')) {
-        add_action('admin_notices', static function () {
-            return LPTS\View\View::render('admin/woocommerce/dependency-notice', []);
-        });
-    }
+    Utils::versionCompare();
 
-    return LPTS\LPTS::getInstance();
+    return Bootstrap::getInstance();
 }
 
-add_action('plugins_loaded', 'link_products_to_sendinblue');
+link_products_to_sendinblue();

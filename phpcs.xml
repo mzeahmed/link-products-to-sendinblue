@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset name="Roots">
+    <description>Link Products to Sendinblue Coding Standards</description>
+
+    <!-- Scan all files in directory -->
+    <file>.</file>
+
+    <!-- Scan only PHP files -->
+    <arg name="extensions" value="php"/>
+
+    <exclude-pattern>node_modules</exclude-pattern>
+    <exclude-pattern>var/</exclude-pattern>
+    <exclude-pattern>vendor/</exclude-pattern>
+    <exclude-pattern>tests/</exclude-pattern>
+
+    <!-- Show colors in console -->
+    <arg value="-colors"/>
+
+    <!-- Show sniff codes in all reports -->
+    <arg value="ns"/>
+
+    <rule ref="PSR12">
+        <exclude name="PSR12.Files.FileHeader.HeaderPosition"/>
+        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisIndent"/>
+        <!-- <exclude name="PSR12.MethodDeclaration.Underscore"/> -->
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+        <exclude name="PSR12.Files.FileHeader.IncorrectOrder"/>
+        <exclude name="Generic.Files.LineLength.TooLong"/>
+        <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+        <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
+        <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
+    </rule>
+</ruleset>
