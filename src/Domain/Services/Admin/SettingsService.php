@@ -15,7 +15,7 @@ use LPTS\Infrastructure\External\Brevo\BrevoManager;
  */
 class SettingsService
 {
-    private const string LPTS_API_KEY_GROUP = 'link_products_to_sendinblue';
+    private const LPTS_API_KEY_GROUP = 'link_products_to_sendinblue';
 
     private string $nonce_action;
 
@@ -117,11 +117,8 @@ class SettingsService
         if (isset($_POST['_user_attributes_nonce'])) {
             if (!wp_verify_nonce($_POST['_user_attributes_nonce'], $this->nonce_action)) {
                 wp_die(
-                    printf(
-                        esc_html__(
-                            'Sorry, nonce <strong>%s</strong> did not verify',
-                            'link-products-to-sendinblue'
-                        ),
+                    sprintf(
+                        esc_html__('Sorry, nonce %s did not verify.', 'link-products-to-sendinblue'),
                         '_user_attributes_nonce'
                     )
                 );
@@ -178,12 +175,10 @@ class SettingsService
             'api_key_section',
             __('API v3 Access key', 'link-products-to-sendinblue'),
             static function () {
-                printf(
-                    __(
-                        '<p><a href="%s" target="_blank">Get your account API key</a></p>',
-                        'link-products-to-sendinblue'
-                    ),
-                    'https://app.brevo.com/settings/keys/api'
+                echo sprintf(
+                    '<p><a href="%s" target="_blank">%s</a></p>',
+                    esc_url('https://app.brevo.com/settings/keys/api'),
+                    esc_html__('Get your account API key', 'link-products-to-sendinblue')
                 );
             },
             self::LPTS_API_KEY_GROUP
