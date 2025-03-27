@@ -3,7 +3,7 @@
         'name' => 'mzeahmed/link-products-to-sendinblue',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '3eb2067a4e2221ff35e8d06c4a4c9c50f1c2f3d8',
+        'reference' => '9f99821b83e87fc2523debee4f9064f093dc8bf5',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -49,7 +49,7 @@
         'mzeahmed/link-products-to-sendinblue' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '3eb2067a4e2221ff35e8d06c4a4c9c50f1c2f3d8',
+            'reference' => '9f99821b83e87fc2523debee4f9064f093dc8bf5',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
