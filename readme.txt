@@ -4,7 +4,7 @@ Tags: woocommerce, sendinblue, brevo
 Requires at last: 5.1
 Tested up to: 6.7.2
 WC tested up to: 9.7.1
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 Requires PHP: 8.0
 Php tested up to: 8.3
 License: GPLv2 or later
