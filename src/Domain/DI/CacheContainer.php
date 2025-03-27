@@ -29,7 +29,7 @@ class CacheContainer extends Container
             'LPTS\\Application\\Controllers\\Admin\\SettingsController' => 'getSettingsControllerService',
             'LPTS\\Application\\Controllers\\Admin\\Woocommerce\\ProductColumnController' => 'getProductColumnControllerService',
             'LPTS\\Application\\Controllers\\Admin\\Woocommerce\\ProductPanelController' => 'getProductPanelControllerService',
-            'LPTS\\Application\\Controllers\\Public\\Woocommerce\\SubscribeOnPaymentController' => 'getSubscribeOnPaymentControllerService',
+            'LPTS\\Application\\Controllers\\FrontEnd\\Woocommerce\\SubscribeOnPaymentController' => 'getSubscribeOnPaymentControllerService',
         ];
 
         $this->aliases = [];
@@ -53,13 +53,13 @@ class CacheContainer extends Container
             '.abstract.instanceof.LPTS\\Application\\Controllers\\Admin\\SettingsController' => true,
             '.abstract.instanceof.LPTS\\Application\\Controllers\\Admin\\Woocommerce\\ProductColumnController' => true,
             '.abstract.instanceof.LPTS\\Application\\Controllers\\Admin\\Woocommerce\\ProductPanelController' => true,
-            '.abstract.instanceof.LPTS\\Application\\Controllers\\Public\\Woocommerce\\SubscribeOnPaymentController' => true,
+            '.abstract.instanceof.LPTS\\Application\\Controllers\\FrontEnd\\Woocommerce\\SubscribeOnPaymentController' => true,
             '.instanceof.LPTS\\Application\\Contract\\AdminControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\AdminDatabaseController' => true,
             '.instanceof.LPTS\\Application\\Contract\\AdminControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\AdminEnqueueController' => true,
             '.instanceof.LPTS\\Application\\Contract\\AdminControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\Woocommerce\\ProductColumnController' => true,
             '.instanceof.LPTS\\Application\\Contract\\AdminControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\Woocommerce\\ProductPanelController' => true,
             '.instanceof.LPTS\\Application\\Contract\\PublicControllerInterface.0.LPTS\\Application\\Controllers\\Admin\\SettingsController' => true,
-            '.instanceof.LPTS\\Application\\Contract\\PublicControllerInterface.0.LPTS\\Application\\Controllers\\Public\\Woocommerce\\SubscribeOnPaymentController' => true,
+            '.instanceof.LPTS\\Application\\Contract\\PublicControllerInterface.0.LPTS\\Application\\Controllers\\FrontEnd\\Woocommerce\\SubscribeOnPaymentController' => true,
             'LPTS\\Bootstrap' => true,
             'LPTS\\Domain\\DI\\CacheContainer' => true,
             'LPTS\\Domain\\DI\\Compilers\\AdminControllerPass' => true,
@@ -70,10 +70,8 @@ class CacheContainer extends Container
             'LPTS\\Domain\\Services\\Admin\\SettingsService' => true,
             'LPTS\\Domain\\Services\\Admin\\Woocommerce\\ProductColumnService' => true,
             'LPTS\\Domain\\Services\\Admin\\Woocommerce\\ProductPanelService' => true,
-            'LPTS\\Domain\\Services\\Public\\Woocommerce\\SubscribeOnPaymentService' => true,
+            'LPTS\\Domain\\Services\\FrontEnd\\Woocommerce\\SubscribeOnPaymentService' => true,
             'LPTS\\Infrastructure\\Database\\Upgrade' => true,
-            'LPTS\\Infrastructure\\External\\Brevo\\Api' => true,
-            'LPTS\\Infrastructure\\External\\Brevo\\ApiManager' => true,
             'LPTS\\Infrastructure\\External\\Brevo\\BrevoClient' => true,
             'LPTS\\Infrastructure\\External\\Brevo\\BrevoManager' => true,
             'LPTS\\Infrastructure\\View\\Renderer' => true,
@@ -81,7 +79,7 @@ class CacheContainer extends Container
             'LPTS\\Infrastructure\\WordPress\\Hook\\Admin\\SettingsHook' => true,
             'LPTS\\Infrastructure\\WordPress\\Hook\\Admin\\Woocommerce\\ProductColumnHook' => true,
             'LPTS\\Infrastructure\\WordPress\\Hook\\Admin\\Woocommerce\\ProductPanelHook' => true,
-            'LPTS\\Infrastructure\\WordPress\\Hook\\Public\\Woocommerce\\SubscribeOnPaymentHook' => true,
+            'LPTS\\Infrastructure\\WordPress\\Hook\\FrontEnd\\Woocommerce\\SubscribeOnPaymentHook' => true,
             'LPTS\\Infrastructure\\WordPress\\I18n\\I18n' => true,
             'LPTS\\Shared\\Utils\\Utils' => true,
             'LPTS\\index' => true,
@@ -159,13 +157,13 @@ class CacheContainer extends Container
     }
 
     /**
-     * Gets the public 'LPTS\Application\Controllers\Public\Woocommerce\SubscribeOnPaymentController' shared autowired service.
+     * Gets the public 'LPTS\Application\Controllers\FrontEnd\Woocommerce\SubscribeOnPaymentController' shared autowired service.
      *
-     * @return \LPTS\Application\Controllers\Public\Woocommerce\SubscribeOnPaymentController
+     * @return \LPTS\Application\Controllers\FrontEnd\Woocommerce\SubscribeOnPaymentController
      */
     protected static function getSubscribeOnPaymentControllerService($container)
     {
-        $container->services['LPTS\\Application\\Controllers\\Public\\Woocommerce\\SubscribeOnPaymentController'] = $instance = new \LPTS\Application\Controllers\Public\Woocommerce\SubscribeOnPaymentController(new \LPTS\Infrastructure\WordPress\Hook\Public\Woocommerce\SubscribeOnPaymentHook(new \LPTS\Domain\Services\Public\Woocommerce\SubscribeOnPaymentService()));
+        $container->services['LPTS\\Application\\Controllers\\FrontEnd\\Woocommerce\\SubscribeOnPaymentController'] = $instance = new \LPTS\Application\Controllers\FrontEnd\Woocommerce\SubscribeOnPaymentController(new \LPTS\Infrastructure\WordPress\Hook\FrontEnd\Woocommerce\SubscribeOnPaymentHook(new \LPTS\Domain\Services\FrontEnd\Woocommerce\SubscribeOnPaymentService()));
 
         $instance->register($instance);
 
@@ -220,7 +218,7 @@ class CacheContainer extends Container
         return [
             'app.public_controller_ids' => [
                 0 => 'LPTS\\Application\\Controllers\\Admin\\SettingsController',
-                1 => 'LPTS\\Application\\Controllers\\Public\\Woocommerce\\SubscribeOnPaymentController',
+                1 => 'LPTS\\Application\\Controllers\\FrontEnd\\Woocommerce\\SubscribeOnPaymentController',
             ],
             'app.admin_controller_ids' => [
                 0 => 'LPTS\\Application\\Controllers\\Admin\\AdminDatabaseController',

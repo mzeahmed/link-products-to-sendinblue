@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LPTS\Domain\Services\Public\Woocommerce;
+namespace LPTS\Domain\Services\FrontEnd\Woocommerce;
 
 use LPTS\Shared\Enums\MetaKey;
 use LPTS\Shared\Enums\OptionKey;

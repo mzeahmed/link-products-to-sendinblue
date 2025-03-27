@@ -30,4 +30,11 @@
         <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
         <exclude name="PSR1.Methods.CamelCapsMethodName.NotCamelCaps"/>
     </rule>
+
+    <!-- PHP Compatibility with specific PHP version -->
+    <rule ref="PHPCompatibility">
+        <properties>
+            <property name="testVersion" value="8.1"/>
+        </properties>
+    </rule>
 </ruleset>
