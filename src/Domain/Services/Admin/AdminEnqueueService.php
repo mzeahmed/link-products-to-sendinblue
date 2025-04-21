@@ -18,7 +18,7 @@ class AdminEnqueueService
         $this->plugin = Plugin::getInstance();
     }
 
-    public function adminEnqueueScripts(string $hook): void
+    public function adminEnqueueScripts(string $hook)
     {
         global $post;
 

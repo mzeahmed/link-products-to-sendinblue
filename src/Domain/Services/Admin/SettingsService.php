@@ -27,7 +27,7 @@ class SettingsService
         );
     }
 
-    public function addOptionsPage(): void
+    public function addOptionsPage()
     {
         add_options_page(
             __('Link Products To Sendinblue Lists From WooCommerce settings', 'link-products-to-sendinblue'),
@@ -38,7 +38,7 @@ class SettingsService
         );
     }
 
-    public function addminInit(): void
+    public function addminInit()
     {
         $this->registerApiKeySettingsSection();
         $this->saveUserAttributes();
@@ -46,7 +46,7 @@ class SettingsService
         $this->deleteApiKey();
     }
 
-    public function pluginActionLinks(array $links): ?array
+    public function pluginActionLinks(array $links)
     {
         $settings_links = [
             '<a href="' . admin_url('options-general.php?page=link_products_to_sendinblue') . '">' .
@@ -56,14 +56,14 @@ class SettingsService
         return array_merge($settings_links, $links);
     }
 
-    public function apiKeyNotice(): void
+    public function apiKeyNotice()
     {
         if (empty(Utils::getApiKey())) {
             echo $this->renderer->render('admin/options/partials/notice', []);
         }
     }
 
-    public function formRender(): void
+    public function formRender()
     {
         $apiKey = Utils::getApiKey();
         $customerAttributes = get_option(OptionKey::CUSTOMER_ATTRIBUTES->value);
@@ -100,7 +100,7 @@ class SettingsService
         ]);
     }
 
-    private function saveUserAttributes(): void
+    private function saveUserAttributes()
     {
         /**
          * Options
@@ -152,7 +152,7 @@ class SettingsService
      * @since 1.0.0
      * @depecated Use Utils::sanitizeDatas instead
      */
-    private function sanitizeUserAttributesFormFields(array $datas): ?array
+    private function sanitizeUserAttributesFormFields(array $datas)
     {
         $fields = [];
 
@@ -167,7 +167,7 @@ class SettingsService
      * @return void
      * @since 2.0.0
      */
-    private function registerApiKeySettingsSection(): void
+    private function registerApiKeySettingsSection()
     {
         register_setting(self::LPTS_API_KEY_GROUP, OptionKey::API_KEY_V3->value);
 
@@ -175,7 +175,7 @@ class SettingsService
             'api_key_section',
             __('API v3 Access key', 'link-products-to-sendinblue'),
             static function () {
-                echo sprintf(
+                echo \sprintf(
                     '<p><a href="%s" target="_blank">%s</a></p>',
                     esc_url('https://app.brevo.com/settings/keys/api'),
                     esc_html__('Get your account API key', 'link-products-to-sendinblue')
@@ -193,7 +193,7 @@ class SettingsService
         );
     }
 
-    private function deleteApiKey(): void
+    private function deleteApiKey()
     {
         if (isset($_POST['lpts_delete_api_key'])) {
             delete_option(OptionKey::API_KEY_V3->value);
@@ -203,7 +203,7 @@ class SettingsService
         }
     }
 
-    private function mainSettings(): void
+    private function mainSettings()
     {
         if (!empty(get_option(OptionKey::API_KEY_V3->value))) {
             $accountInfo = BrevoManager::getAccountInfo();
@@ -230,7 +230,7 @@ class SettingsService
      * @return array|null Array of matched attributes
      * @since 1.0.0
      */
-    private function getMatchedAttributes(): ?array
+    private function getMatchedAttributes()
     {
         return array_combine(
             get_option(OptionKey::CUSTOMER_ATTRIBUTES->value),

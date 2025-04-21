@@ -16,7 +16,7 @@ class ServicesContainer extends AbstractServicesContainer
     /**
      * @inheritDoc
      */
-    protected static function getConfigPath(): string
+    protected static function getConfigPath()
     {
         if (WP_ENV === 'development') {
             return APP_ABS_PATH . '/dev/plugins/link-products-to-sendinblue/config/services.yml'; // @phpstan-ignore-line
@@ -28,7 +28,7 @@ class ServicesContainer extends AbstractServicesContainer
     /**
      * @inheritDoc
      */
-    protected static function getCacheFile(): string
+    protected static function getCacheFile()
     {
         if (WP_ENV === 'development') {
             return APP_ABS_PATH . '/dev/plugins/link-products-to-sendinblue/src/Domain/DI/CacheContainer.php'; // @phpstan-ignore-line

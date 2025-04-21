@@ -25,12 +25,12 @@ class AdminDatabaseController implements AdminControllerInterface
         }
     }
 
-    public function register(): void
+    public function register()
     {
         Ajax::addAction('lpts_upgrade_db', [$this, 'ajaxDbUpgrade']);
     }
 
-    public function ajaxDbUpgrade(): void
+    public function ajaxDbUpgrade()
     {
         if (version_compare($this->dbVersion, LPTS_CURRENT_DB_VERSION, '<')) {
             $upgrade = new Upgrade();
@@ -44,13 +44,13 @@ class AdminDatabaseController implements AdminControllerInterface
         Ajax::sendJsonSuccess(__('Database is already up to date', 'link-products-to-sendinblue'));
     }
 
-    public function displayUpgradeDbNotice(): void
+    public function displayUpgradeDbNotice()
     {
         echo '<div class="notice notice-warning is-dismissible">
                 <p>' . esc_html__(
-            'A database upgrade is available for Link products to Sendinblue plugin.',
-            'link-products-to-sendinblue'
-        ) . ' 
+                'A database upgrade is available for Link products to Sendinblue plugin.',
+                'link-products-to-sendinblue'
+            ) . ' 
                     <button id="lpts-update-db" class="button button-primary">'
              . esc_html__('Upgrade now', 'link-products-to-sendinblue') .
              '</button>

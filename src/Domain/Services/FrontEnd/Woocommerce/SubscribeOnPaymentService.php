@@ -26,7 +26,7 @@ class SubscribeOnPaymentService
         }
     }
 
-    public function paymentComplete(int $orderId): void
+    public function paymentComplete(int $orderId)
     {
         // order recovery.
         $order = wc_get_order($orderId);
@@ -91,7 +91,7 @@ class SubscribeOnPaymentService
      * @return bool True if the condition is met, false otherwise.
      * @since 1.0.0
      */
-    private function evaluateCondition(string $type, string $param, float $price, \WC_Order $order): bool
+    private function evaluateCondition(string $type, string $param, float $price, \WC_Order $order)
     {
         switch ($type) {
             // case 'always':

@@ -18,5 +18,5 @@ interface HookInterface
      *
      * @return void
      */
-    public function register(): void;
+    public function register();
 }

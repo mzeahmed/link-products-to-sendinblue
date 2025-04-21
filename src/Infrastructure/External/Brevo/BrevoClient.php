@@ -58,7 +58,7 @@ class BrevoClient
      * @return GetAccount
      * @since 2.0.0
      */
-    public function getAccount(): GetAccount
+    public function getAccount()
     {
         $data = [];
 
@@ -81,7 +81,7 @@ class BrevoClient
      * @return GetExtendedContactDetails|null
      * @since 2.0.0
      */
-    public function getContact(string $email): ?GetExtendedContactDetails
+    public function getContact(string $email)
     {
         $contact = null;
 
@@ -104,7 +104,7 @@ class BrevoClient
      * @return CreateUpdateContactModel|null
      * @since 2.0.0
      */
-    public function createContact(array $data): ?CreateUpdateContactModel
+    public function createContact(array $data)
     {
         $contact = null;
 
@@ -129,7 +129,7 @@ class BrevoClient
      * @return bool
      * @since 2.0.0
      */
-    public function createDoiContact(array $data): bool
+    public function createDoiContact(array $data)
     {
         $instance = $this->apiInstance(ContactsApi::class);
 
@@ -160,7 +160,7 @@ class BrevoClient
      * @return bool
      * @since 2.0.0
      */
-    public function updateContact(string $email, $data): bool
+    public function updateContact(string $email, $data)
     {
         $instance = $this->apiInstance(ContactsApi::class);
 
@@ -186,7 +186,7 @@ class BrevoClient
      * @return PostContactInfo|null
      * @since 2.0.0
      */
-    public function removeContactFromList(int $listId, array|RemoveContactFromList $emails = []): ?PostContactInfo
+    public function removeContactFromList(int $listId, array|RemoveContactFromList $emails = [])
     {
         $config = $this->apiInstance(ContactsApi::class);
 
@@ -206,7 +206,7 @@ class BrevoClient
      * @return GetAttributes|array
      * @since 2.0.0
      */
-    public function getAttributes(): GetAttributes|array
+    public function getAttributes()
     {
         $attributes = [];
 
@@ -232,7 +232,7 @@ class BrevoClient
      * @return GetContacts
      * @since 2.0.0
      */
-    public function getPaginatedContactsFromList(int $limit = 10, int $offset = 0, string $sort = 'desc', int $listId = null): GetContacts
+    public function getPaginatedContactsFromList(int $limit = 10, int $offset = 0, string $sort = 'desc', int $listId = null)
     {
         $contacts = [];
 
@@ -261,7 +261,7 @@ class BrevoClient
      * @return array
      * @since 2.0.0
      */
-    public function getContactsFromLists(int $listId): array
+    public function getContactsFromLists(int $listId)
     {
         return $this->commonLists([$this, 'getPaginatedContactsFromList'], 'contacts', $listId);
     }
@@ -276,7 +276,7 @@ class BrevoClient
      * @return GetLists|array
      * @since 2.0.0
      */
-    public function getPaginatedLists(int $limit = 10, int $offset = 0, string $sort = 'desc'): GetLists|array
+    public function getPaginatedLists(int $limit = 10, int $offset = 0, string $sort = 'desc')
     {
         $lists = [];
 
@@ -297,7 +297,7 @@ class BrevoClient
      * @return array
      * @since 2.0.0
      */
-    public function getLists(): array
+    public function getLists()
     {
         return $this->commonLists([$this, 'getPaginatedLists']);
     }
@@ -310,7 +310,7 @@ class BrevoClient
      * @return GetExtendedList
      * @since 2.0.0
      */
-    public function getList(int $listId): GetExtendedList
+    public function getList(int $listId)
     {
         $list = null;
 
@@ -335,7 +335,7 @@ class BrevoClient
      * @return \Brevo\Client\Model\GetFolders|array
      * @since 2.0.0
      */
-    public function getPaginatedFolders(int $limit = 10, int $offset = 0, string $sort = 'desc'): \Brevo\Client\Model\GetFolders|array
+    public function getPaginatedFolders(int $limit = 10, int $offset = 0, string $sort = 'desc')
     {
         $folders = [];
 
@@ -356,7 +356,7 @@ class BrevoClient
      * @return array
      * @since 2.0.0
      */
-    public function getFolders(): array
+    public function getFolders()
     {
         return $this->commonLists([$this, 'getPaginatedFolders'], 'folders');
     }
@@ -372,7 +372,7 @@ class BrevoClient
      * @return array|ModelInterface
      * @since 2.0.0
      */
-    public function getFolderLists(int $folderId, int $limit = 10, int $offset = 0, string $sort = 'desc'): array|ModelInterface
+    public function getFolderLists(int $folderId, int $limit = 10, int $offset = 0, string $sort = 'desc')
     {
         $lists = [];
 
@@ -396,7 +396,7 @@ class BrevoClient
      * @return CreateModel|false
      * @since 2.0.0
      */
-    public function createList(int $folderId, string $name): CreateModel|false
+    public function createList(int $folderId, string $name)
     {
         $instance = $this->apiInstance(ContactsApi::class);
 
@@ -421,7 +421,7 @@ class BrevoClient
      * @return mixed
      * @since 2.0.0
      */
-    private function apiInstance(string $class): mixed
+    private function apiInstance(string $class)
     {
         $config = Configuration::getDefaultConfiguration();
         $config->setApiKey('api-key', $this->apiKey);
@@ -442,7 +442,7 @@ class BrevoClient
      * @return array
      * @since 2.0.0
      */
-    private function commonLists(callable $method, string $listingType = 'lists', int $listId = null): array
+    private function commonLists(callable $method, string $listingType = 'lists', int $listId = null)
     {
         $lists = [
             $listingType => [],
@@ -475,7 +475,7 @@ class BrevoClient
      * @return CreateContact|UpdateContact
      * @since 2.0.0
      */
-    private function manageContact(CreateContact|UpdateContact $contact, array $data, bool $create = true): CreateContact|UpdateContact
+    private function manageContact($contact, array $data, bool $create = true)
     {
         if ($create) {
             $contact->setEmail($data['email']);

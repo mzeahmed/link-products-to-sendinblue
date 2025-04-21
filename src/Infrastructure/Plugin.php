@@ -29,7 +29,7 @@ final class Plugin
      *
      * @since 1.1.8
      */
-    public function getData(): PluginData
+    public function getData()
     {
         $pluginData = [
             'plugin_path' => untrailingslashit(plugin_dir_path(LPTS_PLUGIN_FILE)),
@@ -73,80 +73,119 @@ final class Plugin
         );
     }
 
-    /** @since 1.1.8 */
-    public function getPluginPath(): string
+    /**
+     * @return string The path to the plugin directory.
+     * @since 1.1.8
+     */
+    public function getPluginPath()
     {
         return $this->getData()->pluginPath;
     }
 
-    /** @since 1.1.8 */
-    public function getTemplatePath(): string
+    /**
+     * @return string The path to the plugin's template directory.
+     * @since 1.1.8
+     */
+    public function getTemplatePath()
     {
         return $this->getData()->templatePath;
     }
 
-    /** @since 1.1.8 */
-    public function getVersion(): string
+    /**
+     * @return string The version of the plugin.
+     * @since 1.1.8
+     */
+    public function getVersion()
     {
         return $this->getData()->version;
     }
 
-    /** @since 1.1.8 */
-    public function getRequiredPhp(): string
+    /**
+     * @return string The required PHP version.
+     * @since 1.1.8
+     */
+    public function getRequiredPhp()
     {
         return $this->getData()->requiredPhp;
     }
 
-    /** @since 1.1.8 */
-    public function getRequiredWp(): string
+    /**
+     * @return string The required WordPress version.
+     * @since 1.1.8
+     */
+    public function getRequiredWp()
     {
         return $this->getData()->requiredWp;
     }
 
-    /** @since 1.1.8 */
-    public function getName(): string
+    /**
+     * @return string The name of the plugin.
+     * @since 1.1.8
+     */
+    public function getName()
     {
         return $this->getData()->name;
     }
 
-    /** @since 1.1.8 */
-    public function getUri(): string
+    /**
+     * @return string The plugin URI.
+     * @since 1.1.8
+     */
+    public function getUri()
     {
         return $this->getData()->uri;
     }
 
-    /** @since 1.1.8 */
-    public function getDescription(): string
+    /**
+     * @return string The description of the plugin.
+     * @since 1.1.8
+     */
+    public function getDescription()
     {
         return $this->getData()->description;
     }
 
-    /** @since 1.1.8 */
-    public function getAuthor(): string
+    /**
+     * @return string The author of the plugin.
+     * @since 1.1.8
+     */
+    public function getAuthor()
     {
         return $this->getData()->author;
     }
 
-    /** @since 1.1.8 */
-    public function getAuthorUri(): string
+    /**
+     * @return string The author URI of the plugin.
+     * @since 1.1.8
+     */
+    public function getAuthorUri()
     {
         return $this->getData()->authorUri;
     }
 
-    /** @since 1.1.8 */
-    public function getTextDomain(): string
+    /**
+     * @return string The text domain of the plugin.
+     * @since 1.1.8
+     */
+    public function getTextDomain()
     {
         return $this->getData()->textDomain;
     }
 
-    /** @since 1.1.8 */
-    public function getDomainPath(): string
+    /**
+     * @return string The domain path of the plugin.
+     * @since 1.1.8
+     */
+    public function getDomainPath()
     {
         return $this->getData()->domainPath;
     }
 
-    /** @since 1.1.8 */
-    public function getNamespace(): string
+    /**
+     * @return string The namespace of the plugin.
+     * @since 1.1.8
+     */
+    public function getNamespace()
     {
         return $this->getData()->namespace;
     }

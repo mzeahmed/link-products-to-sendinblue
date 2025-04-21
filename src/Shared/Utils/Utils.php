@@ -16,7 +16,7 @@ class Utils
      *
      * @return bool
      */
-    public static function isDevEnvironment(): bool
+    public static function isDevEnvironment()
     {
         return \defined('WP_ENV') && 'development' === WP_ENV;
     }
@@ -26,12 +26,12 @@ class Utils
      *
      * @return string
      */
-    public static function getApiKey(): string
+    public static function getApiKey()
     {
         return defined('LPTS_API_KEY') ? LPTS_API_KEY : (get_option(OptionKey::API_KEY_V3->value) ?? '');
     }
 
-    public static function versionCompare(): true
+    public static function versionCompare()
     {
         $errors = static function ($message, string $subtitle = '', string $title = '') {
             $title = $title ? esc_html__('Error', 'link-products-to-sendinblue') : '';

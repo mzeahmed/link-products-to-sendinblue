@@ -11,13 +11,12 @@ class SubscribeOnPaymentHook implements HookInterface
 {
     public function __construct(
         private SubscribeOnPaymentService $subscribeOnPaymentService
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc
      */
-    public function register(): void
+    public function register()
     {
         add_action('woocommerce_payment_complete', [$this, 'paymentComplete']);
     }
@@ -32,7 +31,7 @@ class SubscribeOnPaymentHook implements HookInterface
      *
      * @since 1.0.0
      */
-    public function paymentComplete(int $orderId): void
+    public function paymentComplete(int $orderId)
     {
         $this->subscribeOnPaymentService->paymentComplete($orderId);
     }

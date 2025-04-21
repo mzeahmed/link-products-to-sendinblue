@@ -21,7 +21,7 @@ final class Bootstrap
         $this->boot();
     }
 
-    private function boot(): void
+    private function boot()
     {
         add_action('plugins_loaded', static function () {
             if (\function_exists('WC')) {

@@ -9,7 +9,7 @@ namespace LPTS\Infrastructure\WordPress\I18n;
  */
 class I18n
 {
-    public static function load(): void
+    public static function load()
     {
         load_plugin_textdomain(
             'link-products-to-sendinblue',

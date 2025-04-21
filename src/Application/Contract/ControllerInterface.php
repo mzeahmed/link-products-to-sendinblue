@@ -9,5 +9,5 @@ namespace LPTS\Application\Contract;
  */
 interface ControllerInterface
 {
-    public function register(): void;
+    public function register();
 }

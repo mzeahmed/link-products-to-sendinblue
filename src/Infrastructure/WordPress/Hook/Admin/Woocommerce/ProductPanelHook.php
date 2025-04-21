@@ -24,7 +24,7 @@ class ProductPanelHook implements HookInterface
     /**
      * @inheritDoc
      */
-    public function register(): void
+    public function register()
     {
         if (!empty($this->apiKey)) {
             add_filter('woocommerce_product_data_tabs', [$this, 'customProductDataTab']);
@@ -44,7 +44,7 @@ class ProductPanelHook implements HookInterface
      * @return array
      * @since 1.0.0
      */
-    public function customProductDataTab(array $tabs): array
+    public function customProductDataTab(array $tabs)
     {
         return $this->productPanelService->customProductDataTab($tabs);
     }
@@ -55,7 +55,7 @@ class ProductPanelHook implements HookInterface
      * @return void
      * @since 1.0.0
      */
-    public function productDataPanelRender(): void
+    public function productDataPanelRender()
     {
         $this->productPanelService->productDataPanelRender();
     }
@@ -67,17 +67,17 @@ class ProductPanelHook implements HookInterface
      *
      * @since 1.0.0
      */
-    public function saveProductMeta(int $postId): void
+    public function saveProductMeta(int $postId)
     {
         $this->productPanelService->saveProductMeta($postId);
     }
 
-    public function variationListField($loop, $variationData, $variation): void
+    public function variationListField($loop, $variationData, $variation)
     {
         $this->productPanelService->variationListField($loop, $variationData, $variation);
     }
 
-    public function saveVariationLists(int $variationId, int $i): void
+    public function saveVariationLists(int $variationId, int $i)
     {
         $this->productPanelService->saveVariationLists($variationId, $i);
     }

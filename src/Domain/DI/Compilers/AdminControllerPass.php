@@ -15,7 +15,7 @@ class AdminControllerPass implements CompilerPassInterface
 {
     use CompilerPass;
 
-    public function process(ContainerBuilder $container): void
+    public function process(ContainerBuilder $container)
     {
         $this->boot($container, AdminControllerInterface::class, 'app.admin.controller', 'app.admin_controller_ids');
     }

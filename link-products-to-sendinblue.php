@@ -52,10 +52,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 /**
  * Plugin entry point Process
  *
- * @return LPTS\Bootstrap|null
+ * @return LPTS\Bootstrap
  * @since 1.0.0
  */
-function link_products_to_sendinblue(): ?Bootstrap
+function link_products_to_sendinblue()
 {
     Utils::versionCompare();
 
