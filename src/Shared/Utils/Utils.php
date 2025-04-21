@@ -28,7 +28,7 @@ class Utils
      */
     public static function getApiKey(): string
     {
-        return defined('LPTS_API_KEY') ? LPTS_API_KEY : get_option(OptionKey::API_KEY_V3->value);
+        return defined('LPTS_API_KEY') ? LPTS_API_KEY : (get_option(OptionKey::API_KEY_V3->value) ?? '');
     }
 
     public static function versionCompare(): true

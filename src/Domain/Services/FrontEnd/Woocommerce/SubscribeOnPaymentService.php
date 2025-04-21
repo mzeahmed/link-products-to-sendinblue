@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LPTS\Domain\Services\Public\Woocommerce;
+namespace LPTS\Domain\Services\FrontEnd\Woocommerce;
 
 use LPTS\Shared\Enums\MetaKey;
 use LPTS\Shared\Enums\OptionKey;
@@ -65,7 +65,7 @@ class SubscribeOnPaymentService
 
                         $price = $item->get_total();
 
-                        if ($this->evaluateCondition($condition, $param, $price, $order)) {
+                        if ($this->evaluateCondition($condition, $param, (float) $price, $order)) {
                             BrevoManager::createSubscriber($email, (int) $listId, $attributes);
                         }
                     }

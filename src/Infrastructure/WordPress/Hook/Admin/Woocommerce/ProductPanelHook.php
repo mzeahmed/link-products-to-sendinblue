@@ -13,7 +13,7 @@ use LPTS\Domain\Services\Admin\Woocommerce\ProductPanelService;
  */
 class ProductPanelHook implements HookInterface
 {
-    private string|bool $apiKey;
+    private string $apiKey;
 
     public function __construct(
         private ProductPanelService $productPanelService,

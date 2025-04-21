@@ -2,9 +2,9 @@
 Contributors: Mze Ahmed
 Tags: woocommerce, sendinblue, brevo
 Requires at last: 5.1
-Tested up to: 6.7.2
-WC tested up to: 9.7.1
-Stable tag: 2.0.3
+Tested up to: 6.8
+WC tested up to: 9.8.1
+Stable tag: 2.0.4
 Requires PHP: 8.0
 Php tested up to: 8.3
 License: GPLv2 or later
@@ -48,6 +48,9 @@ No more manual imports. Save time and automate your email marketing based on wha
 5. View the Brevo list(s) linked to a product in the WooCommerce product edit screen.
 
 == Changelog ==
+
+= 2.0.4 - 21 April 2025 =
+* Fixed: Price type casting issue
 
 = 2.0.2 - 26 March 2025 =
 * Chore: Removed dev dependencies from vendor directory for cleaner deployment

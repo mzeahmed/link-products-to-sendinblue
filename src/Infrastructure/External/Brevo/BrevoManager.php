@@ -17,7 +17,7 @@ use Brevo\Client\Model\ModelInterface;
  */
 class BrevoManager
 {
-    private const int|float DELAYTIME = HOUR_IN_SECONDS;
+    private const  DELAYTIME = HOUR_IN_SECONDS;
 
     /**
      * Retrieves contact attributes from Brevo API, using transient cache for performance.

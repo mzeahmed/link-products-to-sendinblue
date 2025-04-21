@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LPTS\Infrastructure\WordPress\Hook\Public\Woocommerce;
+namespace LPTS\Infrastructure\WordPress\Hook\FrontEnd\Woocommerce;
 
 use LPTS\Application\Contract\HookInterface;
-use LPTS\Domain\Services\Public\Woocommerce\SubscribeOnPaymentService;
+use LPTS\Domain\Services\FrontEnd\Woocommerce\SubscribeOnPaymentService;
 
 class SubscribeOnPaymentHook implements HookInterface
 {

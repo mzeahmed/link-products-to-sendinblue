@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LPTS\Application\Controllers\Public\Woocommerce;
+namespace LPTS\Application\Controllers\FrontEnd\Woocommerce;
 
 use LPTS\Application\Contract\PublicControllerInterface;
-use LPTS\Infrastructure\WordPress\Hook\Public\Woocommerce\SubscribeOnPaymentHook;
+use LPTS\Infrastructure\WordPress\Hook\FrontEnd\Woocommerce\SubscribeOnPaymentHook;
 
 /**
  * Handles the logic for subscribing customers to Brevo lists

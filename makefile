@@ -39,6 +39,11 @@ i18n: ## Generates translation .pot file
 	php ./.bin/wp i18n make-pot . resources/i18n/link-products-to-sendinblue.pot
 	@echo "$(BLUE)Translation file generated$(NO_COLOR)"
 
+cs-i: ## Forces init phpcompatibility/php-compatibility
+	@echo "$(YELLOW)Forcing init phpcompatibility/php-compatibility...$(NO_COLOR)"
+	composer run phpcs:init
+	@echo "$(GREEN)phpcompatibility/php-compatibility initialized$(NO_COLOR)"
+
 cs: ## Runs PHP CodeSniffer in check mode
 	@echo "$(YELLOW)Running PHP CodeSniffer...$(NO_COLOR)"
 	composer run phpcs

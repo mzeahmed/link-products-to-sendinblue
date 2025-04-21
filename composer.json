@@ -28,16 +28,19 @@
     "symfony/yaml": "^6.4"
   },
   "require-dev": {
+    "phpcompatibility/php-compatibility": "^9.3",
     "phpcsstandards/php_codesniffer": "^3.12",
     "phpstan/phpstan": "^2.1",
     "phpunit/phpunit": "^9.5",
     "roave/security-advisories": "dev-latest",
     "szepeviktor/phpstan-wordpress": "^2.0"
   },
+  "prefer-stable": true,
   "config": {
     "sort-packages": true
   },
   "scripts": {
+    "phpcs:init": "php vendor/bin/phpcs --config-set installed_paths vendor/phpcompatibility/php-compatibility",
     "phpcs": "php vendor/bin/phpcs",
     "phpcbf": "php vendor/bin/phpcbf"
   }
