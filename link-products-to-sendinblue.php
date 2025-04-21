@@ -8,17 +8,17 @@ declare(strict_types=1);
  * @package           LPTS
  *
  * @wordpress-plugin
- * Plugin Name:       Link Products To Sendinblue Lists From Woocommerce
- * Plugin URI:        https://wordpress.org/plugins/link-products-to-sendinblue/
- * Description:       Link WooCommerce products to a specific Brevo (ex Sendinblue) list to add the customer to that list
- * Version:           2.0.6
- * Requires Plugins:  woocommerce
- * Author:            mzeahmed
- * Author URI:        https://github.com/mzeahmed
- * License:           GPLv2 or later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       link-products-to-sendinblue
- * Domain Path:       /resources/i18n
+ * Plugin Name: Link Products To Sendinblue Lists From Woocommerce
+ * Plugin URI: https://wordpress.org/plugins/link-products-to-sendinblue/
+ * Description: Link WooCommerce products to a specific Brevo (ex Sendinblue) list to add the customer to that list
+ * Version: 2.0.6
+ * Requires Plugins: woocommerce
+ * Author: mzeahmed
+ * Author URI: https://github.com/mzeahmed
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: link-products-to-sendinblue
+ * Domain Path: /resources/i18n
  */
 
 use LPTS\Bootstrap;
