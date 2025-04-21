@@ -26,7 +26,7 @@ trait CompilerPass
      * @return void
      * @since 2.2.0.78
      */
-    public function boot(ContainerBuilder $container, string $interface, string $tag, string $param): void
+    public function boot(ContainerBuilder $container, string $interface, string $tag, string $param)
     {
         $taggedServices = $container->findTaggedServiceIds($tag);
 

@@ -30,7 +30,7 @@ class Renderer
      *
      * @throws \RuntimeException If the view file does not exist.
      */
-    public function render(string $view, array $params = []): string
+    public function render(string $view, array $params = [])
     {
         return $this->processRender($view, $params);
     }
@@ -48,7 +48,7 @@ class Renderer
      *
      * @throws \RuntimeException If the view file does not exist.
      */
-    public function ajaxRender(string $view, array &$data, array $params = []): void
+    public function ajaxRender(string $view, array &$data, array $params = [])
     {
         $data['html'] = $this->processRender($view, $params, $data);
     }
@@ -65,7 +65,7 @@ class Renderer
      *
      * @throws \RuntimeException If the view file does not exist.
      */
-    private function processRender(string $view, array $params = [], array &$data = []): false|string
+    private function processRender(string $view, array $params = [], array &$data = [])
     {
         $path = $this->plugin->getTemplatePath() . DIRECTORY_SEPARATOR . $view . '.php';
 

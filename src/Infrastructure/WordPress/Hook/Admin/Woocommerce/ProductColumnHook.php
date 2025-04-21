@@ -14,13 +14,12 @@ class ProductColumnHook implements HookInterface
 {
     public function __construct(
         private ProductColumnService $productColumnService
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc
      */
-    public function register(): void
+    public function register()
     {
         add_filter('manage_edit-product_columns', [$this, 'productsListColumn'], 9999);
         add_action('manage_product_posts_custom_column', [$this, 'productsListColumnContent'], 10, 2);
@@ -34,7 +33,7 @@ class ProductColumnHook implements HookInterface
      * @return array
      * @since 1.0.0
      */
-    public function productsListColumn(array $columns): array
+    public function productsListColumn(array $columns)
     {
         return $this->productColumnService->productsListColumn($columns);
     }
@@ -47,7 +46,7 @@ class ProductColumnHook implements HookInterface
      *
      * @since 1.0.0
      */
-    public function productsListColumnContent(string $column, int $product_id): void
+    public function productsListColumnContent(string $column, int $product_id)
     {
         $this->productColumnService->productsListColumnContent($column, $product_id);
     }

@@ -167,7 +167,7 @@ class BrevoManager
      * @return bool|string 'success', 'failure', or false on error.
      * @since 2.0.0
      */
-    public static function createDoiSubscriber(string $email, array $args): bool|string
+    public static function createDoiSubscriber(string $email, array $args)
     {
         $data = [
             'email' => $email,
@@ -190,7 +190,7 @@ class BrevoManager
      * @return array
      * @since 2.0.0
      */
-    public static function getFolders(): ?array
+    public static function getFolders()
     {
         $folders = self::clientInstance()->getFolders();
 
@@ -214,7 +214,7 @@ class BrevoManager
      * @return array|ModelInterface
      * @since 2.0.0
      */
-    public static function getListsFromFolder(int $folderId, int $limit = 10, int $offset = 0): ?array
+    public static function getListsFromFolder(int $folderId, int $limit = 10, int $offset = 0)
     {
         $lists = self::clientInstance()->getFolderLists($folderId, $limit, $offset);
 
@@ -236,7 +236,7 @@ class BrevoManager
      * @return CreateModel|false The created list object or false on failure.
      * @since 2.0.0
      */
-    public static function createList(int $folderId, string $name): CreateModel|false
+    public static function createList(int $folderId, string $name)
     {
         return self::clientInstance()->createList($folderId, $name);
     }
@@ -250,7 +250,7 @@ class BrevoManager
      * @return CreateModel|false|int|string The list ID, created model, or false on failure.
      * @since 2.0.0
      */
-    public static function getListIdByName(int $folderId, string $name): \Brevo\Client\Model\CreateModel|false|int|string
+    public static function getListIdByName(int $folderId, string $name)
     {
         $folders = self::getListsFromFolder($folderId);
 
@@ -302,10 +302,10 @@ class BrevoManager
     /**
      * Instantiates and returns a new BrevoClient.
      *
-     * @return \WPYoostart\Http\Client\BrevoClient The BrevoClient instance.
+     * @return \LPTS\Infrastructure\External\Brevo\BrevoClient The BrevoClient instance.
      * @since 2.2.0.99
      */
-    private static function clientInstance(): BrevoClient
+    private static function clientInstance()
     {
         return new BrevoClient();
     }

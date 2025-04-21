@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LPTS\Infrastructure\Database;
 
 use LPTS\Shared\Enums\MetaKey;
+use LPTS\Shared\Enums\OptionKey;
 use MzeAhmed\WpToolKit\Utils\Sanitizer;
 
 /**
@@ -13,12 +14,14 @@ use MzeAhmed\WpToolKit\Utils\Sanitizer;
 class Upgrade
 {
     private \wpdb $wpdb;
+    private string $dbVersion;
 
     public function __construct()
     {
         global $wpdb;
 
         $this->wpdb = $wpdb;
+        $this->dbVersion = get_option(OptionKey::DB_VERSION->value, '1.0.0');
     }
 
     /**
@@ -26,7 +29,7 @@ class Upgrade
      *
      * @return void
      */
-    public function dbUpgrade(): void
+    public function dbUpgrade()
     {
         $this->migrateOldListMetaFormat();
     }
@@ -60,14 +63,14 @@ class Upgrade
             $meta = $product->get_meta(MetaKey::PRODUCT_LIST->value);
 
             // Skip if already migrated (i.e. already a list of arrays)
-            if (is_array($meta) && isset($meta[0]) && is_array($meta[0])) {
+            if (\is_array($meta) && isset($meta[0]) && \is_array($meta[0])) {
                 continue;
             }
 
             $converted = [];
 
             // If it's a single string (one list ID)
-            if (is_string($meta)) {
+            if (\is_string($meta)) {
                 $converted[] = [
                     'list_id' => Sanitizer::text($meta),
                     'condition' => 'always',
@@ -76,7 +79,7 @@ class Upgrade
             }
 
             // If it's an array of strings (multiple list IDs)
-            if (is_array($meta) && !empty($meta) && is_string($meta[0])) {
+            if (\is_array($meta) && !empty($meta) && \is_string($meta[0])) {
                 $converted = array_map(static function ($listId) {
                     return [
                         'list_id' => Sanitizer::text($listId),
@@ -87,7 +90,7 @@ class Upgrade
             }
 
             // Only update if we actually built something
-            if (!empty($converted)) {
+            if (!empty($converted) && version_compare($this->dbVersion, '1.0.1', '<')) {
                 $product->update_meta_data(MetaKey::PRODUCT_LIST->value, $converted);
                 $product->save();
             }

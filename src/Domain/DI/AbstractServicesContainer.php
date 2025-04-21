@@ -21,49 +21,49 @@ abstract class AbstractServicesContainer
      *
      * @return string Absolute path to the YAML file.
      */
-    abstract protected static function getConfigPath(): string;
+    abstract protected static function getConfigPath();
 
     /**
      * Returns the path to the container cache file.
      *
      * @return string Absolute path to the cache file.
      */
-    abstract protected static function getCacheFile(): string;
+    abstract protected static function getCacheFile();
 
     /**
      * Returns an instance of the cache container.
      *
      * @return mixed Instance of the cache container.
      */
-    abstract protected static function getCacheContainer(): mixed;
+    abstract protected static function getCacheContainer();
 
     /**
      * Returns the directories watched for changes.
      *
      * @return array List of watched directories.
      */
-    abstract protected static function getWatchedDirectories(): array;
+    abstract protected static function getWatchedDirectories();
 
     /**
      * Returns the namespace used for the generated container.
      *
      * @return string Namespace of the container.
      */
-    abstract protected static function getNamespace(): string;
+    abstract protected static function getNamespace();
 
     /**
      * Returns the compiler passes to add to the container.
      *
      * @return array List of compiler passes.
      */
-    abstract protected static function getCompilerPasses(): array;
+    abstract protected static function getCompilerPasses();
 
     /**
      * Returns the service parameters to initialize.
      *
      * @return array List of service parameters.
      */
-    abstract protected static function getServiceParameters(): array;
+    abstract protected static function getServiceParameters();
 
     /**
      * Loads the services into the container.
@@ -71,7 +71,7 @@ abstract class AbstractServicesContainer
      * This method decides whether to use the development or production container,
      * then initializes the services defined by the parameters.
      */
-    public static function load(): void
+    public static function load()
     {
         $cacheContainerFile = static::getCacheFile();
 
@@ -94,7 +94,7 @@ abstract class AbstractServicesContainer
      *
      * @throws \RuntimeException If the cache file is not found.
      */
-    private static function getProductionContainer(string $cacheContainerFile, &$container): void
+    private static function getProductionContainer(string $cacheContainerFile, &$container)
     {
         if (file_exists($cacheContainerFile)) {
             require_once $cacheContainerFile;
@@ -114,7 +114,7 @@ abstract class AbstractServicesContainer
      * @param string $cacheContainerFile Path to the cache file.
      * @param mixed $container Service container.
      */
-    private static function getDevelopmentContainer(string $cacheContainerFile, &$container): void
+    private static function getDevelopmentContainer(string $cacheContainerFile, &$container)
     {
         $configFile = static::getConfigPath();
 
@@ -173,7 +173,7 @@ abstract class AbstractServicesContainer
      *
      * @param ContainerBuilder $container The service container.
      */
-    private static function addCompilerPasses(ContainerBuilder $container): void
+    private static function addCompilerPasses(ContainerBuilder $container)
     {
         foreach (static::getCompilerPasses() as $compilerPass) {
             $container->addCompilerPass($compilerPass);
@@ -186,7 +186,7 @@ abstract class AbstractServicesContainer
      * @param mixed $container The service container.
      * @param string $parameter Name of the parameter containing the services to initialize.
      */
-    private static function initializeServices(mixed $container, string $parameter): void
+    private static function initializeServices(mixed $container, string $parameter)
     {
         $serviceIds = $container->getParameter($parameter);
         foreach ($serviceIds as $id) {

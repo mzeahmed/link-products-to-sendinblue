@@ -14,10 +14,9 @@ class SettingsController implements PublicControllerInterface
 {
     public function __construct(
         private SettingsHook $settingsHook
-    ) {
-    }
+    ) {}
 
-    public function register(): void
+    public function register()
     {
         $this->settingsHook->register();
     }

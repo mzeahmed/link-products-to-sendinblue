@@ -14,13 +14,12 @@ class AdminEnqueueHook implements HookInterface
 {
     public function __construct(
         private AdminEnqueueService $adminEnqueueService
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc
      */
-    public function register(): void
+    public function register()
     {
         add_action('admin_enqueue_scripts', [$this, 'adminEnqueueScripts']);
     }
@@ -33,7 +32,7 @@ class AdminEnqueueHook implements HookInterface
      * @return void
      * @since 1.1.5
      */
-    public function adminEnqueueScripts(string $hook): void
+    public function adminEnqueueScripts(string $hook)
     {
         $this->adminEnqueueService->adminEnqueueScripts($hook);
     }

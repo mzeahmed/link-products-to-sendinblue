@@ -11,13 +11,12 @@ class SettingsHook implements HookInterface
 {
     public function __construct(
         private SettingsService $settingsService
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc
      */
-    public function register(): void
+    public function register()
     {
         add_action('admin_menu', [$this, 'addOptionsPage']);
         // add_action('admin_init', [$this, 'registerApiKeySettingsSection']);
@@ -38,7 +37,7 @@ class SettingsHook implements HookInterface
      * @wp-hook admin_menu
      * @since   1.0.0
      */
-    public function addOptionsPage(): void
+    public function addOptionsPage()
     {
         $this->settingsService->addOptionsPage();
     }
@@ -54,7 +53,7 @@ class SettingsHook implements HookInterface
      * @return void
      * @since 1.0.0
      */
-    public function formRender(): void
+    public function formRender()
     {
         $this->settingsService->formRender();
     }
@@ -66,7 +65,7 @@ class SettingsHook implements HookInterface
      * @return void
      * @since   1.0.0
      */
-    public function apiKeyNotice(): void
+    public function apiKeyNotice()
     {
         $this->settingsService->apiKeyNotice();
     }
@@ -80,7 +79,7 @@ class SettingsHook implements HookInterface
      * @return array|null
      * @since   1.0.0
      */
-    public function pluginActionLinks(array $links): ?array
+    public function pluginActionLinks(array $links)
     {
         return $this->settingsService->pluginActionLinks($links);
     }
