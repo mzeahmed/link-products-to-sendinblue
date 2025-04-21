@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @link              https://github.com/mzeahmed/link-products-to-sendinblue
  * @since             1.0.0
@@ -9,7 +11,7 @@
  * Plugin Name:       Link Products To Sendinblue Lists From Woocommerce
  * Plugin URI:        https://wordpress.org/plugins/link-products-to-sendinblue/
  * Description:       Link WooCommerce products to a specific Brevo (ex Sendinblue) list to add the customer to that list
- * Version:           2.0.3
+ * Version:           2.0.4
  * Requires Plugins:  woocommerce
  * Author:            mzeahmed
  * Author URI:        https://github.com/mzeahmed
@@ -18,8 +20,6 @@
  * Text Domain:       link-products-to-sendinblue
  * Domain Path:       /resources/i18n
  */
-
-declare(strict_types=1);
 
 use LPTS\Bootstrap;
 use LPTS\Shared\Utils\Utils;

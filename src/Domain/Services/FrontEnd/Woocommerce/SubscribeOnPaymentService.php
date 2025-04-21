@@ -65,7 +65,7 @@ class SubscribeOnPaymentService
 
                         $price = $item->get_total();
 
-                        if ($this->evaluateCondition($condition, $param, $price, $order)) {
+                        if ($this->evaluateCondition($condition, $param, (float) $price, $order)) {
                             BrevoManager::createSubscriber($email, (int) $listId, $attributes);
                         }
                     }
