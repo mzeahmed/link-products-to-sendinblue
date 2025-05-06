@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Infrastructure\External\Brevo;
 
+use LPTS\Shared\Utils\Utils;
 use LPTS\Shared\Enums\OptionKey;
 use Brevo\Client\Model\CreateModel;
 use LPTS\Shared\Enums\TransientKey;
@@ -27,7 +28,7 @@ class BrevoManager
      */
     public static function getAttributes(): mixed
     {
-        $attrs = get_transient(TransientKey::BREVO_ATTRIBUTES->value . md5(get_option(OptionKey::API_KEY_V3->value)));
+        $attrs = get_transient(TransientKey::BREVO_ATTRIBUTES->value . md5(Utils::getApiKey()));
 
         if (false === $attrs) {
             $attributesResponse = self::clientInstance()->getAttributes();
@@ -52,7 +53,7 @@ class BrevoManager
             }
 
             set_transient(
-                TransientKey::BREVO_ATTRIBUTES->value . md5(get_option(OptionKey::API_KEY_V3->value)),
+                TransientKey::BREVO_ATTRIBUTES->value . md5(Utils::getApiKey()),
                 $attrs,
                 self::DELAYTIME
             );
@@ -271,7 +272,7 @@ class BrevoManager
      */
     public static function getAccountInfo(): ?array
     {
-        $info = get_transient(TransientKey::BREVO_CLIENT_CREDIT->value . md5(get_option(OptionKey::API_KEY_V3->value)));
+        $info = get_transient(TransientKey::BREVO_CLIENT_CREDIT->value . md5(Utils::getApiKey()));
 
         if (!$info) {
             $account = self::clientInstance()->getAccount();
@@ -290,7 +291,7 @@ class BrevoManager
             }
 
             set_transient(
-                TransientKey::BREVO_CLIENT_CREDIT->value . md5(get_option(OptionKey::API_KEY_V3->value)),
+                TransientKey::BREVO_CLIENT_CREDIT->value . md5(Utils::getApiKey()),
                 $info,
                 self::DELAYTIME
             );
