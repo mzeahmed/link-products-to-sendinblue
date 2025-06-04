@@ -49,7 +49,7 @@ class BrevoClient
      */
     public function __construct()
     {
-        $this->apiKey = defined('LPTS_BREVO_API_KEY') ? LPTS_BREVO_API_KEY : get_option(OptionKey::API_KEY_V3->value);
+        $this->apiKey = \defined('LPTS_BREVO_API_KEY') ? LPTS_BREVO_API_KEY : get_option(OptionKey::API_KEY_V3->value);
     }
 
     /**
@@ -458,7 +458,7 @@ class BrevoClient
             if (isset($listData[$listingType]) && \is_array($listData[$listingType])) {
                 $lists[$listingType] = array_merge($lists[$listingType], $listData[$listingType]);
                 $offset += 50;
-                $lists['count'] = $listData['count'];
+                $lists['count'] = $listData['count'] ?? 0;
             }
         } while (!empty($lists[$listingType]) && count($lists[$listingType]) < $listData['count']);
 
