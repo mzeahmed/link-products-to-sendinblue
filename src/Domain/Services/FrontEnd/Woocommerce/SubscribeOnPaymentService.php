@@ -57,7 +57,7 @@ class SubscribeOnPaymentService
                 // Simple product : Check conditions and send to the assigned list.
                 $listEntries = get_post_meta($productId, Metakey::PRODUCT_LIST->value, true);
 
-                if (is_array($listEntries)) {
+                if (\is_array($listEntries)) {
                     foreach ($listEntries as $entry) {
                         $listId = $entry['list_id'] ?? null;
                         $condition = $entry['condition'] ?? 'always';
