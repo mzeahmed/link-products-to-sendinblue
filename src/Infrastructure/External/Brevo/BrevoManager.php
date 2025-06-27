@@ -31,7 +31,7 @@ class BrevoManager
         $attrs = get_transient(TransientKey::BREVO_ATTRIBUTES->value . md5(Utils::getApiKey()));
 
         if (false === $attrs) {
-            $attributesResponse = self::clientInstance()->getAttributes();
+            $attributesResponse = self::client()->getAttributes();
 
             $attributes = $attributesResponse['attributes'];
             $attrs = [
@@ -70,7 +70,11 @@ class BrevoManager
      */
     public static function getLists(): ?array
     {
-        $lists = self::clientInstance()->getLists();
+        $lists = self::client()->getLists();
+
+        if (!empty($lists['lists']) && 0 === count($lists['lists'])) {
+            return [];
+        }
 
         $listData = [];
 
@@ -95,7 +99,11 @@ class BrevoManager
      */
     public static function getList(int $listId): ?array
     {
-        $list = self::clientInstance()->getList($listId);
+        $list = self::client()->getList($listId);
+
+        if (null === $list) {
+            return null;
+        }
 
         return [
             'id' => $list->getId(),
@@ -116,7 +124,7 @@ class BrevoManager
      */
     public static function getContactsFromList(int $listId): array
     {
-        $contacts = self::clientInstance()->getContactsFromLists($listId);
+        $contacts = self::client()->getContactsFromLists($listId);
         $contactsData = [];
 
         foreach ($contacts['contacts'] as $contact) {
@@ -146,17 +154,11 @@ class BrevoManager
             'smsBlacklisted' => false,
         ];
 
-        $contact = self::clientInstance()->getContact($email);
+        $contact = self::client()->getContact($email);
 
-        if ($contact) {
-            unset($data['email']);
+        $contact ? $result = self::client()->updateContact($data) : $result = self::client()->createContact($data);
 
-            $create = self::clientInstance()->updateContact($data);
-        } else {
-            $create = self::clientInstance()->createContact($data);
-        }
-
-        return $create ? 'success' : 'failure';
+        return $result ? 'success' : 'failure';
     }
 
     /**
@@ -180,7 +182,7 @@ class BrevoManager
             'redirectionUrl' => $args['redirectionUrl'] ?? '',
         ];
 
-        $create = self::clientInstance()->createDoiContact($data);
+        $create = self::client()->createDoiContact($data);
 
         return $create ? 'success' : 'failure';
     }
@@ -193,7 +195,7 @@ class BrevoManager
      */
     public static function getFolders()
     {
-        $folders = self::clientInstance()->getFolders();
+        $folders = self::client()->getFolders();
 
         $folderData = [];
 
@@ -217,7 +219,7 @@ class BrevoManager
      */
     public static function getListsFromFolder(int $folderId, int $limit = 10, int $offset = 0)
     {
-        $lists = self::clientInstance()->getFolderLists($folderId, $limit, $offset);
+        $lists = self::client()->getFolderLists($folderId, $limit, $offset);
 
         $listData = [];
 
@@ -239,7 +241,7 @@ class BrevoManager
      */
     public static function createList(int $folderId, string $name)
     {
-        return self::clientInstance()->createList($folderId, $name);
+        return self::client()->createList($folderId, $name);
     }
 
     /**
@@ -275,7 +277,7 @@ class BrevoManager
         $info = get_transient(TransientKey::BREVO_CLIENT_CREDIT->value . md5(Utils::getApiKey()));
 
         if (!$info) {
-            $account = self::clientInstance()->getAccount();
+            $account = self::client()->getAccount();
 
             if (!empty($account['email'])) {
                 $email = $account['email'];
@@ -306,7 +308,7 @@ class BrevoManager
      * @return \LPTS\Infrastructure\External\Brevo\BrevoClient The BrevoClient instance.
      * @since 2.2.0.99
      */
-    private static function clientInstance()
+    private static function client()
     {
         return new BrevoClient();
     }

@@ -166,7 +166,7 @@ class BrevoClient
         $updateContact = $this->manageContact(new UpdateContact(), $data);
 
         try {
-            $instance->updateContact($updateContact, $data['email']);
+            $instance->updateContact($updateContact, $data['email'], 'email_id');
 
             return true;
         } catch (\Exception $e) {
