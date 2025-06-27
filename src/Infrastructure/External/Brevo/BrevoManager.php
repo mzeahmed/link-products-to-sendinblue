@@ -151,7 +151,7 @@ class BrevoManager
         if ($contact) {
             unset($data['email']);
 
-            $create = self::clientInstance()->updateContact($email, $data);
+            $create = self::clientInstance()->updateContact($data);
         } else {
             $create = self::clientInstance()->createContact($data);
         }

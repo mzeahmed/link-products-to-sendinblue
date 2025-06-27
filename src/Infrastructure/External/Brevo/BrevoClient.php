@@ -67,7 +67,7 @@ class BrevoClient
         try {
             $data = $instance->getAccount();
         } catch (\Exception $e) {
-            echo 'Exception when calling AccountApi->getAccount: ', $e->getMessage(), PHP_EOL;
+            Debugger::writeLog('Exception when calling AccountApi->getAccount: ' . $e->getMessage());
         }
 
         return $data;
@@ -154,20 +154,19 @@ class BrevoClient
     /**
      * Updates an existing contact.
      *
-     * @param string $email
      * @param array $data
      *
      * @return bool
      * @since 2.0.0
      */
-    public function updateContact(string $email, $data)
+    public function updateContact(array $data)
     {
         $instance = $this->apiInstance(ContactsApi::class);
 
-        $updateContact = $this->manageContact(new UpdateContact(), $data, false);
+        $updateContact = $this->manageContact(new UpdateContact(), $data);
 
         try {
-            $instance->updateContact($email, $updateContact);
+            $instance->updateContact($updateContact, $data['email']);
 
             return true;
         } catch (\Exception $e) {
@@ -190,14 +189,15 @@ class BrevoClient
     {
         $config = $this->apiInstance(ContactsApi::class);
 
-        $contacts = null;
+        $result = null;
+
         try {
-            $contacts = $config->removeContactFromList($listId, $emails);
+            $result = $config->removeContactFromList($listId, $emails);
         } catch (\Exception $e) {
             Debugger::writeLog('Exception when calling ContactsApi->removeContactFromList: ' . $e->getMessage());
         }
 
-        return $contacts;
+        return $result;
     }
 
     /**
@@ -210,10 +210,10 @@ class BrevoClient
     {
         $attributes = [];
 
-        $config = $this->apiInstance(AttributesApi::class);
+        $instance = $this->apiInstance(AttributesApi::class);
 
         try {
-            $attributes = $config->getAttributes();
+            $attributes = $instance->getAttributes();
         } catch (\Exception $e) {
             Debugger::writeLog('Exception when calling AttributesApi->getAttributes: ' . $e->getMessage());
         }
@@ -407,29 +407,10 @@ class BrevoClient
         try {
             return $instance->createList($list);
         } catch (\Exception $e) {
-            echo 'Exception when calling ListsApi->createList: ', $e->getMessage(), PHP_EOL;
+            Debugger::writeLog('Exception when calling ListsApi->createList: ' . $e->getMessage());
         }
 
         return false;
-    }
-
-    /**
-     * Instantiates a Brevo API class with the configured API key.
-     *
-     * @param string $class
-     *
-     * @return mixed
-     * @since 2.0.0
-     */
-    private function apiInstance(string $class)
-    {
-        $config = Configuration::getDefaultConfiguration();
-        $config->setApiKey('api-key', $this->apiKey);
-
-        return new $class(
-            new Client(),
-            $config
-        );
     }
 
     /**
@@ -470,22 +451,37 @@ class BrevoClient
      *
      * @param CreateContact|UpdateContact $contact
      * @param array $data
-     * @param bool $create
      *
      * @return CreateContact|UpdateContact
      * @since 2.0.0
      */
-    private function manageContact($contact, array $data, bool $create = true)
+    private function manageContact($contact, array $data)
     {
-        if ($create) {
-            $contact->setEmail($data['email']);
-        }
-
+        $contact->setEmail($data['email']);
         $contact->setAttributes($data['attributes']);
         $contact->setSmsBlacklisted($data['smsBlacklisted']);
         $contact->setEmailBlacklisted($data['emailBlacklisted']);
         $contact->setListIds($data['listIds']);
 
         return $contact;
+    }
+
+    /**
+     * Instantiates a Brevo API class with the configured API key.
+     *
+     * @param string $class
+     *
+     * @return mixed
+     * @since 2.0.0
+     */
+    private function apiInstance(string $class)
+    {
+        $config = Configuration::getDefaultConfiguration();
+        $config->setApiKey('api-key', $this->apiKey);
+
+        return new $class(
+            new Client(),
+            $config
+        );
     }
 }
