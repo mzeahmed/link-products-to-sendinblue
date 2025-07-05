@@ -10,7 +10,6 @@ use Brevo\Client\Api\ListsApi;
 use Brevo\Client\Configuration;
 use Brevo\Client\Api\AccountApi;
 use Brevo\Client\Model\GetLists;
-use WPYoostart\Helpers\Debugger;
 use LPTS\Shared\Enums\OptionKey;
 use Brevo\Client\Api\ContactsApi;
 use Brevo\Client\Model\GetAccount;
@@ -67,7 +66,7 @@ class BrevoClient
         try {
             $data = $instance->getAccount();
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling AccountApi->getAccount: ' . $e->getMessage());
+            error_log('Exception when calling AccountApi->getAccount: ' . $e->getMessage());
         }
 
         return $data;
@@ -90,7 +89,7 @@ class BrevoClient
         try {
             $contact = $instance->getContactInfo($email);
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ContactsApi->getContactInfo: ' . $e->getMessage());
+            error_log('Exception when calling ContactsApi->getContactInfo: ' . $e->getMessage());
         }
 
         return $contact;
@@ -115,7 +114,7 @@ class BrevoClient
         try {
             $contact = $instance->createContact($createContact);
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ContactsApi->createContact: ' . $e->getMessage());
+            error_log('Exception when calling ContactsApi->createContact: ' . $e->getMessage());
         }
 
         return $contact;
@@ -145,7 +144,7 @@ class BrevoClient
 
             return true;
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ContactsApi->createDoiContact: ' . $e->getMessage());
+            error_log('Exception when calling ContactsApi->createDoiContact: ' . $e->getMessage());
         }
 
         return false;
@@ -170,7 +169,7 @@ class BrevoClient
 
             return true;
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ContactsApi->updateContact: ' . $e->getMessage());
+            error_log('Exception when calling ContactsApi->updateContact: ' . $e->getMessage());
 
             return false;
         }
@@ -194,7 +193,7 @@ class BrevoClient
         try {
             $result = $config->removeContactFromList($listId, $emails);
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ContactsApi->removeContactFromList: ' . $e->getMessage());
+            error_log('Exception when calling ContactsApi->removeContactFromList: ' . $e->getMessage());
         }
 
         return $result;
@@ -215,7 +214,7 @@ class BrevoClient
         try {
             $attributes = $instance->getAttributes();
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling AttributesApi->getAttributes: ' . $e->getMessage());
+            error_log('Exception when calling AttributesApi->getAttributes: ' . $e->getMessage());
         }
 
         return $attributes;
@@ -247,7 +246,7 @@ class BrevoClient
                 $sort
             );
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ContactsApi->getContactsFromList: ' . $e->getMessage());
+            error_log('Exception when calling ContactsApi->getContactsFromList: ' . $e->getMessage());
         }
 
         return $contacts;
@@ -285,7 +284,7 @@ class BrevoClient
         try {
             $lists = $instance->getLists($limit, $offset, $sort);
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ListApi->getLists: ' . $e->getMessage());
+            error_log('Exception when calling ListApi->getLists: ' . $e->getMessage());
         }
 
         return $lists;
@@ -319,7 +318,7 @@ class BrevoClient
         try {
             $list = $instance->getList($listId);
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ListApi->getList: ' . $e->getMessage());
+            error_log('Exception when calling ListApi->getList: ' . $e->getMessage());
         }
 
         return $list;
@@ -344,7 +343,7 @@ class BrevoClient
         try {
             $folders = $instance->getFolders($limit, $offset, $sort);
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ListApi->getFolders: ' . $e->getMessage());
+            error_log('Exception when calling ListApi->getFolders: ' . $e->getMessage());
         }
 
         return $folders;
@@ -381,7 +380,7 @@ class BrevoClient
         try {
             $lists = $instance->getFolderLists($folderId, $limit, $offset, $sort);
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ListApi->getListsFromFolder: ' . $e->getMessage());
+            error_log('Exception when calling ListApi->getListsFromFolder: ' . $e->getMessage());
         }
 
         return $lists;
@@ -407,7 +406,7 @@ class BrevoClient
         try {
             return $instance->createList($list);
         } catch (\Exception $e) {
-            Debugger::writeLog('Exception when calling ListsApi->createList: ' . $e->getMessage());
+            error_log('Exception when calling ListsApi->createList: ' . $e->getMessage());
         }
 
         return false;
