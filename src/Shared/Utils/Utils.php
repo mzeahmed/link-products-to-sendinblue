@@ -18,7 +18,7 @@ class Utils
      */
     public static function isDevEnvironment()
     {
-        return \defined('WP_ENV') && 'development' === WP_ENV;
+        return \defined('WP_ENVIRONMENT_TYPE') && 'local' === WP_ENVIRONMENT_TYPE;
     }
 
     /**

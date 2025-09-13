@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LPTS\Domain\DI;
 
+use LPTS\Shared\Utils\Utils;
 use LPTS\Shared\Enums\DevWatchedDirectories;
 use LPTS\Domain\DI\Compilers\AdminControllerPass;
 use LPTS\Domain\DI\Compilers\PublicControllerPass;
@@ -18,7 +19,7 @@ class ServicesContainer extends AbstractServicesContainer
      */
     protected static function getConfigPath()
     {
-        if (WP_ENV === 'development') {
+        if (Utils::isDevEnvironment()) {
             return APP_ABS_PATH . '/dev/plugins/link-products-to-sendinblue/config/services.yml'; // @phpstan-ignore-line
         }
 
@@ -30,7 +31,7 @@ class ServicesContainer extends AbstractServicesContainer
      */
     protected static function getCacheFile()
     {
-        if (WP_ENV === 'development') {
+        if (Utils::isDevEnvironment()) {
             return APP_ABS_PATH . '/dev/plugins/link-products-to-sendinblue/src/Domain/DI/CacheContainer.php'; // @phpstan-ignore-line
         }
 
